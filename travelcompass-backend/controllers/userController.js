@@ -1,26 +1,74 @@
 const User = require('../models/User');
+const Adventure = require('../models/Adventure');
 
 const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).populate('savedAdventures');
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const user = await User.findById(req.user.id).populate('savedAdventures').populate('bookingHistory.adventure');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
 const updateUserProfile = async (req, res) => {
   try {
-    const { name, email, savedAdventures } = req.body;
-    const user = await User.findByIdAndUpdate(
-      req.user.id,
-      { name, email, savedAdventures },
-      { new: true }
-    ).populate('savedAdventures');
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = { getUserProfile, updateUserProfile };
+const saveAdventure = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const adventure = await Adventure.findById(req.body.adventureId);
+
+    if (!adventure) {
+      return res.status(404).json({ message: 'Adventure not found' });
+    }
+
+    if (!user.savedAdventures.includes(adventure.id)) {
+      user.savedAdventures.push(adventure.id);
+      await user.save();
+    }
+
+    res.status(200).json(user.savedAdventures);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getBookingHistory = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate('bookingHistory.adventure');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user.bookingHistory);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { getUserProfile, updateUserProfile, saveAdventure, getBookingHistory };

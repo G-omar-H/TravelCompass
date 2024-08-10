@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const adventureRoutes = require('./routes/adventureRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+
 
 dotenv.config();
 
@@ -14,6 +16,7 @@ app.use(cors());
 app.use('/api/users', userRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/adventures', adventureRoutes);
+app.use('/api/payments', paymentRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
