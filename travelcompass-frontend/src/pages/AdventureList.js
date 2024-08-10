@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SearchFilter from '../components/SearchFilter';
 
 const AdventureList = () => {
   const [adventures, setAdventures] = useState([]);
@@ -14,17 +15,19 @@ const AdventureList = () => {
 
   return (
     <div>
-      <h1>Adventures</h1>
-      <ul>
-        {adventures.map(adventure => (
-          <li key={adventure._id}>
+      <h1>Adventure Listings</h1>
+      <SearchFilter setAdventures={setAdventures} />
+      <div className="adventure-grid">
+        {adventures.map((adventure) => (
+          <div key={adventure._id} className="adventure-card">
+            <img src={adventure.photos[0]} alt={adventure.title} />
             <h2>{adventure.title}</h2>
-            <p>{adventure.description}</p>
-            <p>{adventure.location} - ${adventure.price}</p>
-            <p>Created by: {adventure.createdBy.name}</p>
-          </li>
+            <p>{adventure.description.substring(0, 100)}...</p>
+            <p>Price: ${adventure.price}</p>
+            <a href={`/adventure/${adventure._id}`}>View Details</a>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

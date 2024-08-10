@@ -1,29 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import PaymentForm from '../components/PaymentForm';
 import axios from 'axios';
-import BookingForm from '../components/BookingForm';
 
-const AdventureDetail = ({ match }) => {
-  const [adventure, setAdventure] = useState(null);
+const AdventureDetails = () => {
+  const { id } = useParams();
+  const [adventure, setAdventure] = useState({});
 
   useEffect(() => {
-    const fetchAdventure = async () => {
-      const response = await axios.get(`/api/adventures/${match.params.id}`);
+    const fetchAdventureDetails = async () => {
+      const response = await axios.get(`/api/adventures/${id}`);
       setAdventure(response.data);
     };
-    fetchAdventure();
-  }, [match.params.id]);
-
-  if (!adventure) return <div>Loading...</div>;
+    fetchAdventureDetails();
+  }, [id]);
 
   return (
     <div>
       <h1>{adventure.title}</h1>
-      <p>{adventure.description}</p>
-      <p>Location: {adventure.location}</p>
-      <p>Price: ${adventure.price}</p>
-      <BookingForm adventureId={adventure._id} />
+      <div className="adventure-details">
+        <img src={adventure.photos && adventure.photos[0]} alt={adventure.title} />
+        <p>{adventure.description}</p>
+        <p>Price: ${adventure.price}</p>
+        <p>Itinerary: {adventure.itinerary}</p>
+        <p>Location: {adventure.location}</p>
+        <p>Difficulty: {adventure.difficulty}</p>
+        <p>Duration: {adventure.duration} days</p>
+        {/* You can add more details as needed */}
+        <label htmlFor="quantity">Quantity:</label>
+      <input
+        id="quantity"
+        type="number"
+        min="1"
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+      />
+
+      <PaymentForm adventureId={adventureId} quantity={quantity} />
+      </div>
     </div>
   );
 };
 
-export default AdventureDetail;
+export default AdventureDetails;

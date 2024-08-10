@@ -5,6 +5,7 @@ import UserProfile from './pages/UserProfile';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdventureList from './pages/AdventureList';
+import AdventureDetails from './pages/AdventureDetails';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { user } = useContext(AuthContext);
@@ -23,7 +24,8 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/profile" component={UserProfile} />
-          <PrivateRoute path="/adventures" component={AdventureList} />
+          <Route path="/adventures" component={AdventureList} />
+          <Route path="/adventure/:id" component={AdventureDetails} />
         </div>
       </switch>
     </Router>
