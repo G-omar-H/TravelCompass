@@ -11,7 +11,7 @@ const AdventureSchema = new mongoose.Schema({
   location: String,
   difficulty: { type: String, enum: ['Easy', 'Moderate', 'Challenging'], required: true },
   duration: { type: Number, required: true }, // Duration in days
-  provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+  provider: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider', required: true }
 });
 
 module.exports = mongoose.model('Adventure', AdventureSchema);

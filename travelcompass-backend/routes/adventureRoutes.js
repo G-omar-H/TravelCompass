@@ -1,11 +1,11 @@
 const express = require('express');
 const { getAllAdventures, getAdventureById, createAdventure } = require('../controllers/adventureController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
 router.get('/', getAllAdventures);
 router.get('/:id', getAdventureById);
-router.post('/', authMiddleware, createAdventure);
+router.post('/', protect, createAdventure);
 
 module.exports = router;

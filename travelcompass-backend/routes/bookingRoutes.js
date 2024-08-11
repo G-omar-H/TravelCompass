@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middleware/authMiddleware');
+const { protect } = require('../middleware/authMiddleware');
 const { createBooking, getBooking, getUserBookings } = require('../controllers/bookingController');
 const { createPaymentIntent } = require('../controllers/paymentController');
 
