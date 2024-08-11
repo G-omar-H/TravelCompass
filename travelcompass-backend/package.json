@@ -1,13 +1,26 @@
 {
   "name": "travelcompass-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for the TravelCompass platform, providing APIs for adventure listings, user management, and booking functionality.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "test": "mocha --require @babel/register tests/*",
+    "test:unit": "mocha --grep unit",
+    "test:integration": "mocha --grep integration",
+    "build": "webpack --config webpack.config.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "travel",
+    "adventure",
+    "backend",
+    "express",
+    "nodejs"
+  ],
+  "author": "Your Name",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -16,6 +29,22 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "stripe": "^16.7.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.21.0",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/register": "^7.24.6",
+    "chai": "^4.3.7",
+    "eslint": "^8.31.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^2.7.1",
+    "supertest": "^7.0.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
   }
 }

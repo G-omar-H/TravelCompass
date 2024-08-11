@@ -1,33 +1,30 @@
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContext';
 import UserProfile from './pages/UserProfile';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdventureList from './pages/AdventureList';
 import AdventureDetails from './pages/AdventureDetails';
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ element, ...rest }) => {
   const { user } = useContext(AuthContext);
-  return (
-    <Route {...rest} render={props => (
-      user ? <Component {...props} /> : <Redirect to="/login" />
-    )} />
-  );
+  return user ? element : <Navigate to="/login" />;
 };
 
 function App() {
   return (
     <Router>
-      <switch>
-        <div className="App">
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/profile" component={UserProfile} />
-          <Route path="/adventures" component={AdventureList} />
-          <Route path="/adventure/:id" component={AdventureDetails} />
-        </div>
-      </switch>
+      <div className="App">
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
+          <Route path="/adventures" element={<AdventureList />} />
+          <Route path="/adventure/:id" element={<AdventureDetails />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

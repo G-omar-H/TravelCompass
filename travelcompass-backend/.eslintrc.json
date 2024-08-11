@@ -1,0 +1,18 @@
+{
+    "env": {
+      "browser": true, // If your code runs in a browser environment
+      "es2021": true,  // Enable modern ECMAScript features
+      "node": true     // If your code runs in a Node.js environment
+    },
+    "extends": "eslint:recommended", // Start with recommended rules
+    "parserOptions": {
+      "ecmaVersion": 12, // Or the latest ECMAScript version you're using
+      "sourceType": "module" // If you're using ES modules
+    },
+    "rules": {
+      "indent": ["error", 2], // Enforce 2-space indentation
+      "quotes": ["error", "single"], // Enforce single quotes
+      "semi": ["error", "always"] // Require semicolons
+    }
+  }
+  

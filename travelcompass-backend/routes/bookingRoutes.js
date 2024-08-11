@@ -5,11 +5,11 @@ const { createBooking, getBooking, getUserBookings } = require('../controllers/b
 const { createPaymentIntent } = require('../controllers/paymentController');
 
 // Routes for managing bookings
-router.route('/').post(authMiddleware, createBooking);
-router.route('/:id').get(authMiddleware, getBooking);
-router.route('/user/:userId').get(authMiddleware, getUserBookings);
+router.route('/').post(protect, createBooking);
+router.route('/:id').get(protect, getBooking);
+router.route('/user/:userId').get(protect, getUserBookings);
 
 // Payment routes
-router.route('/payment-intent').post(authMiddleware, createPaymentIntent);
+router.route('/payment-intent').post(protect, createPaymentIntent);
 
 module.exports = router;

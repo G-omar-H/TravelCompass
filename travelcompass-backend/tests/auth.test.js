@@ -1,10 +1,13 @@
 const request = require('supertest');
-const app = require('../app');
+const app = require('../index');
 const User = require('../models/User');
 
-describe('User Authentication', () => {
+describe('User Authentication', function() {
+  this.timeout(5000);
   beforeEach(async () => {
+    console.log('Deleting existing users...');
     await User.deleteMany({});
+    console.log('Users deleted');
   });
 
   it('should register a new user', async () => {
