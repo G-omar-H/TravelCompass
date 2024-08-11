@@ -1,10 +1,15 @@
 const express = require('express');
-const { createBooking, getBookings } = require('../controllers/bookingController');
-const authMiddleware = require('../middleware/authMiddleware');
-
 const router = express.Router();
+const authMiddleware = require('../middleware/authMiddleware');
+const { createBooking, getBooking, getUserBookings } = require('../controllers/bookingController');
+const { createPaymentIntent } = require('../controllers/paymentController');
 
-router.post('/', authMiddleware, createBooking);
-router.get('/', authMiddleware, getBookings);
+// Routes for managing bookings
+router.route('/').post(authMiddleware, createBooking);
+router.route('/:id').get(authMiddleware, getBooking);
+router.route('/user/:userId').get(authMiddleware, getUserBookings);
+
+// Payment routes
+router.route('/payment-intent').post(authMiddleware, createPaymentIntent);
 
 module.exports = router;

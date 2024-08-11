@@ -1,13 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NavBar = () => {
+const Navbar = ({ user }) => {
   return (
     <nav>
-      {/* Other navigation links */}
-      <Link to="/profile">Profile</Link>
+      <Link to="/">Home</Link>
+      <Link to="/adventures">Adventures</Link>
+      {user && user.isAdmin && <Link to="/admin-dashboard">Admin Dashboard</Link>}
+      {user ? (
+        <Link to="/profile">Profile</Link>
+      ) : (
+        <Link to="/login">Login</Link>
+      )}
     </nav>
   );
 };
 
-export default NavBar;
+export default Navbar;
