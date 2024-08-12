@@ -6,6 +6,8 @@ const userRoutes = require('./routes/userRoutes');
 const adventureRoutes = require('./routes/adventureRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const providerRoutes = require('./routes/providerRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 
 dotenv.config();
@@ -19,6 +21,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/adventures', adventureRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/providers', providerRoutes);
+app.use('/api/admin', adminRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

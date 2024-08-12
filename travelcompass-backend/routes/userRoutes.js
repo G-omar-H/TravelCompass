@@ -1,3 +1,4 @@
+// routes/userRoutes.js
 const express = require('express');
 const { register, login, getUser } = require('../controllers/authController');
 const { getUserProfile, updateUserProfile, saveAdventure , getBookingHistory } = require('../controllers/userController');

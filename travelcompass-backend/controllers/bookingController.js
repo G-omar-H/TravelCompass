@@ -7,10 +7,14 @@ const createBooking = async (req, res) => {
     const { adventureId, date, totalAmount } = req.body;
 
     const adventure = await Adventure.findById(adventureId);
-    const provider = await Provider.findById(adventure.provider);
-
+    
     if (!adventure) {
       return res.status(404).json({ message: 'Adventure not found' });
+    }
+    const provider = await Provider.findById(adventure.provider);
+
+    if (!provider) {
+      return res.status(404).json({ message: 'Provider not found' });
     }
 
     const booking = new Booking({

@@ -1,3 +1,4 @@
+// middeleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -8,7 +9,12 @@ const protect = async (req, res, next) => {
     try {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      
       req.user = await User.findById(decoded.id).select('-password');
+      if (!req.user) {
+        return res.status(401).json({ message: 'Not authorized, user not found' });
+      }
+
       next();
     } catch (error) {
       res.status(401).json({ message: 'Not authorized, token failed' });
@@ -26,4 +32,13 @@ const admin = (req, res, next) => {
   }
 };
 
-module.exports = { protect, admin };
+const authorize = (...roles) => {
+  return (req, res, next) => {
+    if (!req.user || !req.user.roles || !req.user.roles.some((role) => roles.includes(role))) {
+      return res.status(403).json({ message: `User role ${req.user.roles} is not authorized to access this route` });
+    }
+    next();
+  };
+};
+
+module.exports = { protect, admin, authorize };

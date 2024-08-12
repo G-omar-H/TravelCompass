@@ -1,13 +1,14 @@
 const request = require('supertest');
 const app = require('../index');
 const User = require('../models/User');
+const chai = require('chai');
+const expect = chai.expect; // Import expect from chai
 
 describe('User Authentication', function() {
   this.timeout(5000);
+
   beforeEach(async () => {
-    console.log('Deleting existing users...');
     await User.deleteMany({});
-    console.log('Users deleted');
   });
 
   it('should register a new user', async () => {
@@ -19,8 +20,8 @@ describe('User Authentication', function() {
         password: 'password123',
       });
 
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('token');
+    expect(res.statusCode).to.equal(201);
+    expect(res.body).to.have.property('token');
   });
 
   it('should not register a user with an existing email', async () => {
@@ -40,7 +41,7 @@ describe('User Authentication', function() {
         password: 'password123',
       });
 
-    expect(res.statusCode).toEqual(400);
+    expect(res.statusCode).to.equal(400);
   });
 
   it('should login an existing user', async () => {
@@ -59,7 +60,7 @@ describe('User Authentication', function() {
         password: 'password123',
       });
 
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('token');
+    expect(res.statusCode).to.equal(200);
+    expect(res.body).to.have.property('token');
   });
 });

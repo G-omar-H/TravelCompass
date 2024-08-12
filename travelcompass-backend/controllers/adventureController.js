@@ -1,4 +1,7 @@
+// constrollers/adventureController.js
 const Adventure = require('../models/Adventure');
+const Provider = require('../models/Provider');
+const User = require('../models/User');
 
 const getAllAdventures = async (req, res) => {
   try {
@@ -32,9 +35,21 @@ const getAdventureById = async (req, res) => {
 
 const createAdventure = async (req, res) => {
   try {
-    const newAdventure = new Adventure({ ...req.body, provider: req.user.id });
-    const savedAdventure = await newAdventure.save();
-    res.status(201).json(savedAdventure);
+    const user = User.findById(req.user.id).populate('provider');
+    if (!user) {
+      return res.status(400).json({ error: 'User not found' });
+    }
+    
+    if (!user.provider) {
+      return res.status(400).json({ error: 'User is not a provider' });
+    }
+    const newAdventure = await Adventure.create({ ...req.body, provider: user.provider._id });
+    const savedAdventures = await newAdventure.save();
+
+    user.provider.adventures.push(savedAdventures._id);
+    await user.provider.save();
+
+    res.status(201).json(savedAdventures);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

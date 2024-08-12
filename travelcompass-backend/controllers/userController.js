@@ -1,3 +1,4 @@
+// controllers/userController.js
 const User = require('../models/User');
 const Adventure = require('../models/Adventure');
 

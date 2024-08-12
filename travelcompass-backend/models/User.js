@@ -1,5 +1,7 @@
+// models/User.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const e = require('express');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -34,6 +36,15 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  roles: {
+    type: [String],
+    enum: ['user', 'provider', 'admin'],
+    default: ['user'],
+  },
+  provider: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Provider',
+  },
 });
 
 UserSchema.pre('save', async function (next) {
@@ -45,6 +56,10 @@ UserSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+UserSchema.methods.comparePassword = async function(enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User;
