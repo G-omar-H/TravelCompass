@@ -22,8 +22,10 @@ const ProviderSchema = new mongoose.Schema({
     type: String, // URL to the logo image
   },
   adventures: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Adventure',
+    type:  [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Adventure'
+      }]
   }],
   createdAt: {
     type: Date,

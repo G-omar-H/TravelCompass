@@ -1,20 +1,26 @@
 // controllers/providerController.js
 const Provider = require('../models/Provider');
 const Adventure = require('../models/Adventure');
+const User = require('../models/User');
 
 const createProvider = async (req, res) => {
   try {
+    
+    const user = await User.findById(req.user.id);
+  
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+  
     const provider = new Provider({
       ...req.body,
       adventures: [],
+      user: req.user.id
     });
 
     await provider.save();
 
-    const user = await User.findById(req.user.id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    user.provider = provider._id;
     user.roles.push('provider');
     await user.save();
 

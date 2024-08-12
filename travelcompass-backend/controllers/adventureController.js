@@ -35,24 +35,49 @@ const getAdventureById = async (req, res) => {
 
 const createAdventure = async (req, res) => {
   try {
-    const user = User.findById(req.user.id).populate('provider');
+    const user = await User.findById(req.user.id);
+
     if (!user) {
       return res.status(400).json({ error: 'User not found' });
     }
-    
+
     if (!user.provider) {
       return res.status(400).json({ error: 'User is not a provider' });
     }
-    const newAdventure = await Adventure.create({ ...req.body, provider: user.provider._id });
-    const savedAdventures = await newAdventure.save();
 
-    user.provider.adventures.push(savedAdventures._id);
-    await user.provider.save();
+    const provider = await Provider.findById(user.provider);
 
-    res.status(201).json(savedAdventures);
+    if (!provider) {
+      return res.status(404).json({ error: 'Provider not found' });
+    }
+
+    const newAdventure = await Adventure.create({ ...req.body, provider: user.provider });
+    const savedAdventure = await newAdventure.save();
+
+    provider.adventures.push(savedAdventure._id);
+    await provider.save();
+
+    res.status(201).json(savedAdventure);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-module.exports = { getAllAdventures, getAdventureById, createAdventure };
+const deleteAdventure = async (req, res) => {
+  try {
+    const adventure = await Adventure.findById(req.params.id);
+    if (!adventure) return res.status(404).json({ error: 'Adventure not found' });
+
+    const provider = await Provider.findById(adventure.provider);
+    if (!provider) return res.status(404).json({ error: 'Provider not found' });
+
+    await Adventure.findByIdAndDelete(req.params.id);
+    provider.adventures = provider.adventures.filter((id) => id !== req.params.id);
+    await provider.save();
+    res.json({ message: 'Adventure deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = { getAllAdventures, getAdventureById, createAdventure, deleteAdventure };
