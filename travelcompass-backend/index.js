@@ -28,8 +28,8 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/adventures', adventureRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/providers', providerRoutes);
-app.use('/api/admin', adminRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/admin', adminRoutes);
 
 
 mongoose.connect(process.env.MONGO_URI, {

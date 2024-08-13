@@ -72,4 +72,17 @@ const getBookingHistory = async (req, res) => {
   }
 };
 
-module.exports = { getUserProfile, updateUserProfile, saveAdventure, getBookingHistory };
+const closeAccount = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    user.savedAdventures = [];
+    user.bookingHistory = [];
+    await user.save();
+    await User.findByIdAndDelete(req.user.id);
+    res.status(200).json({ message: 'account closed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { getUserProfile, updateUserProfile, saveAdventure, getBookingHistory, closeAccount };

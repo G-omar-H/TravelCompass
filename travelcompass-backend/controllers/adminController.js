@@ -16,6 +16,21 @@ const getAllUsers = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
+    const user = await User.findById(req.params.id);
+    if (user.isAdmin || user.isSuperAdmin) {
+      return res.status(403).json({ message: 'You cannot delete an admin or super admin' });
+    }
+    user.savedAdventures = [];
+    user.bookingHistory = [];
+    user.roles = [];
+    await user.save();
+    const provider = await Provider.findById(user.provider);
+    if (provider) {
+      provider.adventures = provider.adventures.filter((adventure) => adventure !== user.provider);
+      await provider.save();
+    }
+
+    await Provider.findByIdAndDelete(user.provider);
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {
@@ -54,7 +69,19 @@ const updateAdventure = async (req, res) => {
 
 const deleteAdventure = async (req, res) => {
   try {
+    const adventure = await Adventure.findById(req.params.id);
+    if (!adventure) {
+      return res.status(404).json({ message: 'Adventure not found' });
+    }
+    const provider = await Provider.findById(adventure.provider);
+    if (!provider) {
+      return res.status(404).json({ message: 'Provider not found' });
+    }
+    provider.adventures = provider.adventures.filter((id) => id !== req.params.id);
+    await provider.save();
+
     await Adventure.findByIdAndDelete(req.params.id);
+
     res.status(200).json({ message: 'Adventure deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -83,8 +110,36 @@ const getAllProviders = async (req, res) => {
 
 const deleteProvider = async (req, res) => {
   try {
+    const provider = await Provider.findById(req.params.id);
+    if (!provider) {
+      return res.status(404).json({ message: 'Provider not found' });
+    }
+    provider.adventures.forEach(async (adventure) => {
+      await Adventure.findByIdAndDelete(adventure);
+    });
+
+    const user = await User.findOne({ provider: provider._id });
+    user.provider = null;
+    user.roles = user.roles.filter((role) => role !== 'provider');
+    await user.save();
+
     await Provider.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Provider deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const makeAdmin = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    user.isAdmin = true;
+    user.roles.push('admin');
+    await user.save();
+    res.status(200).json({ message: 'User is now an admin' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -100,4 +155,5 @@ module.exports = {
   getAllBookings,
   getAllProviders,
   deleteProvider,
+  makeAdmin,
 };

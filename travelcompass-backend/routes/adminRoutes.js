@@ -1,7 +1,7 @@
 // routes/adminRoutes.js
 const express = require('express');
 const router = express.Router();
-const { protect, admin, authorize } = require('../middleware/authMiddleware');
+const { protect, admin, authorize, superAdmin } = require('../middleware/authMiddleware');
 const {
   getAllUsers,
   deleteUser,
@@ -12,6 +12,7 @@ const {
   getAllBookings,
   getAllProviders,
   deleteProvider,
+  makeAdmin,
 } = require('../controllers/adminController');
 
 // User management routes
@@ -32,5 +33,8 @@ router.route('/bookings').get(protect, admin, getAllBookings);
 // Provider management routes
 router.route('/providers').get(protect, admin, getAllProviders);
 router.route('/providers/:id').delete(protect, admin, deleteProvider);
+
+// Route to promote a user to admin
+router.route('/users/:id/make-admin').put(protect, superAdmin, makeAdmin);
 
 module.exports = router;
