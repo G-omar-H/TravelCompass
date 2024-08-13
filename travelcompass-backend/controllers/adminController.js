@@ -1,3 +1,4 @@
+// controllers/adminController.js
 const User = require('../models/User');
 const Adventure = require('../models/Adventure');
 const Booking = require('../models/Booking');
