@@ -10,7 +10,7 @@
     "test:unit": "mocha --grep unit",
     "test:integration": "mocha --grep integration",
     "build": "webpack --config webpack.config.js",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "format": "prettier --write ."
   },
   "keywords": [

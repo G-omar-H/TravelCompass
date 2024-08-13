@@ -2,6 +2,7 @@
 const Booking = require('../models/Booking');
 const Adventure = require('../models/Adventure');
 const Provider = require('../models/Provider');
+const User = require('../models/User');
 
 const createBooking = async (req, res) => {
   try {

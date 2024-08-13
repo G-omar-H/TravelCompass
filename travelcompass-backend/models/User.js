@@ -1,7 +1,6 @@
 // models/User.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const e = require('express');
 
 const UserSchema = new mongoose.Schema({
   name: {

@@ -1,6 +1,6 @@
 // routes/userRoutes.js
 const express = require('express');
-const { register, login, getUser } = require('../controllers/authController');
+const { register, login } = require('../controllers/authController');
 const { getUserProfile, updateUserProfile, saveAdventure , getBookingHistory, closeAccount} = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 

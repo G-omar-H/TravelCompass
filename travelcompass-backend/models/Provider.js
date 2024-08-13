@@ -23,9 +23,9 @@ const ProviderSchema = new mongoose.Schema({
   },
   adventures: [{
     type:  [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Adventure'
-      }]
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Adventure'
+    }]
   }],
   createdAt: {
     type: Date,

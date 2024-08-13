@@ -1,7 +1,6 @@
 // scripts/createSuperAdmin.js
 const mongoose = require('mongoose');
 const User = require('../models/User');
-const dotenv = require('dotenv');
 
 const mongoURI = 'mongodb://127.0.0.1:27017/travelcompass'; // Replace with your actual connection string
 

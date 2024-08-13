@@ -43,89 +43,98 @@ const handleStripeWebhook = async (req, res) => {
   }
 
   switch (event.type) {
-    case 'payment_intent.succeeded':
-      const paymentIntentSucceeded = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentSucceeded.id },
-        { paymentStatus: 'paid', status: 'confirmed' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.succeeded': {
+    const paymentIntentSucceeded = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentSucceeded.id },
+      { paymentStatus: 'paid', status: 'confirmed' },
+      { new: true }
+    );
+    break;
+  }
 
-    case 'payment_intent.payment_failed':
-      const paymentIntentFailed = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentFailed.id },
-        { paymentStatus: 'failed', status: 'cancelled' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.payment_failed': {
+    const paymentIntentFailed = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentFailed.id },
+      { paymentStatus: 'failed', status: 'cancelled' },
+      { new: true }
+    );
+    break;
+  }
     
-    case 'payment_intent.canceled':
-      const paymentIntentCanceled = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentCanceled.id },
-        { paymentStatus: 'canceled', status: 'cancelled' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.canceled': {
+    const paymentIntentCanceled = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentCanceled.id },
+      { paymentStatus: 'canceled', status: 'cancelled' },
+      { new: true }
+    );
+    break;
+  }
     
-    case 'payment_intent.processing':
-      const paymentIntentProcessing = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentProcessing.id },
-        { paymentStatus: 'processing', status: 'confirmed' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.processing': {
+    const paymentIntentProcessing = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentProcessing.id },
+      { paymentStatus: 'processing', status: 'confirmed' },
+      { new: true }
+    );
+    break;
+  }
     
-    case 'payment_intent.requires_action':
-      const paymentIntentRequiresAction = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentRequiresAction.id },
-        { paymentStatus: 'requires_action', status: 'confirmed' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.requires_action': {
+    const paymentIntentRequiresAction = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentRequiresAction.id },
+      { paymentStatus: 'requires_action', status: 'confirmed' },
+      { new: true }
+    );
+    break;
+  }
     
-    case 'payment_intent.requires_payment_method':
-      const paymentIntentRequiresPaymentMethod = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentRequiresPaymentMethod.id },
-        { paymentStatus: 'requires_payment_method', status: 'cancelled' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.requires_payment_method': {
+    const paymentIntentRequiresPaymentMethod = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentRequiresPaymentMethod.id },
+      { paymentStatus: 'requires_payment_method', status: 'cancelled' },
+      { new: true }
+    );
+    break;
+  }
     
-    case 'payment_intent.amount_capturable_updated':
-      const paymentIntentAmountCapturableUpdated = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentAmountCapturableUpdated.id },
-        { paymentStatus: 'amount_capturable_updated', status: 'confirmed' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.amount_capturable_updated': {
+    const paymentIntentAmountCapturableUpdated = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentAmountCapturableUpdated.id },
+      { paymentStatus: 'amount_capturable_updated', status: 'confirmed' },
+      { new: true }
+    );
+    break;
+  }
 
-    case 'payment_intent.amount_received':
-      const paymentIntentAmountReceived = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentAmountReceived.id },
-        { paymentStatus: 'amount_received', status: 'confirmed' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.amount_received': {
+    const paymentIntentAmountReceived = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentAmountReceived.id },
+      { paymentStatus: 'amount_received', status: 'confirmed' },
+      { new: true }
+    );
+    break;
+  }
     
-    case 'payment_intent.amount_refunded':
-      const paymentIntentAmountRefunded = event.data.object;
-      await Booking.findOneAndUpdate(
-        { paymentIntentId: paymentIntentAmountRefunded.id },
-        { paymentStatus: 'amount_refunded', status: 'confirmed' },
-        { new: true }
-      );
-      break;
+  case 'payment_intent.amount_refunded': {
+    const paymentIntentAmountRefunded = event.data.object;
+    await Booking.findOneAndUpdate(
+      { paymentIntentId: paymentIntentAmountRefunded.id },
+      { paymentStatus: 'amount_refunded', status: 'confirmed' },
+      { new: true }
+    );
+    break;
+  }
 
-    default:
-      console.log(`Unhandled event type ${event.type}`);
+  default:
+    console.log(`Unhandled event type ${event.type}`);
   }
 
   res.status(200).json({ received: true });

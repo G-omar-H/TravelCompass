@@ -2,7 +2,8 @@
     "env": {
       "browser": true, // If your code runs in a browser environment
       "es2021": true,  // Enable modern ECMAScript features
-      "node": true     // If your code runs in a Node.js environment
+      "node": true,   // If your code runs in a Node.js environment
+      "mocha": true  // If you're using Mocha for testing
     },
     "extends": "eslint:recommended", // Start with recommended rules
     "parserOptions": {
