@@ -50,7 +50,7 @@ const createAdventure = async (req, res) => {
     if (!provider) {
       return res.status(404).json({ error: 'Provider not found' });
     }
-
+    console.log(user.provider);
     const newAdventure = await Adventure.create({ ...req.body, provider: user.provider });
     const savedAdventure = await newAdventure.save();
 

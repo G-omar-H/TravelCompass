@@ -60,11 +60,26 @@ const updateProvider = async (req, res) => {
 
 const deleteProvider = async (req, res) => {
   try {
-    const provider = await Provider.findByIdAndDelete(req.params.id);
+    const provider = await Provider.findById(req.params.id);
 
     if (!provider) {
       return res.status(404).json({ message: 'Provider not found' });
     }
+
+    provider.adventures.forEach(async (adventure) => {
+      await Adventure.findByIdAndDelete(adventure);
+    });
+
+    const user = await User.findById(provider.user);
+    user.provider = null;
+    user.roles = user.roles.filter((role) => role !== 'provider');
+    await user.save();
+
+    await Adventure.deleteMany({ provider: req.params.id });
+    
+    await Provider.findByIdAndDelete(req.params.id);
+
+    
 
     res.status(200).json({ message: 'Provider deleted' });
   } catch (error) {
