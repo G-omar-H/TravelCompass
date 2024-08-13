@@ -10,6 +10,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const providerRoutes = require('./routes/providerRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 const { handleStripeWebhook } = require('./controllers/paymentController');
 
 
@@ -28,6 +29,7 @@ app.use('/api/adventures', adventureRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/providers', providerRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 
 mongoose.connect(process.env.MONGO_URI, {

@@ -38,6 +38,13 @@ const createReview = async (req, res) => {
 
 const getReviewsByAdventure = async (req, res) => {
   try {
+
+    const adventure = await Adventure.findById(req.params.adventureId);
+
+    if (!adventure) {
+      return res.status(404).json({ message: 'Adventure not found' });
+    }
+
     const reviews = await Review.find({ adventure: req.params.adventureId }).populate('user', 'name');
 
     if (!reviews) {

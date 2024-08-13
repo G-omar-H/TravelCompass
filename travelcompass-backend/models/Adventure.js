@@ -11,6 +11,7 @@ const AdventureSchema = new mongoose.Schema({
   availability: [{ startDate: Date, endDate: Date }],
   location: String,
   difficulty: { type: String, enum: ['Easy', 'Moderate', 'Challenging'], required: true },
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
   duration: { type: Number, required: true }, // Duration in days
   provider: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider', required: true }
 });
