@@ -1,3 +1,4 @@
+// controlers/reviewController.js
 const Review = require('../models/Review');
 const Adventure = require('../models/Adventure');
 
