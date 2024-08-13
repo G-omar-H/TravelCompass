@@ -5,6 +5,13 @@ const Provider = require('../models/Provider');
 
 const createBooking = async (req, res) => {
   try {
+
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
     const { adventureId, date, totalAmount } = req.body;
 
     const adventure = await Adventure.findById(adventureId);
@@ -27,6 +34,10 @@ const createBooking = async (req, res) => {
     });
 
     await booking.save();
+
+    user.bookingHistory.push(adventureId);
+    await user.save();
+
     res.status(201).json(booking);
   } catch (error) {
     res.status(500).json({ message: error.message });
