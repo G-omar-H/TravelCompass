@@ -1,3 +1,4 @@
+// constrollers/adventureController.js
 const Stripe = require('stripe');
 const Booking = require('../models/Booking');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
