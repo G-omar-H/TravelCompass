@@ -1,6 +1,7 @@
 // constrollers/paymentController.js
 const Stripe = require('stripe');
 const Booking = require('../models/Booking');
+require('dotenv').config();
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const createPaymentIntent = async (req, res) => {
