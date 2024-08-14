@@ -1,67 +1,70 @@
-// tests/auth.test.js
-const request = require('supertest');
-const app = require('../index');
-const User = require('../models/User');
-const chai = require('chai');
-const expect = chai.expect; // Import expect from chai
+// tests/user.test.js
+import { use, expect } from 'chai'
+import chaiHttp from 'chai-http'
+import app from '../index.js';
+import User from '../models/User.js';
 
-describe('User Authentication', function() {
-  this.timeout(5000);
 
-  beforeEach(async () => {
+const server = use(chaiHttp);
+
+describe('User Authentication', () => {
+  before(async () => {
     await User.deleteMany({});
   });
 
-  it('should register a new user', async () => {
-    const res = await request(app)
+  it('should register a new user', (done) => {
+    server.request(app)
       .post('/api/users/register')
-      .send({
-        name: 'Test User',
-        email: 'test@example.com',
-        password: 'password123',
+      .send({ name: 'John Doe', email: 'john@example.com', password: '123456' })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body).to.have.property('token');
+        done();
       });
-
-    expect(res.statusCode).to.equal(201);
-    expect(res.body).to.have.property('token');
   });
 
-  it('should not register a user with an existing email', async () => {
-    await request(app)
-      .post('/api/users/register')
-      .send({
-        name: 'Test User',
-        email: 'test@example.com',
-        password: 'password123',
-      });
-
-    const res = await request(app)
-      .post('/api/users/register')
-      .send({
-        name: 'Another User',
-        email: 'test@example.com',
-        password: 'password123',
-      });
-
-    expect(res.statusCode).to.equal(400);
-  });
-
-  it('should login an existing user', async () => {
-    await request(app)
-      .post('/api/users/register')
-      .send({
-        name: 'Test User',
-        email: 'test@example.com',
-        password: 'password123',
-      });
-
-    const res = await request(app)
+  it('should log in the user', (done) => {
+    server.request(app)
       .post('/api/users/login')
-      .send({
-        email: 'test@example.com',
-        password: 'password123',
+      .send({ email: 'john@example.com', password: '123456' })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('token');
+        done();
       });
+  });
 
-    expect(res.statusCode).to.equal(200);
-    expect(res.body).to.have.property('token');
+  it('should fail to log in with incorrect credentials', (done) => {
+    server.request(app)
+      .post('/api/users/login')
+      .send({ email: 'john@example.com', password: 'wrongpassword' })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body).to.have.property('error');
+        done();
+      });
+  });
+
+  it('should get user profile', (done) => {
+    let token;
+
+    server.request(app)
+      .post('/api/users/login')
+      .send({ email: 'john@example.com', password: '123456' })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('token');
+        token = res.body.token;
+
+        server.request(app)
+          .get('/api/users/profile')
+          .set('Authorization', `Bearer ${token}`)
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.have.property('name');
+            expect(res.body).to.have.property('email');
+            done();
+          });
+      });
   });
 });

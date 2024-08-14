@@ -1,3 +1,4 @@
+// constrollers/profileController.js
 const User = require('../models/User');
 const Booking = require('../models/Booking');
 const Adventure = require('../models/Adventure');
