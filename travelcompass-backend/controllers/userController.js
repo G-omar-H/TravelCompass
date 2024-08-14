@@ -58,6 +58,22 @@ const saveAdventure = async (req, res) => {
   }
 };
 
+const favoriteAdventures = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate('savedAdventures');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user.savedAdventures);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
 const getBookingHistory = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate('bookingHistory.adventure');
@@ -85,4 +101,4 @@ const closeAccount = async (req, res) => {
   }
 };
 
-module.exports = { getUserProfile, updateUserProfile, saveAdventure, getBookingHistory, closeAccount };
+module.exports = { getUserProfile, updateUserProfile, saveAdventure,  favoriteAdventures, getBookingHistory, closeAccount };

@@ -1,3 +1,4 @@
+// controllers/authController.js
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -35,6 +36,8 @@ const login = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+
 
 const getUser = async (req, res) => {
   try {
