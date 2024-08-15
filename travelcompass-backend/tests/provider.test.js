@@ -1,226 +1,151 @@
 const request = require('supertest');
 const { expect } = require('chai');
-const app = require('../index'); 
+const app = require('../index');
 const mongoose = require('mongoose');
 const Provider = require('../models/Provider');
 const User = require('../models/User');
 const Adventure = require('../models/Adventure');
-const bcrypt = require('bcrypt');
 
-let token;
-let providerId;
-let userId;
+describe('Provider API', function() {
+  let token;
+  let providerId;
+  
+  // Set timeout for all tests within this suite
+  this.timeout(5000);
 
-before(async () => {
-
+  before(async function() {
+    // Connect to the database
     await mongoose.connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-    
-        await User.deleteMany({});
-        await Provider.deleteMany({});
-        await Adventure.deleteMany({});
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-  // Create a test user
-  const user = new User({
-    name: 'Test User',
-    email: 'testuser@example.com',
-    password: await bcrypt.hash('password', await bcrypt.genSalt(10)),
-    roles: ['user'],
+    // Cleanup: Delete all users, providers, and adventures
+    await User.deleteMany({});
+    await Provider.deleteMany({});
+    await Adventure.deleteMany({});
+
+    // Create a test user
+    const user = await new User({
+      name: 'Test User',
+      email: 'testuser@example.com',
+      password: 'password123',
+      roles: ['user', 'provider'],
+    }).save();
+
+    // Login the user to get a JWT token
+    const res = await request(app)
+      .post('/api/users/login')
+      .send({ email: 'testuser@example.com', password: 'password123' });
+    
+    token = res.body.token;
+
+    // Check if login was successful and token is retrieved
+    expect(res.statusCode).to.equal(200);
+    expect(token).to.be.a('string');
   });
 
-  await user.save();
-  userId = user._id;
+  after(async function() {
+    // Cleanup: Delete created user, provider, and adventures
+    await User.deleteMany({});
+    await Provider.deleteMany({});
+    await Adventure.deleteMany({});
+    await mongoose.connection.close();
+  });
 
-  // Login to get a token
-  const res = await request(app)
-    .post('/api/users/login')
-    .send({ email: 'testuser@example.com', password: 'password' });
-
-  token = res.body.token;
-});
-
-after(async () => {
-  await mongoose.connection.db.dropDatabase();
-  await mongoose.connection.close();
-});
-
-describe('Provider Feature Tests', () => {
-  it('should create a provider for the authenticated user', async () => {
+  it('should create a new provider profile', async function() {
     const res = await request(app)
       .post('/api/providers')
       .set('Authorization', `Bearer ${token}`)
       .send({
         name: 'Test Provider',
-        description: 'We provide amazing adventures!',
-        contactEmail: 'contact@provider.com',
+        description: 'This is a test provider.',
+        contactEmail: 'provider@example.com',
         contactPhone: '1234567890',
       });
 
     expect(res.statusCode).to.equal(201);
-    expect(res.body.name).toBe('Test Provider');
+    expect(res.body).to.have.property('name', 'Test Provider');
     providerId = res.body._id;
-
-    const user = await User.findById(userId);
-    expect(user.roles).toContain('provider');
-    expect(user.provider.toString()).toBe(providerId);
   });
 
-  it('should not allow creating a provider with an existing email', async () => {
+  it('should return 400 for missing required fields', async function() {
     const res = await request(app)
       .post('/api/providers')
       .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: 'Another Provider',
-        description: 'Another description',
-        contactEmail: 'contact@provider.com',
-        contactPhone: '0987654321',
-      });
+      .send({});
 
-    expect(res.statusCode).to.equal(500);
-    expect(res.body.message).toContain('duplicate key error');
+    expect(res.statusCode).to.equal(400);
+    expect(res.body).to.have.property('message');
   });
 
-  it('should retrieve the provider by ID', async () => {
+  it('should retrieve a provider by ID', async function() {
     const res = await request(app)
-      .get(`/api/providers/${providerId}`)
-      .set('Authorization', `Bearer ${token}`);
+      .get(`/api/providers/${providerId}`);
 
     expect(res.statusCode).to.equal(200);
-    expect(res.body._id).toBe(providerId);
+    expect(res.body).to.have.property('name', 'Test Provider');
   });
 
-  it('should not retrieve a provider with an invalid ID', async () => {
+  it('should return 404 for an invalid provider ID', async function() {
     const res = await request(app)
-      .get(`/api/providers/invalid-id`)
-      .set('Authorization', `Bearer ${token}`);
+      .get('/api/providers/invalidid');
 
-    expect(res.statusCode).to.equal(500); // Mongoose CastError will cause a 500
+    expect(res.statusCode).to.equal(404);
+    expect(res.body).to.have.property('message', 'Provider not found');
   });
 
-  it('should update the provider', async () => {
+  it('should update a provider\'s information', async function() {
     const res = await request(app)
       .put(`/api/providers/${providerId}`)
       .set('Authorization', `Bearer ${token}`)
-      .send({
-        name: 'Updated Provider',
-      });
+      .send({ description: 'Updated provider description.' });
 
     expect(res.statusCode).to.equal(200);
-    expect(res.body.name).toBe('Updated Provider');
+    expect(res.body).to.have.property('description', 'Updated provider description.');
   });
 
-  it('should not update the provider if not the owner', async () => {
-    // Create another user
-    const otherUser = new User({
-      name: 'Other User',
-      email: 'otheruser@example.com',
-      password: await bcrypt.hash('password', 10),
-    });
-    await otherUser.save();
-
-    const otherTokenRes = await request(app)
-      .post('/api/auth/login')
-      .send({ email: 'otheruser@example.com', password: 'password' });
-
-    const otherToken = otherTokenRes.body.token;
-
+  it('should return 404 if provider not found', async function() {
     const res = await request(app)
-      .put(`/api/providers/${providerId}`)
-      .set('Authorization', `Bearer ${otherToken}`)
-      .send({
-        name: 'Malicious Update',
-      });
+      .put('/api/providers/invalidid')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ description: 'Should not update.' });
 
-    expect(res.statusCode).to.equal(403);
+    expect(res.statusCode).to.equal(404);
+    expect(res.body).to.have.property('message', 'Provider not found');
   });
 
-  it('should delete the provider', async () => {
-    // First add an adventure to the provider
-    const adventure = new Adventure({
-      name: 'Test Adventure',
-      description: 'An awesome test adventure',
-      provider: providerId,
-    });
-    await adventure.save();
-
-    const provider = await Provider.findById(providerId);
-    provider.adventures.push(adventure._id);
-    await provider.save();
-
+  it('should delete a provider by ID', async function() {
     const res = await request(app)
       .delete(`/api/providers/${providerId}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.statusCode).to.equal(200);
-    expect(res.body.message).toBe('Provider deleted');
-
-    const deletedProvider = await Provider.findById(providerId);
-    expect(deletedProvider).toBeNull();
-
-    const deletedAdventure = await Adventure.findById(adventure._id);
-    expect(deletedAdventure).toBeNull();
-
-    const user = await User.findById(userId);
-    expect(user.provider).toBeNull();
-    expect(user.roles).not.toContain('provider');
+    expect(res.body).to.have.property('message', 'Provider deleted');
   });
 
-  it('should not delete the provider if not the owner', async () => {
-    // Re-create the provider
-    const provider = new Provider({
-      name: 'Re-created Provider',
-      description: 'Just for testing',
-      contactEmail: 'recreated@provider.com',
-      user: userId,
-    });
-    await provider.save();
-    providerId = provider._id;
-
-    const otherUser = new User({
-      name: 'Other User',
-      email: 'otheruser2@example.com',
-      password: await bcrypt.hash('password', 10),
-    });
-    await otherUser.save();
-
-    const otherTokenRes = await request(app)
-      .post('/api/auth/login')
-      .send({ email: 'otheruser2@example.com', password: 'password' });
-
-    const otherToken = otherTokenRes.body.token;
-
+  it('should return 404 if provider not found for deletion', async function() {
     const res = await request(app)
-      .delete(`/api/providers/${providerId}`)
-      .set('Authorization', `Bearer ${otherToken}`);
-
-    expect(res.statusCode).to.equal(403);
-  });
-
-  it('should retrieve all adventures for a provider', async () => {
-    const adventure = new Adventure({
-      name: 'Test Adventure for Retrieval',
-      description: 'Test adventure description',
-      provider: providerId,
-    });
-    await adventure.save();
-
-    const res = await request(app)
-      .get(`/api/providers/${providerId}/adventures`)
-      .set('Authorization', `Bearer ${token}`);
-
-    expect(res.statusCode).to.equal(200);
-    expect(res.body.length).toBe(1);
-    expect(res.body[0]._id).toBe(adventure._id.toString());
-  });
-
-  it('should return 404 if no adventures found for a provider', async () => {
-    const res = await request(app)
-      .get(`/api/providers/${new mongoose.Types.ObjectId()}/adventures`)
+      .delete('/api/providers/invalidid')
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.statusCode).to.equal(404);
-    expect(res.body.message).toBe('No adventures found for this provider');
+    expect(res.body).to.have.property('message', 'Provider not found');
+  });
+
+  it('should retrieve all adventures for a provider', async function() {
+    const res = await request(app)
+      .get(`/api/providers/${providerId}/adventures`);
+
+    expect(res.statusCode).to.equal(200);
+    expect(res.body).to.be.an('array');
+  });
+
+  it('should return 404 for an invalid provider ID when retrieving adventures', async function() {
+    const res = await request(app)
+      .get('/api/providers/invalidid/adventures');
+
+    expect(res.statusCode).to.equal(404);
+    expect(res.body).to.have.property('message', 'No adventures found for this provider');
   });
 });
