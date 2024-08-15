@@ -1,3 +1,4 @@
+// TRAVELCOMPASS-FRONTEND/src/components/NavBar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 

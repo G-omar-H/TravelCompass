@@ -1,3 +1,4 @@
+// TRAVELCOMPASS-FRONTEND/src/pages/BookingPage.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';

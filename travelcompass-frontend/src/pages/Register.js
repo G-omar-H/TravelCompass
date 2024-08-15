@@ -1,3 +1,4 @@
+// TRAVELCOMPASS-FRONTEND/src/pages/Register.js
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 

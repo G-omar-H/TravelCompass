@@ -1,3 +1,4 @@
+// TRAVELCOMPASS-FRONTEND/src/pages/AdventureDetails.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PaymentForm from '../components/PaymentForm';
