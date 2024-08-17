@@ -11,6 +11,7 @@ const AdventureDetails = () => {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchAdventureDetails = async () => {
@@ -56,7 +57,7 @@ const AdventureDetails = () => {
         onChange={(e) => setQuantity(e.target.value)}
       />
 
-      <PaymentForm adventureId={adventureId} quantity={quantity} />
+      <PaymentForm adventureId={id} quantity={quantity} />
       
       <h2>Reviews</h2>
       {reviews.map((review) => (

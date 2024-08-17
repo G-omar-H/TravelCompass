@@ -9,6 +9,7 @@ const UserProfile = () => {
   const [password, setPassword] = useState('');
   const [savedAdventures, setSavedAdventures] = useState([]);
   const [bookingHistory, setBookingHistory] = useState([]);
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {

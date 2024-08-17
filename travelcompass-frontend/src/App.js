@@ -1,5 +1,6 @@
+// TRAVELCOMPASS-FRONTEND/src/App.js
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContext';
 import UserProfile from './pages/UserProfile';
 import Login from './pages/Login';
@@ -17,6 +18,22 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <nav>
+          <ul>
+            <li>
+              <Link to="/adventures">Adventures</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          </ul>
+        </nav>
+        <h1>Travel Compass</h1>
+        <hr />
+        <h2>Welcome to Travel Compass!</h2>
+        <p>Find your next adventure here.</p>
+        <hr />
+        <h2>Routes</h2>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -24,6 +41,14 @@ function App() {
           <Route path="/adventures" element={<AdventureList />} />
           <Route path="/adventure/:id" element={<AdventureDetails />} />
         </Routes>
+
+        <footer>
+          <hr />
+          <p>&copy; 2024 Travel Compass</p>
+        </footer> 
+
+
+        
       </div>
     </Router>
   );
