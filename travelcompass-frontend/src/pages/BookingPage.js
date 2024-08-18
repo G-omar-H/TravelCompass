@@ -17,7 +17,7 @@ const BookingPage = () => {
 
   useEffect(() => {
     const fetchAdventure = async () => {
-      const { data } = await axios.get(`/api/adventures/${id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
       setAdventure(data);
     };
 
@@ -26,13 +26,13 @@ const BookingPage = () => {
 
   const handleBooking = async () => {
     try {
-      const { data } = await axios.post('/api/bookings', {
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/bookings`, {
         adventureId: adventure._id,
         date: bookingDate,
         totalAmount: adventure.price,
       });
 
-      const paymentIntent = await axios.post('/api/bookings/payment-intent', {
+      const paymentIntent = await axios.post(`${process.env.REACT_APP_API_URL}/bookings/payment-intent`, {
         bookingId: data._id,
       });
 

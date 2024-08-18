@@ -10,12 +10,12 @@ const ProviderProfile = () => {
 
   useEffect(() => {
     const fetchProviderDetails = async () => {
-      const { data } = await axios.get(`/api/providers/${id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}`);
       setProvider(data);
     };
 
     const fetchProviderAdventures = async () => {
-      const { data } = await axios.get(`/api/providers/${id}/adventures`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}/adventures`);
       setAdventures(data);
     };
 

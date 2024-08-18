@@ -13,7 +13,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const { data } = await axios.get('/api/users/profile');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`);
       setUser(data);
       setName(data.name);
       setEmail(data.email);
@@ -27,7 +27,7 @@ const UserProfile = () => {
   const updateUserProfile = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('/api/users/profile', { name, email, password });
+      await axios.put(`${process.env.REACT_APP_API_URL}/users/profile`, { name, email, password });
       setEditing(false);
       alert('Profile updated successfully!');
     } catch (err) {

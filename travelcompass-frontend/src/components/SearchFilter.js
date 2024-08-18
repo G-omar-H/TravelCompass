@@ -12,7 +12,7 @@ const SearchFilter = ({ setAdventures }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
     
-    const response = await axios.get('/api/adventures', {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/adventures`, {
       params: { location, activityType, minDuration, maxDuration, difficulty }
     });
     setAdventures(response.data);

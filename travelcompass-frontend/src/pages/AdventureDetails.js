@@ -15,12 +15,12 @@ const AdventureDetails = () => {
 
   useEffect(() => {
     const fetchAdventureDetails = async () => {
-      const { data } = await axios.get(`/api/adventures/${id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
       setAdventure(data);
     };
 
     const fetchReviews = async () => {
-      const { data } = await axios.get(`/api/reviews/${id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/reviews/${id}`);
       setReviews(data);
     };
 
@@ -30,7 +30,7 @@ const AdventureDetails = () => {
 
   const submitReview = async (e) => {
     e.preventDefault();
-    await axios.post('/api/reviews', { adventureId: id, rating, comment });
+    await axios.post(`${process.env.REACT_APP_API_URL}/reviews`, { adventureId: id, rating, comment });
     setRating(0);
     setComment('');
     // Optionally refresh reviews after submission

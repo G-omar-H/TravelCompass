@@ -11,22 +11,22 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const { data } = await axios.get('/api/admin/users');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/users`);
       setUsers(data);
     };
 
     const fetchAdventures = async () => {
-      const { data } = await axios.get('/api/admin/adventures');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/adventures`);
       setAdventures(data);
     };
 
     const fetchBookings = async () => {
-      const { data } = await axios.get('/api/admin/bookings');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/bookings`);
       setBookings(data);
     };
 
     const fetchProviders = async () => {
-      const { data } = await axios.get('/api/admin/providers');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/providers`);
       setProviders(data);
     };
 
@@ -38,21 +38,21 @@ const AdminDashboard = () => {
 
   const handleDeleteUser = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
-      await axios.delete(`/api/admin/users/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/admin/users/${id}`);
       setUsers(users.filter((user) => user._id !== id));
     }
   };
 
   const handleDeleteAdventure = async (id) => {
     if (window.confirm('Are you sure you want to delete this adventure?')) {
-      await axios.delete(`/api/admin/adventures/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/admin/adventures/${id}`);
       setAdventures(adventures.filter((adventure) => adventure._id !== id));
     }
   };
 
   const handleDeleteProvider = async (id) => {
     if (window.confirm('Are you sure you want to delete this provider?')) {
-      await axios.delete(`/api/admin/providers/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/admin/providers/${id}`);
       setProviders(providers.filter((provider) => provider._id !== id));
     }
   };

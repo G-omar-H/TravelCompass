@@ -5,7 +5,7 @@ import axios from 'axios';
 const FavoriteButton = ({ adventureId }) => {
   const handleAddToFavorites = async () => {
     try {
-      await axios.post('/api/profile/favorites', { adventureId });
+      await axios.post(`${process.env.REACT_APP_API_URL}/users/profile/favorites`, { adventureId });
       alert('Adventure added to favorites!');
     } catch (error) {
       console.error('Error adding to favorites:', error);

@@ -8,7 +8,7 @@ const AdventureList = () => {
 
   useEffect(() => {
     const fetchAdventures = async () => {
-      const response = await axios.get('/api/adventures');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/adventures`);
       setAdventures(response.data);
     };
     fetchAdventures();

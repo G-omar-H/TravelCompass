@@ -14,19 +14,19 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const { data } = await axios.get('/api/profile');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`);
       setUser(data);
       setName(data.name);
       setEmail(data.email);
     };
 
     const fetchUserBookings = async () => {
-      const { data } = await axios.get('/api/profile/bookings');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/bookings`);
       setBookings(data);
     };
 
     const fetchFavorites = async () => {
-      const { data } = await axios.get('/api/profile/favorites');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/favorites`);
       setFavorites(data);
     };
 
@@ -38,8 +38,8 @@ const ProfilePage = () => {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('/api/profile', { name, email, password });
-      history.push('/profile');
+      await axios.put(`${process.env.REACT_APP_API_URL}/users/profile`, { name, email, password });
+      history.push('/users/profile');
     } catch (error) {
       console.error('Error updating profile:', error);
     }

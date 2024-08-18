@@ -8,7 +8,7 @@ const BookingForm = ({ adventureId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/bookings', {
+      await axios.post(`${process.env.REACT_APP_API_URL}/bookings`, {
         adventureId,
         numberOfPeople,
       });

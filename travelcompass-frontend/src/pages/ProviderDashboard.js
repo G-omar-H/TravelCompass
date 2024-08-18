@@ -21,7 +21,7 @@ const ProviderDashboard = () => {
     formData.append('logo', logo);
     formData.append('providerData', JSON.stringify(providerData));
     
-    await axios.post('/api/providers', formData);
+    await axios.post(`${process.env.REACT_APP_API_URL}/providers`, formData);
     // Handle successful provider creation or update
   };
 

@@ -4,14 +4,14 @@ import axios from 'axios';
 
 export const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
 
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      axios.get('/api/users/profile').then(response => {
+      axios.get(`${process.env.REACT_APP_API_URL}/users/profile`).then(response => {
         setUser(response.data);
       }).catch(() => {
         setUser(null);
@@ -22,14 +22,14 @@ const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const response = await axios.post('/api/users/login', { email, password });
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, { email, password });
     setToken(response.data.token);
     localStorage.setItem('token', response.data.token);
     setUser(response.data.user);
   };
 
   const register = async (name, email, password) => {
-    const response = await axios.post('/api/users/register', { name, email, password });
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, { name, email, password });
     setToken(response.data.token);
     localStorage.setItem('token', response.data.token);
     setUser(response.data.user);
@@ -47,5 +47,3 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export default AuthProvider;

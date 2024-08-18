@@ -16,7 +16,7 @@ const PaymentForm = ({ adventureId, quantity }) => {
       return;
     }
 
-    const { data } = await axios.post('/api/payments/create-payment-intent', {
+    const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/payments/create-payment-intent`, {
       adventureId,
       quantity,
     });
