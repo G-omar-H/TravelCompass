@@ -1,7 +1,7 @@
 // TRAVELCOMPASS-FRONTEND/src/pages/ProfilePage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
   const [user, setUser] = useState({});
@@ -10,7 +10,7 @@ const ProfilePage = () => {
   const [password, setPassword] = useState('');
   const [bookings, setBookings] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -39,7 +39,7 @@ const ProfilePage = () => {
     e.preventDefault();
     try {
       await axios.put(`${process.env.REACT_APP_API_URL}/users/profile`, { name, email, password });
-      history.push('/users/profile');
+      navigate('/profile');
     } catch (error) {
       console.error('Error updating profile:', error);
     }

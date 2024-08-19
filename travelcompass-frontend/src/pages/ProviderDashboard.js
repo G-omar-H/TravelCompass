@@ -1,56 +1,43 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/ProviderDashboard.js
-import React, { useState } from 'react';
+// TRAVELCOMPASS-FRONTEND/src/pages/ProviderProfile.js
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const ProviderDashboard = () => {
-  const [providerData, setProviderData] = useState({ name: '', description: '', contactEmail: '', contactPhone: '' });
-  const [logo, setLogo] = useState(null);
+  const { id } = useParams();
+  const [provider, setProvider] = useState({});
+  const [adventures, setAdventures] = useState([]);
 
-  const handleInputChange = (e) => {
-    setProviderData({ ...providerData, [e.target.name]: e.target.value });
-  };
+  useEffect(() => {
+    const fetchProviderDetails = async () => {
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}`);
+      setProvider(data);
+    };
 
-  const handleLogoUpload = (e) => {
-    setLogo(e.target.files[0]);
-  };
+    const fetchProviderAdventures = async () => {
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}/adventures`);
+      setAdventures(data);
+    };
 
-  const submitProviderData = async (e) => {
-    e.preventDefault();
-    // Handle logo upload and update provider data
-    const formData = new FormData();
-    formData.append('logo', logo);
-    formData.append('providerData', JSON.stringify(providerData));
-    
-    await axios.post(`${process.env.REACT_APP_API_URL}/providers`, formData);
-    // Handle successful provider creation or update
-  };
+    fetchProviderDetails();
+    fetchProviderAdventures();
+  }, [id]);
 
   return (
     <div>
-      <h1>Provider Dashboard</h1>
-      <form onSubmit={submitProviderData}>
-        <div>
-          <label>Name:</label>
-          <input type="text" name="name" value={providerData.name} onChange={handleInputChange} />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea name="description" value={providerData.description} onChange={handleInputChange}></textarea>
-        </div>
-        <div>
-          <label>Contact Email:</label>
-          <input type="email" name="contactEmail" value={providerData.contactEmail} onChange={handleInputChange} />
-        </div>
-        <div>
-          <label>Contact Phone:</label>
-          <input type="text" name="contactPhone" value={providerData.contactPhone} onChange={handleInputChange} />
-        </div>
-        <div>
-          <label>Logo:</label>
-          <input type="file" onChange={handleLogoUpload} />
-        </div>
-        <button type="submit">Save</button>
-      </form>
+      <h1>{provider.name}</h1>
+      <p>{provider.description}</p>
+      <img src={provider.logo} alt={provider.name} />
+      <p>Contact: {provider.contactEmail} | {provider.contactPhone}</p>
+      
+      <h2>Adventures Offered</h2>
+      <ul>
+        {adventures.map((adventure) => (
+          <li key={adventure._id}>
+            <Link to={`/adventures/${adventure._id}`}>{adventure.title}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

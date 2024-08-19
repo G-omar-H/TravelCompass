@@ -11,18 +11,39 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/users`);
-      setUsers(data);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/users`);
+        setUsers(data);
+      } catch (error) {
+        if (error.response.status === 401) {
+          alert('You are not authorized to view this page');
+        }  else {
+          console.error('Error fetching users:', error);
+      }
     };
 
     const fetchAdventures = async () => {
+      try {
+        
       const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/adventures`);
       setAdventures(data);
+    }  catch (error) {
+      if (error.response.status === 401) {
+        alert('You are not authorized to view this page');
+      } else {
+        console.error('Error fetching adventures:', error);
+      }
     };
 
     const fetchBookings = async () => {
+      try {
       const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/bookings`);
       setBookings(data);
+    } catch (error) {
+      if (error.response.status === 401) {
+        alert('You are not authorized to view this page');
+      } else {
+        console.error('Error fetching bookings:', error);
     };
 
     const fetchProviders = async () => {

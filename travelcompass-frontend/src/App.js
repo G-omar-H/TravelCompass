@@ -2,9 +2,12 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import {  AuthContext } from './contexts/AuthContext';
+import HomePage from './pages/HomePage';
 import UserProfile from './pages/UserProfile';
+import ProfilePage from './pages/ProfilePage';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProviderProfile from './pages/ProviderProfile';
 import AdventureList from './pages/AdventureList';
 import AdventureDetails from './pages/AdventureDetails';
 import Navbar from './components/NavBar';
@@ -20,17 +23,14 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <h1>Travel Compass</h1>
-        <hr />
-        <h2>Welcome to Travel Compass!</h2>
-        <p>Find your next adventure here.</p>
-        <hr />
-        <h2>Routes</h2>
+
         <Routes>
-          <Route path="/" element={<AdventureList />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/find-services" element={<AdventureList />} />
+          <Route path="/become-provider" element={<ProviderProfile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<PrivateRoute element={<UserProfile />} />} />
+          <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
           <Route path="/adventures" element={<AdventureList />} />
           <Route path="/adventure/:id" element={<AdventureDetails />} />
         </Routes>
