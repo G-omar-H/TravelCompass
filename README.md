@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./travelcompass-frontend/public/tc.png" alt="TravelCompass Logo" width="200"> 
+  <img src="./travelcompass-frontend/public/tc.png" alt="TravelCompass Logo" width="200" style="background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
 
   # TravelCompass 🧭 - Your Guide to Extraordinary Adventures
 </div>
