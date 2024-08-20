@@ -22,23 +22,35 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, { email, password });
-    setToken(response.data.token);
-    localStorage.setItem('token', response.data.token);
-    setUser(response.data.user);
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, { email, password });
+      setToken(response.data.token);
+      localStorage.setItem('token', response.data.token);
+      setUser(response.data.user);
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
-
+  
   const register = async (name, email, password) => {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, { name, email, password });
-    setToken(response.data.token);
-    localStorage.setItem('token', response.data.token);
-    setUser(response.data.user);
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, { name, email, password });
+      setToken(response.data.token);
+      localStorage.setItem('token', response.data.token);
+      setUser(response.data.user);
+    } catch (error) {
+      console.error('Error registering:', error);
+    }
   };
-
+  
   const logout = () => {
-    setToken(null);
-    localStorage.removeItem('token');
-    setUser(null);
+    try {
+      setToken(null);
+      localStorage.removeItem('token');
+      setUser(null);
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (
