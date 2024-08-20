@@ -10,20 +10,24 @@ const CheckoutForm = () => {
     event.preventDefault();
 
     const cardElement = elements.getElement(CardElement);
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: {
-          name: 'Customer Name',
+    try {
+      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: 'Customer Name',
+          },
         },
-      },
-    });
-
-    if (error) {
+      });
+    
+      if (error) {
+        throw new Error(error.message);
+      } else {
+        console.log('Payment successful:', paymentIntent);
+        // Redirect to success page or show success message
+      }
+    } catch (error) {
       console.error(error);
-    } else {
-      console.log('Payment successful:', paymentIntent);
-      // Redirect to success page or show success message
     }
   };
 
