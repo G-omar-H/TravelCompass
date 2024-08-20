@@ -14,16 +14,47 @@ const ProviderProfile= () => {
     setLogo(e.target.files[0]);
   };
 
+
+  const uploadLogoToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'Providers Docs'); 
+
+    try {
+      const response = await axios.post(`https://api.cloudinary.com/v1_1/dus06vafo/image/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      return response.data.secure_url;
+    } catch (error) {
+      console.error('Error uploading logo:', error);
+      return null;
+    }
+  };
+
   const submitProviderData = async (e) => {
     e.preventDefault();
-   
-  
+
+    let logoUrl = '';
+
+    if (logo) {
+      logoUrl = await uploadLogoToCloudinary(logo);
+      if (!logoUrl) {
+        alert('Failed to upload logo.');
+        return;
+      }
+    }
+
+    const providerDataWithLogo = { ...providerData, logo: logoUrl };
+
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerData, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerDataWithLogo, {
         headers: {
           'Content-Type': 'application/json',
         }
       });
+      console.log("Provider data submitted successfully");
     } catch (error) {
       console.error('Error submitting provider data:', error);
     }
@@ -31,7 +62,7 @@ const ProviderProfile= () => {
 
   return (
     <div>
-      <h1>Provider Profile</h1>
+      <h1>Provider Dashboard</h1>
       <form onSubmit={submitProviderData}>
         <div>
           <label>Name:</label>
