@@ -1,4 +1,4 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/ProviderDashboard.js
+// TRAVELCOMPASS-FRONTEND/src/pages/ProviderProfile.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -31,7 +31,7 @@ const ProviderProfile= () => {
 
   return (
     <div>
-      <h1>Provider Dashboard</h1>
+      <h1>Provider Profile</h1>
       <form onSubmit={submitProviderData}>
         <div>
           <label>Name:</label>

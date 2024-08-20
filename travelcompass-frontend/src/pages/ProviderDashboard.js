@@ -1,4 +1,4 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/ProviderProfile.js
+// TRAVELCOMPASS-FRONTEND/src/pages/ProviderDashboard.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
