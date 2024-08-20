@@ -8,8 +8,12 @@ const AdventureList = () => {
 
   useEffect(() => {
     const fetchAdventures = async () => {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/adventures`);
-      setAdventures(response.data);
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/adventures`);
+        setAdventures(response.data);
+      } catch (error) {
+        console.error('Error fetching adventures:', error);
+      }
     };
     fetchAdventures();
   }, []);
