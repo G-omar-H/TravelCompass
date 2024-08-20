@@ -11,28 +11,32 @@ const PaymentForm = ({ adventureId, quantity }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!stripe || !elements) {
       return;
     }
-
-    const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/payments/create-payment-intent`, {
-      adventureId,
-      quantity,
-    });
-
-    const clientSecret = data.clientSecret;
-
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-      },
-    });
-
-    if (result.error) {
-      setErrorMessage(result.error.message);
-    } else if (result.paymentIntent.status === 'succeeded') {
-      setPaymentSucceeded(true);
+  
+    try {
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/payments/create-payment-intent`, {
+        adventureId,
+        quantity,
+      });
+  
+      const clientSecret = data.clientSecret;
+  
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      });
+  
+      if (result.error) {
+        setErrorMessage(result.error.message);
+      } else if (result.paymentIntent.status === 'succeeded') {
+        setPaymentSucceeded(true);
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
     }
   };
 
