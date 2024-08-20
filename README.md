@@ -1,5 +1,8 @@
-# TravelCompass 🧭 - Your Guide to Extraordinary Adventures
+<div align="center">
+  <img src="./travelcompass-frontend/public/tc.png" alt="TravelCompass Logo" width="200"> 
 
+  # TravelCompass 🧭 - Your Guide to Extraordinary Adventures
+</div>
 ## Overview
 
 TravelCompass is an innovative platform that empowers adventure seekers to discover and book unique experiences offered by tour operators, hiking guides, and other adventure providers. We aggregate a wide range of curated adventures from across the globe, making it easy for travelers to find their perfect journey and book directly. 
