@@ -1,6 +1,6 @@
 # **TravelCompass 🧭**
 
-<div style="float: right;">
+<div style="text-align: right;">
   <img alt="TravelCompass Logo" src="./travelcompass-frontend/public/mc2.png" width="100">
 </div>
 
