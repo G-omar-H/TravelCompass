@@ -16,13 +16,15 @@ const ProviderProfile= () => {
 
   const submitProviderData = async (e) => {
     e.preventDefault();
-    // Handle logo upload and update provider data
     const formData = new FormData();
     formData.append('logo', logo);
     formData.append('providerData', JSON.stringify(providerData));
-    
-    await axios.post(`${process.env.REACT_APP_API_URL}/providers`, formData);
-    // Handle successful provider creation or update
+  
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/providers`, formData);
+    } catch (error) {
+      console.error('Error submitting provider data:', error);
+    }
   };
 
   return (
