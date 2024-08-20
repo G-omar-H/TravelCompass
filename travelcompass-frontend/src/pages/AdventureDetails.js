@@ -15,16 +15,22 @@ const AdventureDetails = () => {
 
   useEffect(() => {
     const fetchAdventureDetails = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
-      setAdventure(data);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
+        setAdventure(data);
+      } catch (error) {
+        console.error('Error fetching adventure details:', error);
+      }
     };
-
+  
     const fetchReviews = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/reviews/${id}`);
-      setReviews(data);
-    };
-
-    fetchAdventureDetails();
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/reviews/${id}`);
+        setReviews(data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };    fetchAdventureDetails();
     fetchReviews();
   }, [id]);
 
@@ -34,6 +40,8 @@ const AdventureDetails = () => {
     setRating(0);
     setComment('');
     // Optionally refresh reviews after submission
+    
+
   };
 
   return (
