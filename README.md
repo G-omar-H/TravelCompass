@@ -2,7 +2,7 @@
 
 *Unleash Your Wanderlust*
 
-<img alt="TravelCompass Logo" src="./travelcompass-frontend/public/adventure.png">
+<img alt="TravelCompass Logo" src="./travelcompass-frontend/public/adventure.png ">
 
 
 ---
