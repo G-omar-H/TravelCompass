@@ -1,10 +1,9 @@
-<h1 align="left">
-<strong>TravelCompass 🧭</strong>
- <img align="right" alt="TravelCompass Logo" src="./travelcompass-frontend/public/mc2.png" width="50">
-</h1>
 
+# **TravelCompass 🧭** <p align="right">
+  <img alt="TravelCompass Logo" src="./travelcompass-frontend/public/mc2.png" width="100">
+</p>
 
-**Unleash Your Wanderlust**
+*nleash Your Wanderlust**
 
 <img alt="TravelCompass adventure" src="./travelcompass-frontend/public/adventure.png">
 
