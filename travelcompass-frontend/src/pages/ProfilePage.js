@@ -14,22 +14,34 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`);
-      setUser(data);
-      setName(data.name);
-      setEmail(data.email);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`);
+        setUser(data);
+        setName(data.name);
+        setEmail(data.email);
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
     };
-
+  
     const fetchUserBookings = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/bookings`);
-      setBookings(data);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/bookings`);
+        setBookings(data);
+      } catch (error) {
+        console.error('Error fetching user bookings:', error);
+      }
     };
-
+  
     const fetchFavorites = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/favorites`);
-      setFavorites(data);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/favorites`);
+        setFavorites(data);
+      } catch (error) {
+        console.error('Error fetching favorites:', error);
+      }
     };
-
+  
     fetchUserProfile();
     fetchUserBookings();
     fetchFavorites();
