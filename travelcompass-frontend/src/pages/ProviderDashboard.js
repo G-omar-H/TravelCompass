@@ -10,15 +10,23 @@ const ProviderDashboard = () => {
 
   useEffect(() => {
     const fetchProviderDetails = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}`);
-      setProvider(data);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}`);
+        setProvider(data);
+      } catch (error) {
+        console.error('Error fetching provider details:', error);
+      }
     };
-
+    
     const fetchProviderAdventures = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}/adventures`);
-      setAdventures(data);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}/adventures`);
+        setAdventures(data);
+      } catch (error) {
+        console.error('Error fetching provider adventures:', error);
+      }
     };
-
+    
     fetchProviderDetails();
     fetchProviderAdventures();
   }, [id]);
