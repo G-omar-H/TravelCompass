@@ -16,12 +16,14 @@ const ProviderProfile= () => {
 
   const submitProviderData = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('logo', logo);
-    formData.append('providerData', JSON.stringify(providerData));
+   
   
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/providers`, formData);
+      await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerData, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
     } catch (error) {
       console.error('Error submitting provider data:', error);
     }

@@ -7,14 +7,14 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State to hold error message
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(''); // Clear any existing errors
     try {
       await login(email, password);
-      navigate('/'); // Redirect to profile page on successful login
+      navigate('/'); // Redirect to home page on successful login
     } catch (err) {
       if (err.response) {
         // The request was made and the server responded with a status code
