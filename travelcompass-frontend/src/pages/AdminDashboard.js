@@ -1,7 +1,8 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/AdminDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+
+// TRAVELCOMPASS-FRONTEND/src/pages/AdminDashboard.js
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -15,40 +16,51 @@ const AdminDashboard = () => {
         const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/users`);
         setUsers(data);
       } catch (error) {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
           alert('You are not authorized to view this page');
-        }  else {
+        } else {
           console.error('Error fetching users:', error);
+        }
       }
     };
 
     const fetchAdventures = async () => {
       try {
-        
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/adventures`);
-      setAdventures(data);
-    }  catch (error) {
-      if (error.response.status === 401) {
-        alert('You are not authorized to view this page');
-      } else {
-        console.error('Error fetching adventures:', error);
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/adventures`);
+        setAdventures(data);
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          alert('You are not authorized to view this page');
+        } else {
+          console.error('Error fetching adventures:', error);
+        }
       }
     };
 
     const fetchBookings = async () => {
       try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/bookings`);
-      setBookings(data);
-    } catch (error) {
-      if (error.response.status === 401) {
-        alert('You are not authorized to view this page');
-      } else {
-        console.error('Error fetching bookings:', error);
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/bookings`);
+        setBookings(data);
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          alert('You are not authorized to view this page');
+        } else {
+          console.error('Error fetching bookings:', error);
+        }
+      }
     };
 
     const fetchProviders = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/providers`);
-      setProviders(data);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/admin/providers`);
+        setProviders(data);
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          alert('You are not authorized to view this page');
+        } else {
+          console.error('Error fetching providers:', error);
+        }
+      }
     };
 
     fetchUsers();
@@ -59,22 +71,34 @@ const AdminDashboard = () => {
 
   const handleDeleteUser = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/admin/users/${id}`);
-      setUsers(users.filter((user) => user._id !== id));
+      try {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/admin/users/${id}`);
+        setUsers(users.filter((user) => user._id !== id));
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
     }
   };
 
   const handleDeleteAdventure = async (id) => {
     if (window.confirm('Are you sure you want to delete this adventure?')) {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/admin/adventures/${id}`);
-      setAdventures(adventures.filter((adventure) => adventure._id !== id));
+      try {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/admin/adventures/${id}`);
+        setAdventures(adventures.filter((adventure) => adventure._id !== id));
+      } catch (error) {
+        console.error('Error deleting adventure:', error);
+      }
     }
   };
 
   const handleDeleteProvider = async (id) => {
     if (window.confirm('Are you sure you want to delete this provider?')) {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/admin/providers/${id}`);
-      setProviders(providers.filter((provider) => provider._id !== id));
+      try {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/admin/providers/${id}`);
+        setProviders(providers.filter((provider) => provider._id !== id));
+      } catch (error) {
+        console.error('Error deleting provider:', error);
+      }
     }
   };
 

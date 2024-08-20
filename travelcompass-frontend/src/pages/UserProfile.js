@@ -1,6 +1,7 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/UserProfile.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+// TRAVELCOMPASS-FRONTEND/src/pages/UserProfile.js
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -10,15 +11,21 @@ const UserProfile = () => {
   const [savedAdventures, setSavedAdventures] = useState([]);
   const [bookingHistory, setBookingHistory] = useState([]);
   const [editing, setEditing] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`);
-      setUser(data);
-      setName(data.name);
-      setEmail(data.email);
-      setSavedAdventures(data.savedAdventures);
-      setBookingHistory(data.bookingHistory);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`);
+        setUser(data);
+        setName(data.name);
+        setEmail(data.email);
+        setSavedAdventures(data.savedAdventures);
+        setBookingHistory(data.bookingHistory);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to fetch user profile.');
+      }
     };
 
     fetchUserProfile();
@@ -32,13 +39,14 @@ const UserProfile = () => {
       alert('Profile updated successfully!');
     } catch (err) {
       console.error(err);
-      alert('Failed to update profile.');
+      setError('Failed to update profile.');
     }
   };
 
   return (
     <div>
       <h1>User Profile</h1>
+      {error && <p>{error}</p>}
       {user && (
         <form onSubmit={updateUserProfile}>
           <div>
