@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (token) {
@@ -28,6 +29,9 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', response.data.token);
       setUser(response.data.user);
     } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError('Invalid email or password');
+      }
       console.error('Error logging in:', error);
     }
   };
@@ -39,6 +43,9 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', response.data.token);
       setUser(response.data.user);
     } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setError('Email already in use');
+      }
       console.error('Error registering:', error);
     }
   };
