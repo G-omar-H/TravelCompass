@@ -8,14 +8,20 @@ const SearchFilter = ({ setAdventures }) => {
   const [minDuration, setMinDuration] = useState('');
   const [maxDuration, setMaxDuration] = useState('');
   const [difficulty, setDifficulty] = useState('');
+  const [error, setError] = useState('');
 
   const handleSearch = async (e) => {
     e.preventDefault();
     
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/adventures`, {
-      params: { location, activityType, minDuration, maxDuration, difficulty }
-    });
-    setAdventures(response.data);
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/adventures`, {
+        params: { location, activityType, minDuration, maxDuration, difficulty }
+      });
+      setAdventures(response.data);
+    } catch (error) {
+      console.error(error);
+      setError('An error occurred. Please try again later.');
+    }
   };
 
   return (
