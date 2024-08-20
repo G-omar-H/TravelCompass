@@ -1,8 +1,7 @@
 # **TravelCompass 🧭**
-
-<div style="text-align: right;">
+<p align="right">
   <img alt="TravelCompass Logo" src="./travelcompass-frontend/public/mc2.png" width="100">
-</div>
+</p>
 
 *Unleash Your Wanderlust*
 
