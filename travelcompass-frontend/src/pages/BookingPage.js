@@ -1,6 +1,6 @@
 // TRAVELCOMPASS-FRONTEND/src/pages/BookingPage.js
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
@@ -10,20 +10,23 @@ const stripePromise = loadStripe('your-publishable-key-here');
 
 const BookingPage = () => {
   const { id } = useParams();
-  const history = useHistory();
   const [adventure, setAdventure] = useState({});
   const [bookingDate, setBookingDate] = useState('');
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
     const fetchAdventure = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
-      setAdventure(data);
+      try {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
+        setAdventure(data);
+      } catch (error) {
+        console.error('Error fetching adventure:', error);
+      }
     };
-
+  
     fetchAdventure();
   }, [id]);
-
+  
   const handleBooking = async () => {
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/bookings`, {
@@ -31,11 +34,11 @@ const BookingPage = () => {
         date: bookingDate,
         totalAmount: adventure.price,
       });
-
+  
       const paymentIntent = await axios.post(`${process.env.REACT_APP_API_URL}/bookings/payment-intent`, {
         bookingId: data._id,
       });
-
+  
       setClientSecret(paymentIntent.data.clientSecret);
     } catch (error) {
       console.error('Error creating booking:', error);
