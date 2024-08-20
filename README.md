@@ -1,5 +1,5 @@
 <h1 align="left">
-# **TravelCompass 🧭**
+<strong>TravelCompass 🧭</strong>
  <img align="right" alt="TravelCompass Logo" src="./travelcompass-frontend/public/mc2.png" width="50">
 </h1>
 
