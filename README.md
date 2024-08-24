@@ -5,8 +5,11 @@
 
 **Unleash Your Wanderlust**
 
-<img alt="TravelCompass interface" src="./travelcompass-frontend/public/TC-interface.png">
-
+<div style="display: grid; grid-template-columns: 1fr; gap: 10px; width: 300px;">
+  <img src="./travelcompass-frontend/public/TC-interface.png" alt="TravelCompass interface 1" style="width: 100%; height: auto; transition: transform 0.3s;">
+  <img src="./travelcompass-frontend/public/adventuresListing.png" alt="TravelCompass interface 2" style="width: 100%; height: auto; transition: transform 0.3s;">
+  <img src="./travelcompass-frontend/public/adventureBookingPage.png" alt="TravelCompass interface 3" style="width: 100%; height: auto; transition: transform 0.3s;">
+</div>
 
 ---
 
