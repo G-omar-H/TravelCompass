@@ -1,6 +1,6 @@
 <h1 align="left">
 <strong>TravelCompass </strong>
- <img align="right" alt="TravelCompass Logo" src="./travelcompass-frontend/public/Tc-removebg.png" width="">
+ <img align="right" alt="TravelCompass Logo" src="./travelcompass-frontend/public/Tc-removebg.png" width="200">
 </h1>
 
 **Unleash Your Wanderlust**
