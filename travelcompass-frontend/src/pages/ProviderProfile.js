@@ -23,8 +23,9 @@ const ProviderProfile= () => {
     try {
       const response = await axios.post(`https://api.cloudinary.com/v1_1/dus06vafo/image/upload`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: false,
       });
       return response.data.secure_url;
     } catch (error) {
