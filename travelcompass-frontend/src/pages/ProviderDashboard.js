@@ -14,6 +14,7 @@ const ProviderDashboard = () => {
     duration: '',
     difficulty: 'Easy',
     activityType: '',
+    photos: [],
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -43,17 +44,69 @@ const ProviderDashboard = () => {
   const handleInputChange = (e) => {
     setNewAdventure({ ...newAdventure, [e.target.name]: e.target.value });
   };
+  const handlePhotoUpload = (e) => {
+    const files = Array.from(e.target.files);
+    setNewAdventure({ ...newAdventure, photos: files });
+  };
+
+  const uploadPhotosToCloudinary = async (files) => {
+    const uploadedUrls = [];
+    const uploadPromises = files.map(async (file) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'AdventurePhotos'); // Make sure you have the correct preset
+
+      try {
+        const response = await fetch('https://api.cloudinary.com/v1_1/dus06vafo/image/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        uploadedUrls.push(data.secure_url);
+      } catch (error) {
+        console.error('Error uploading photo:', error);
+      }
+    });
+
+    await Promise.all(uploadPromises);
+    return uploadedUrls;
+  };
 
   const postProviderAdventure = async () => {
+    let photoUrls = [];
+
+    if (newAdventure.photos.length > 0) {
+      photoUrls = await uploadPhotosToCloudinary(newAdventure.photos);
+      if (photoUrls.length === 0) {
+        alert('Failed to upload photos.');
+        return;
+      }
+    }
+
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/adventures`, {
         ...newAdventure,
         provider: id,
+        photos: photoUrls,
       });
       setAdventures([...adventures, data]);
       setIsModalOpen(false);
     } catch (error) {
       console.error('Error posting new adventure:', error);
+    }
+  };
+
+  const deleteAdventure = async (adventureId) => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/adventures/${adventureId}`);
+      setAdventures(adventures.filter(adventure => adventure._id !== adventureId));
+    } catch (error) {
+      console.error('Error deleting adventure: ', error);
     }
   };
 
@@ -69,6 +122,7 @@ const ProviderDashboard = () => {
         {adventures.map((adventure) => (
           <li key={adventure._id}>
             <Link to={`/adventures/${adventure._id}`}>{adventure.title}</Link>
+            <button onClick={() => deleteAdventure(adventure._id)}>Delete</button>
           </li>
         ))}
       </ul>
@@ -123,6 +177,13 @@ const ProviderDashboard = () => {
             <option value="Moderate">Moderate</option>
             <option value="Challenging">Challenging</option>
           </select>
+
+          <input
+            type="file"
+            multiple
+            onChange={handlePhotoUpload}
+          />
+
           <button onClick={postProviderAdventure}>Submit</button>
           <button onClick={() => setIsModalOpen(false)}>Cancel</button>
         </div>

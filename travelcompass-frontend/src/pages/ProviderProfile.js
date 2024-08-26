@@ -1,10 +1,12 @@
 // TRAVELCOMPASS-FRONTEND/src/pages/ProviderProfile.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ProviderProfile= () => {
   const [providerData, setProviderData] = useState({ name: '', description: '', contactEmail: '', contactPhone: '' });
   const [logo, setLogo] = useState(null);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setProviderData({ ...providerData, [e.target.name]: e.target.value });
@@ -14,20 +16,25 @@ const ProviderProfile= () => {
     setLogo(e.target.files[0]);
   };
 
+  
 
   const uploadLogoToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'Providers Docs'); 
+    formData.append('upload_preset', 'Providers  Docs'); 
 
     try {
-      const response = await axios.post(`https://api.cloudinary.com/v1_1/dus06vafo/image/upload`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: false,
+      const response = await fetch('https://api.cloudinary.com/v1_1/dus06vafo/image/upload', {
+        method: 'POST',
+        body: formData,
       });
-      return response.data.secure_url;
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      return data.secure_url;
     } catch (error) {
       console.error('Error uploading logo:', error);
       return null;
@@ -56,6 +63,7 @@ const ProviderProfile= () => {
         }
       });
       console.log("Provider data submitted successfully");
+      navigate('/provider-dashboard');
     } catch (error) {
       console.error('Error submitting provider data:', error);
     }
@@ -63,7 +71,7 @@ const ProviderProfile= () => {
 
   return (
     <div>
-      <h1>Provider Dashboard</h1>
+      <h1>Provider Profile</h1>
       <form onSubmit={submitProviderData}>
         <div>
           <label>Name:</label>
