@@ -15,9 +15,11 @@ const HomePage = () => {
       <p>Find your next adventure or offer your services to travelers.</p>
       <div className="cta-buttons">
         <Link to="/find-services" className="cta-button">Find Services</Link>
-          <Link to={getProviderLink()} className="cta-button">
-              Become a Provider
-          </Link>
+        {user && user.roles.includes("provider") ? (
+          <Link to={`/provider-dashboard/${user.provider}`} className="cta-button">Provider Dashboard</Link>
+        ) : (
+          <Link to={getProviderLink()} className="cta-button">Become a Provider</Link>
+        )}
       </div>
     </div>
   );
