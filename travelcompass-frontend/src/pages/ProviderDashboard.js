@@ -7,6 +7,15 @@ const ProviderDashboard = () => {
   const { id } = useParams();
   const [provider, setProvider] = useState({});
   const [adventures, setAdventures] = useState([]);
+  const [newAdventure, setNewAdventure] = useState({
+    title: '',
+    description: '',
+    price: '',
+    duration: '',
+    difficulty: 'Easy',
+    activityType: '',
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchProviderDetails = async () => {
@@ -17,7 +26,7 @@ const ProviderDashboard = () => {
         console.error('Error fetching provider details:', error);
       }
     };
-    
+
     const fetchProviderAdventures = async () => {
       try {
         const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}/adventures`);
@@ -26,10 +35,27 @@ const ProviderDashboard = () => {
         console.error('Error fetching provider adventures:', error);
       }
     };
-    
+
     fetchProviderDetails();
     fetchProviderAdventures();
   }, [id]);
+
+  const handleInputChange = (e) => {
+    setNewAdventure({ ...newAdventure, [e.target.name]: e.target.value });
+  };
+
+  const postProviderAdventure = async () => {
+    try {
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/adventures`, {
+        ...newAdventure,
+        provider: id,
+      });
+      setAdventures([...adventures, data]);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Error posting new adventure:', error);
+    }
+  };
 
   return (
     <div>
@@ -46,6 +72,61 @@ const ProviderDashboard = () => {
           </li>
         ))}
       </ul>
+      
+      <button onClick={() => setIsModalOpen(true)}>Post New Adventure</button>
+
+      {isModalOpen && (
+        <div className="modal">
+          <h2>Post a New Adventure</h2>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={newAdventure.title}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            value={newAdventure.description}
+            onChange={handleInputChange}
+          />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            value={newAdventure.price}
+            onChange={handleInputChange}
+          />
+          <input
+            type="number"
+            name="duration"
+            placeholder="Duration (in days)"
+            value={newAdventure.duration}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="activityType"
+            placeholder="Activity Type"
+            value={newAdventure.activityType}
+            onChange={handleInputChange}
+          />
+
+          <select
+            name="difficulty"
+            value={newAdventure.difficulty}
+            onChange={handleInputChange}
+          >
+            <option value="Easy">Easy</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Challenging">Challenging</option>
+          </select>
+          <button onClick={postProviderAdventure}>Submit</button>
+          <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+        </div>
+      )}
     </div>
   );
 };

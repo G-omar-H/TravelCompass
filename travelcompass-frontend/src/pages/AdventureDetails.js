@@ -2,8 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PaymentForm from '../components/PaymentForm';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 
+const stripeApiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
+
+if (!stripeApiKey) {
+  console.error('Stripe API key is missing.');
+}
+
+const stripePromise = loadStripe(stripeApiKey);
 
 const AdventureDetails = () => {
   const { id } = useParams();
@@ -12,6 +21,7 @@ const AdventureDetails = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [quantity, setQuantity] = useState(1);
+  const [bookingDate, setBookingDate] = useState('');
 
   useEffect(() => {
     const fetchAdventureDetails = async () => {
@@ -64,9 +74,16 @@ const AdventureDetails = () => {
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
       />
+      <input
+        id="bookingDate"
+        type="Date"
+        value={bookingDate}
+        onChange={(e) => setBookingDate(e.target.value)}
+      />
 
-      <PaymentForm adventureId={id} quantity={quantity} />
-      
+        <Elements stripe={stripePromise}>
+          <PaymentForm adventureId={id} quantity={quantity} date={bookingDate} />
+        </Elements>      
       <h2>Reviews</h2>
       {reviews.map((review) => (
         <div key={review._id}>

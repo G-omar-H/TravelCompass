@@ -4,7 +4,6 @@ const Adventure = require('../models/Adventure');
 
 const getUserProfile = async (req, res) => {
   try {
-    console.log('toto');
     const user = await User.findById(req.user.id).populate('savedAdventures').populate('bookingHistory.adventure');
 
     if (!user) {

@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
-const PaymentForm = ({ adventureId, quantity }) => {
+const PaymentForm = ({ adventureId, quantity, date}) => {
   const stripe = useStripe();
   const elements = useElements();
+  const [adventure, setAdventure] = useState({});
   const [paymentSucceeded, setPaymentSucceeded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -15,11 +16,16 @@ const PaymentForm = ({ adventureId, quantity }) => {
     if (!stripe || !elements) {
       return;
     }
+
+    const { data: adventure } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${adventureId}`);
+    setAdventure(adventure);
   
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/payments/create-payment-intent`, {
-        adventureId,
-        quantity,
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/bookings`, {
+        adventureId: adventure._id,
+        totalAmount: adventure.price * quantity,
+        date,
+
       });
   
       const clientSecret = data.clientSecret;

@@ -77,7 +77,7 @@ const ProfilePage = () => {
       <ul>
         {bookings.map((booking) => (
           <li key={booking._id}>
-            {booking.adventure.title} on {new Date(booking.date).toLocaleDateString()}
+            {booking.adventure} on {booking.date}
           </li>
         ))}
       </ul>
