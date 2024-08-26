@@ -1,6 +1,7 @@
 //TRAVELCOMPASS-FRONTEND/src/components/SearchFilter.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import "../styles/SearchFilter.css";
 
 const SearchFilter = ({ setAdventures }) => {
   const [location, setLocation] = useState('');

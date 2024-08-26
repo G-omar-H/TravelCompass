@@ -12,15 +12,18 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(''); // Clear any existing errors
+
     try {
       await login(email, password);
       navigate('/'); // Redirect to home page on successful login
     } catch (err) {
+
       if (err.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         if (err.response.status === 401) {
           setError('Invalid credentials. Please try again.');
+
         } else {
           setError(`Error: ${err.response.status} - ${err.response.data.message || 'Unexpected error'}`);
         }

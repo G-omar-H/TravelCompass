@@ -28,7 +28,7 @@ const UserProfile = () => {
       }
     };
 
-    fetchUserProfile();
+      fetchUserProfile();
   }, []);
 
   const updateUserProfile = async (e) => {

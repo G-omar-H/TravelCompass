@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchFilter from '../components/SearchFilter';
+import '../styles/AdventureList.css';
 
 const AdventureList = () => {
   const [adventures, setAdventures] = useState([]);

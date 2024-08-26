@@ -11,7 +11,19 @@ const createProvider = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-  
+
+    if (user.provider) {
+      return res.status(400).json({ message: 'User is already a provider' });
+    }
+
+    if (user.roles.includes('admin') || user.roles.includes('super-admin')) {
+      return res.status(400).json({ message: 'Admins cannot be providers' });
+    }
+
+    if (!req.body.name || !req.body.description || !req.body.contactEmail) {
+      return res.status(400).json({ message: `Missing ${!req.body.name ? 'name' : !req.body.description ? 'description' : !req.body.contactEmail ? 'contact email' : ''}` });
+    }
+
     const provider = new Provider({
       ...req.body,
       adventures: [],
