@@ -4,28 +4,29 @@ import { useParams } from 'react-router-dom';
 import PaymentForm from '../components/PaymentForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { getReadableAddress } from '../services/locationUtils';
 import axios from 'axios';
 
 const stripeApiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
+
+if (!stripeApiKey) {
+  console.error('Stripe API key is missing.');
+}
+
 const stripePromise = loadStripe(stripeApiKey);
 
 const AdventureDetails = () => {
   const { id } = useParams();
   const [adventure, setAdventure] = useState({});
   const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [bookingDate, setBookingDate] = useState('');
-  const [locationString, setLocationString] = useState('');
 
   const fetchAdventureDetails = async () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
       setAdventure(data);
-      if (data.location?.coordinates) {
-        const location = await getReadableAddress(data.location.coordinates);
-        setLocationString(location);
-      }
     } catch (error) {
       console.error('Error fetching adventure details:', error);
     }
@@ -39,11 +40,20 @@ const AdventureDetails = () => {
       console.error('Error fetching reviews:', error);
     }
   };
-
   useEffect(() => {
+
     fetchAdventureDetails();
     fetchReviews();
   }, [id]);
+
+  const submitReview = async (e) => {
+    e.preventDefault();
+    await axios.post(`${process.env.REACT_APP_API_URL}/reviews`, { adventureId: id, rating, comment });
+    setRating(0);
+    setComment('');
+    // Refresh reviews after submission
+    fetchReviews();
+  };
 
   return (
     <div>
@@ -57,40 +67,12 @@ const AdventureDetails = () => {
           </div>
         )}
         <p>{adventure.description}</p>
-        <p>Activity Type: {adventure.activityType}</p>
         <p>Price: ${adventure.price}</p>
-        <p>Location: {locationString}</p>
+        <p>Itinerary: {adventure.itinerary}</p>
+        <p>Location: {adventure.location}</p>
         <p>Difficulty: {adventure.difficulty}</p>
         <p>Duration: {adventure.duration} days</p>
-
-        {/* Display the itinerary */}
-        <h3>Itinerary</h3>
-        {adventure.itinerary && (
-          <ul>
-            {adventure.itinerary.map((day, index) => (
-              <li key={index}>
-                <strong>Day {day.day}</strong>: {day.description}
-                <p>Activities: {day.activities.join(', ')}</p>
-                <p>Meals: {day.meals.join(', ')}</p>
-                <p>Accommodation: {day.accommodation}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {/* Display availability dates */}
-        <h3>Availability</h3>
-        {adventure.availability && (
-          <ul>
-            {adventure.availability.map((slot, index) => (
-              <li key={index}>
-                <strong>{new Date(slot.startDate).toLocaleDateString()} - {new Date(slot.endDate).toLocaleDateString()}</strong>
-                : {slot.slotsAvailable} spots available
-              </li>
-            ))}
-          </ul>
-        )}
-
+        
         <label htmlFor="quantity">Quantity:</label>
         <input
           id="quantity"
@@ -110,8 +92,7 @@ const AdventureDetails = () => {
         <Elements stripe={stripePromise}>
           <PaymentForm adventureId={id} quantity={quantity} date={bookingDate} />
         </Elements>
-
-        {/* Display reviews */}
+        
         <h2>Reviews</h2>
         {reviews.map((review) => (
           <div key={review._id}>
@@ -120,6 +101,25 @@ const AdventureDetails = () => {
             <p>{review.comment}</p>
           </div>
         ))}
+
+        <h3>Leave a Review</h3>
+        <form onSubmit={submitReview}>
+          <div>
+            <label>Rating:</label>
+            <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+              {[1, 2, 3, 4, 5].map((value) => (
+                <option key={value} value={value}>
+                  {value} Star{value > 1 && 's'}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Comment:</label>
+            <textarea value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+          </div>
+          <button type="submit">Submit Review</button>
+        </form>
       </div>
     </div>
   );
