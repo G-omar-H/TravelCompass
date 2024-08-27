@@ -1,23 +1,74 @@
+/* SearchFilter.css */
+
+:root {
+  --primary-color: #f28a8a; /* Light Red */
+  --secondary-color: #4caf50; /* Green */
+  --background-color: #f7f7f7; /* Light Gray */
+  --text-color: #333333; /* Dark Gray */
+  --input-background: #ffffff; /* White */
+  --border-color: #e0e0e0; /* Light Border */
+}
+
 form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  background-color: var(--background-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  flex: 1;
+  min-width: 150px;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--input-background);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  form {
+    flex-direction: column;
   }
-  
-  input, select, button {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #007bff;
-  }
-  
+
   button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
+    width: 100%;
   }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-   
+}

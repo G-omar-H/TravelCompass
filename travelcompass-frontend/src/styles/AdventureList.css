@@ -1,37 +1,85 @@
-.adventure-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .adventure-card {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  .adventure-card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  
-  .adventure-details img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
+/* AdventureList.css */
 
-/* Add this to your CSS file */
-.photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
+:root {
+  --primary-color: #f28a8a; /* Light Red */
+  --secondary-color: #4caf50; /* Green */
+  --background-color: #f7f7f7; /* Light Gray */
+  --text-color: #333333; /* Dark Gray */
 }
 
-.gallery-image {
+.adventure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+.adventure-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.adventure-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.adventure-card img {
   width: 100%;
-  height: auto;
+  height: 200px;
   object-fit: cover;
+}
+
+.adventure-card h2 {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin: 15px;
+}
+
+.adventure-card p {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin: 0 15px 15px;
+}
+
+.adventure-card a {
+  display: block;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+  font-weight: bold;
+  border-radius: 0 0 10px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.adventure-card a:hover {
+  background-color: var(--secondary-color);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: var(--text-color);
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .adventure-grid {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .adventure-card h2 {
+    font-size: 1.2rem;
+  }
+
+  .adventure-card p {
+    font-size: 0.9rem;
+  }
 }

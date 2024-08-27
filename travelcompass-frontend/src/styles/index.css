@@ -1,0 +1,38 @@
+/* index.css or App.css */
+
+/* Define global styles and variables */
+:root {
+    --primary-color: #f28a8a; /* Light Red */
+    --secondary-color: #4caf50; /* Green */
+    --background-color: #f7f7f7; /* Light Gray */
+    --text-color: #333333; /* Dark Gray */
+    --max-width: 1200px; /* Maximum width for content */
+    --padding: 20px; /* Padding for content */
+    --font-family: 'Arial', sans-serif; /* Default font */
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+  
+  #root {
+    display: flex;
+    justify-content: center;
+    padding: var(--padding);
+  }
+  
+  .container {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--padding);
+    background-color: #fff; /* White background for content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  

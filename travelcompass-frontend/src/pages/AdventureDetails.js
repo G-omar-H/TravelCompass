@@ -5,6 +5,7 @@ import PaymentForm from '../components/PaymentForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
+import "../styles/AdventureDetails.css"; // Import the new CSS
 
 const stripeApiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
@@ -40,8 +41,8 @@ const AdventureDetails = () => {
       console.error('Error fetching reviews:', error);
     }
   };
-  useEffect(() => {
 
+  useEffect(() => {
     fetchAdventureDetails();
     fetchReviews();
   }, [id]);
@@ -51,14 +52,13 @@ const AdventureDetails = () => {
     await axios.post(`${process.env.REACT_APP_API_URL}/reviews`, { adventureId: id, rating, comment });
     setRating(0);
     setComment('');
-    // Refresh reviews after submission
     fetchReviews();
   };
 
   return (
-    <div>
+    <div className="adventure-details">
       <h1>{adventure.title}</h1>
-      <div className="adventure-details">
+      <div className="adventure-content">
         {adventure.photos && adventure.photos.length > 0 && (
           <div className="photo-gallery">
             {adventure.photos.map((photo, index) => (
@@ -72,7 +72,7 @@ const AdventureDetails = () => {
         <p>Location: {adventure.location}</p>
         <p>Difficulty: {adventure.difficulty}</p>
         <p>Duration: {adventure.duration} days</p>
-        
+
         <label htmlFor="quantity">Quantity:</label>
         <input
           id="quantity"
@@ -81,6 +81,7 @@ const AdventureDetails = () => {
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
+
         <label htmlFor="bookingDate">Booking Date:</label>
         <input
           id="bookingDate"
@@ -92,34 +93,38 @@ const AdventureDetails = () => {
         <Elements stripe={stripePromise}>
           <PaymentForm adventureId={id} quantity={quantity} date={bookingDate} />
         </Elements>
-        
-        <h2>Reviews</h2>
-        {reviews.map((review) => (
-          <div key={review._id}>
-            <strong>{review.user.name}</strong>
-            <span>{'★'.repeat(review.rating)}</span>
-            <p>{review.comment}</p>
-          </div>
-        ))}
 
-        <h3>Leave a Review</h3>
-        <form onSubmit={submitReview}>
-          <div>
-            <label>Rating:</label>
-            <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
-              {[1, 2, 3, 4, 5].map((value) => (
-                <option key={value} value={value}>
-                  {value} Star{value > 1 && 's'}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label>Comment:</label>
-            <textarea value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-          </div>
-          <button type="submit">Submit Review</button>
-        </form>
+        <div className="reviews">
+          <h2>Reviews</h2>
+          {reviews.map((review) => (
+            <div className="review" key={review._id}>
+              <strong>{review.user.name}</strong>
+              <span>{'★'.repeat(review.rating)}</span>
+              <p>{review.comment}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="leave-review">
+          <h3>Leave a Review</h3>
+          <form onSubmit={submitReview}>
+            <div>
+              <label>Rating:</label>
+              <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <option key={value} value={value}>
+                    {value} Star{value > 1 && 's'}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label>Comment:</label>
+              <textarea value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+            </div>
+            <button type="submit">Submit Review</button>
+          </form>
+        </div>
       </div>
     </div>
   );

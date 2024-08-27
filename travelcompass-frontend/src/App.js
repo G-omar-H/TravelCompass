@@ -15,6 +15,7 @@ import AdventureDetails from './pages/AdventureDetails';
 import AdminDashboard from './pages/AdminDashboard';
 import Navbar from './components/NavBar';
 import { Navigate } from 'react-router-dom';
+import "./styles/index.css";
 
 const PrivateRoute = ({ element, ...rest }) => {
   const { user } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const PrivateRoute = ({ element, ...rest }) => {
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="container">
         <Navbar />
 
         <Routes>

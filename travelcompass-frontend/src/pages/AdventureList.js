@@ -29,11 +29,7 @@ const AdventureList = () => {
             <img src={adventure.photos[0]} alt={adventure.title} />
             <h2>{adventure.title}</h2>
             <p>{adventure.description.substring(0, 100)}...</p>
-            <p>Activity Type: {adventure.activityType}</p>
             <p>Price: ${adventure.price}</p>
-            <p>Location: {adventure.location?.coordinates.join(', ')}</p>
-            <p>Difficulty: {adventure.difficulty}</p>
-            <p>Available Slots: {adventure.availability?.reduce((total, slot) => total + slot.slotsAvailable, 0)}</p>
             <a href={`/adventure/${adventure._id}`}>View Details</a>
           </div>
         ))}

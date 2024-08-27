@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/ProfilePage.css';  // Import the CSS file
 
 const ProfilePage = () => {
   const [user, setUser] = useState({});
@@ -23,7 +24,7 @@ const ProfilePage = () => {
         console.error('Error fetching user profile:', error);
       }
     };
-  
+
     const fetchUserBookings = async () => {
       try {
         const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/bookings`);
@@ -32,7 +33,7 @@ const ProfilePage = () => {
         console.error('Error fetching user bookings:', error);
       }
     };
-  
+
     const fetchFavorites = async () => {
       try {
         const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/favorites`);
@@ -41,7 +42,7 @@ const ProfilePage = () => {
         console.error('Error fetching favorites:', error);
       }
     };
-  
+
     fetchUserProfile();
     fetchUserBookings();
     fetchFavorites();
@@ -58,34 +59,37 @@ const ProfilePage = () => {
   };
 
   return (
-    <div>
-      <h1>User Profile</h1>
-      <form onSubmit={handleUpdateProfile}>
-        <label>Name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-
-        <label>Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-
-        <label>Password (leave blank to keep unchanged):</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-
-        <button type="submit">Update Profile</button>
+    <div className="profile-page">
+      <h1 className="profile-heading">User Profile</h1>
+      <form onSubmit={handleUpdateProfile} className="profile-form">
+        <div className="form-group">
+          <label>Name:</label>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label>Email:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label>Password (leave blank to keep unchanged):</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </div>
+        <button type="submit" className="update-button">Update Profile</button>
       </form>
 
       <h2>Your Bookings</h2>
-      <ul>
+      <ul className="bookings-list">
         {bookings.map((booking) => (
-          <li key={booking._id}>
+          <li key={booking._id} className="booking-item">
             {booking.adventure} on {booking.date}
           </li>
         ))}
       </ul>
 
       <h2>Your Favorite Adventures</h2>
-      <ul>
+      <ul className="favorites-list">
         {favorites.map((favorite) => (
-          <li key={favorite._id}>{favorite.title}</li>
+          <li key={favorite._id} className="favorite-item">{favorite.title}</li>
         ))}
       </ul>
     </div>

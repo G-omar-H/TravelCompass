@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AdventureList from './AdventureList';
 import {AuthContext} from "../contexts/AuthContext";
+import "../styles/HomePage.css";
 
 const HomePage = () => {
   const { user } = useContext(AuthContext);

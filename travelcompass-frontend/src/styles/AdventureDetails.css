@@ -1,0 +1,119 @@
+/* AdventureDetails.css */
+
+:root {
+    --primary-color: #f28a8a; /* Light Red */
+    --secondary-color: #4caf50; /* Green */
+    --background-color: #f7f7f7; /* Light Gray */
+    --text-color: #333333; /* Dark Gray */
+    --input-background: #ffffff; /* White */
+    --border-color: #e0e0e0; /* Light Border */
+    --button-color: #f28a8a; /* Button color */
+    --button-hover-color: #4caf50; /* Button hover color */
+  }
+  
+  .adventure-details {
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+  }
+  
+  .photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .gallery-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .gallery-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .adventure-details h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .adventure-details p {
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--input-background);
+    font-size: 1rem;
+    color: var(--text-color);
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: var(--button-hover-color);
+  }
+  
+  .reviews {
+    margin-top: 30px;
+  }
+  
+  .review {
+    border-top: 1px solid var(--border-color);
+    padding: 15px 0;
+  }
+  
+  .review strong {
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+  
+  .review span {
+    color: var(--secondary-color);
+    margin-left: 10px;
+  }
+  
+  .review p {
+    color: var(--text-color);
+    margin-top: 5px;
+  }
+  
+  .leave-review h3 {
+    margin-top: 20px;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+  }
+  
+  .leave-review form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
