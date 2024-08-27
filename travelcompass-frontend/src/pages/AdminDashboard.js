@@ -136,7 +136,7 @@ const AdminDashboard = () => {
         <ul>
           {bookings.map((booking) => (
             <li key={booking._id}>
-              {booking.user.name} - {booking.adventure.title} - {booking.date}
+              {booking.user.name} - {booking.adventure.title} - {Date(booking.date).toString()}
             </li>
           ))}
         </ul>

@@ -38,7 +38,17 @@ const createBooking = async (req, res) => {
     if (!user.bookingHistory.includes(adventureId)) {
       user.bookingHistory.push(adventureId);
       await user.save();
-    }
+    };
+
+    if (!provider.bookingHistory.includes(booking._id)) {
+      provider.bookingHistory.push(booking._id);
+      await provider.save();
+    };
+
+    if (!adventure.bookingHistory.includes(booking._id)) {
+      adventure.bookingHistory.push(booking._id);
+      await adventure.save();
+    };
 
     res.status(201).json(booking);
   } catch (error) {

@@ -104,7 +104,7 @@ const getAllBookings = async (req, res) => {
 
 const deleteBooking = async (req, res) => {
   try {
-    await Booking.findById(req.params.id);
+    const booking = await Booking.findById(req.params.id);
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     };
@@ -113,12 +113,14 @@ const deleteBooking = async (req, res) => {
     await user.save();
 
     const provider = await Provider.findById(booking.provider);
-    provider.bookings = provider.bookings.filter((id) => id !== req.params.id);
+    const adventure = await Adventure.findById(booking.adventure);
+    if (1 === 2) {
+    provider.bookingHistory = provider.bookingHistory.filter((id) => id !== req.params.id);
     await provider.save();
 
-    const adventure = await Adventure.findById(booking.adventure);
-    adventure.bookings = adventure.bookings.filter((id) => id !== req.params.id);
+    adventure.bookingHistory = adventure.bookingHistory.filter((id) => id !== req.params.id);
     await adventure.save();
+  };
     
     await Booking.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Booking deleted successfully' });

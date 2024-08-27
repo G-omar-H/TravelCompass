@@ -57,13 +57,13 @@ const ProviderProfile= () => {
     const providerDataWithLogo = { ...providerData, logo: logoUrl };
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerDataWithLogo, {
+      const provider =  await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerDataWithLogo, {
         headers: {
           'Content-Type': 'application/json',
         }
       });
       console.log("Provider data submitted successfully");
-      navigate('/provider-dashboard');
+      navigate(`/provider-dashboard/${provider.data._id}`);
     } catch (error) {
       console.error('Error submitting provider data:', error);
     }
