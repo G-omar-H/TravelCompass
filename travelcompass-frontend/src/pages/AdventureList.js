@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchFilter from '../components/SearchFilter';
+import FavoriteButton from '../components/FavoriteButton';
 import '../styles/AdventureList.css';
 
 const AdventureList = () => {
@@ -28,6 +29,7 @@ const AdventureList = () => {
           <div key={adventure._id} className="adventure-card">
             <img src={adventure.photos[0]} alt={adventure.title} />
             <h2>{adventure.title}</h2>
+            <FavoriteButton adventureId={adventure._id} />
             <p>{adventure.description.substring(0, 100)}...</p>
             <p>Price: ${adventure.price}</p>
             <a href={`/adventure/${adventure._id}`}>View Details</a>

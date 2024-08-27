@@ -33,13 +33,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/find-services" element={<AdventureList />} />
-          <Route path="/become-provider" element={<ProviderProfile />} />
-          <Route path="/provider-dashboard/:id" element={<ProviderDashboard />} />
-          <Route path="/adventures/edit/:id" element={<EditAdventure />} />
+          <Route path="/become-provider" element={<PrivateRoute element={<ProviderProfile />}  />} />
+          <Route path="/provider-dashboard/:id" element={<PrivateRoute element={<ProviderDashboard />}  />} />
+          <Route path="/adventures/edit/:id" element={<PrivateRoute element={<EditAdventure />} />} />
           <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
           <Route path="/adventures" element={<AdventureList />} />
           <Route path="/adventure/:id" element={<AdventureDetails />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin-dashboard" element={<PrivateRoute element={<AdminDashboard />}  />} />
         </Routes>
 
         <footer>

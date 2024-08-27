@@ -1,0 +1,53 @@
+/* EditAdventure.css */
+
+/* Container styling */
+.edit-adventure-container {
+    padding: 20px;
+    background-color: var(--background-color);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Input and select styling */
+  .edit-input, .edit-select, .edit-file-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .edit-select {
+    cursor: pointer;
+  }
+  
+  /* Photo previews styling */
+  .photo-previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .photo-preview {
+    width: 100px;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  /* Update button styling */
+  .update-button {
+    background-color: var(--secondary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .update-button:hover {
+    background-color: #45a049; /* Slightly darker green for hover */
+  }
+  

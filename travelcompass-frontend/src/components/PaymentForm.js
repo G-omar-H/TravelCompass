@@ -27,8 +27,11 @@ const PaymentForm = ({ adventureId, quantity, date}) => {
         date,
 
       });
+
+      const { data: clientSecret } = await axios.post(`${process.env.REACT_APP_API_URL}/payments/create-payment-intent`, { bookingId: data._id });
+
+
   
-      const clientSecret = data.clientSecret;
       console.log('Client secret:', clientSecret);
   
       const result = await stripe.confirmCardPayment(clientSecret, {

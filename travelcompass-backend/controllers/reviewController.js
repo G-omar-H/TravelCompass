@@ -36,6 +36,26 @@ const createReview = async (req, res) => {
   }
 };
 
+const removeReview = async (req, res) => {
+  try {
+    const review = await Review.findById(req.params.id);
+
+    if (!review) {
+      return res.status(404).json({ message: 'Review not found' });
+    }
+
+    if (review.user.toString() !== req.user.id) {
+      return res.status(401).json({ message: 'You are not authorized to delete this review' });
+    }
+
+    await review.remove();
+
+    res.json({ message: 'Review deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getReviewsByAdventure = async (req, res) => {
   try {
 
@@ -57,4 +77,4 @@ const getReviewsByAdventure = async (req, res) => {
   }
 };
 
-module.exports = { createReview, getReviewsByAdventure };
+module.exports = { createReview, getReviewsByAdventure, removeReview};

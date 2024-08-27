@@ -1,8 +1,8 @@
-// TRAVELCOMPASS-FRONTEND/src/components/AdminCreateAdventure.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/AdminCreateAdventure.css';
 
-const AdminCreateAdventure = (setIsModalOpen) => {
+const AdminCreateAdventure = ({ setIsModalOpen }) => {
   const [newAdventure, setNewAdventure] = useState({
     title: '',
     description: '',
@@ -15,6 +15,7 @@ const AdminCreateAdventure = (setIsModalOpen) => {
   });
   const [photoPreviews, setPhotoPreviews] = useState([]);
   const [providers, setProviders] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchProviders = async () => {
@@ -49,7 +50,7 @@ const AdminCreateAdventure = (setIsModalOpen) => {
     const uploadPromises = files.map(async (file) => {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('upload_preset', 'AdventurePhotos'); // Make sure you have the correct preset
+      formData.append('upload_preset', 'AdventurePhotos'); // Ensure the correct preset
 
       try {
         const response = await fetch('https://api.cloudinary.com/v1_1/dus06vafo/image/upload', {
@@ -73,6 +74,12 @@ const AdminCreateAdventure = (setIsModalOpen) => {
   };
 
   const postAdventure = async () => {
+    if (!newAdventure.title || !newAdventure.description || !newAdventure.price || !newAdventure.duration || !newAdventure.activityType || !newAdventure.provider) {
+      setError('Please fill in all required fields.');
+      return;
+    }
+
+    setError('');
     let photoUrls = [];
 
     if (newAdventure.photos.length > 0) {
@@ -84,12 +91,11 @@ const AdminCreateAdventure = (setIsModalOpen) => {
     }
 
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/admin/adventures`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/admin/adventures`, {
         ...newAdventure,
         photos: photoUrls,
       });
       alert('Adventure created successfully!');
-      // Clear form fields and previews
       setNewAdventure({
         title: '',
         description: '',
@@ -104,82 +110,93 @@ const AdminCreateAdventure = (setIsModalOpen) => {
       setIsModalOpen(false);
     } catch (error) {
       console.error('Error posting new adventure:', error);
+      setError('Failed to create adventure. Please try again.');
     }
   };
 
   return (
-    <div>
-      <h1>Create New Adventure</h1>
-      <input
-        type="text"
-        name="title"
-        placeholder="Title"
-        value={newAdventure.title}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="description"
-        placeholder="Description"
-        value={newAdventure.description}
-        onChange={handleInputChange}
-      />
-      <input
-        type="number"
-        name="price"
-        placeholder="Price"
-        value={newAdventure.price}
-        onChange={handleInputChange}
-      />
-      <input
-        type="number"
-        name="duration"
-        placeholder="Duration (in days)"
-        value={newAdventure.duration}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="activityType"
-        placeholder="Activity Type"
-        value={newAdventure.activityType}
-        onChange={handleInputChange}
-      />
-      <select
-        name="difficulty"
-        value={newAdventure.difficulty}
-        onChange={handleInputChange}
-      >
-        <option value="Easy">Easy</option>
-        <option value="Moderate">Moderate</option>
-        <option value="Challenging">Challenging</option>
-      </select>
-      <select
-        name="provider"
-        value={newAdventure.provider}
-        onChange={handleInputChange}
-        placeholder="Select Provider"
-      >
-        <option value="">Select Provider</option>
-        {providers.map((provider) => (
-          <option key={provider._id} value={provider._id}>
-            {provider.name}
-          </option>
-        ))}
-      </select>
-      <input
-        type="file"
-        multiple
-        onChange={handlePhotoUpload}
-      />
-      {photoPreviews.length > 0 && (
-        <div className="photo-previews">
-          {photoPreviews.map((preview, index) => (
-            <img key={index} src={preview} alt={`Preview ${index + 1}`} style={{ width: '100px', height: 'auto', marginRight: '10px' }} />
+    <div className="modal-overlay">
+      <div className="modal">
+        <h2>Create New Adventure</h2>
+        {error && <p className="error-message">{error}</p>}
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={newAdventure.title}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={newAdventure.description}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={newAdventure.price}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+        <input
+          type="number"
+          name="duration"
+          placeholder="Duration (in days)"
+          value={newAdventure.duration}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+        <input
+          type="text"
+          name="activityType"
+          placeholder="Activity Type"
+          value={newAdventure.activityType}
+          onChange={handleInputChange}
+          className="modal-input"
+        />
+        <select
+          name="difficulty"
+          value={newAdventure.difficulty}
+          onChange={handleInputChange}
+          className="modal-select"
+        >
+          <option value="Easy">Easy</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Challenging">Challenging</option>
+        </select>
+        <select
+          name="provider"
+          value={newAdventure.provider}
+          onChange={handleInputChange}
+          className="modal-select"
+        >
+          <option value="">Select Provider</option>
+          {providers.map(provider => (
+            <option key={provider._id} value={provider._id}>
+              {provider.name}
+            </option>
           ))}
-        </div>
-      )}
-      <button onClick={postAdventure}>Create Adventure</button>
+        </select>
+        <input
+          type="file"
+          multiple
+          onChange={handlePhotoUpload}
+          className="modal-file-input"
+        />
+        {photoPreviews.length > 0 && (
+          <div className="photo-previews">
+            {photoPreviews.map((preview, index) => (
+              <img key={index} src={preview} alt={`Preview ${index + 1}`} className="photo-preview" />
+            ))}
+          </div>
+        )}
+        <button onClick={postAdventure} className="modal-submit-button">Create Adventure</button>
+        <button onClick={() => setIsModalOpen(false)} className="modal-cancel-button">Cancel</button>
+      </div>
     </div>
   );
 };

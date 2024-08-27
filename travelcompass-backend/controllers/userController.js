@@ -58,6 +58,26 @@ const saveAdventure = async (req, res) => {
   }
 };
 
+const unsaveAdventure = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    const adventure = await Adventure.findById(req.params.id);
+
+    if (!adventure) {
+      return res.status(404).json({ message: 'Adventure not found' });
+    }
+
+    if (user.savedAdventures.includes(adventure.id)) {
+      user.savedAdventures = user.savedAdventures.filter((id) => id !== adventure.id);
+      await user.save();
+    }
+
+    res.status(200).json(user.savedAdventures);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const favoriteAdventures = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate('savedAdventures');
@@ -101,4 +121,4 @@ const closeAccount = async (req, res) => {
   }
 };
 
-module.exports = { getUserProfile, updateUserProfile, saveAdventure,  favoriteAdventures, getBookingHistory, closeAccount };
+module.exports = { getUserProfile, updateUserProfile, saveAdventure, unsaveAdventure,  favoriteAdventures, getBookingHistory, closeAccount };

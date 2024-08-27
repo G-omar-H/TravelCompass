@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/EditAdventure.css'; // Import the CSS file
 
 const EditAdventure = () => {
   const { id } = useParams(); // Get the adventure ID from the URL
@@ -72,7 +73,7 @@ const EditAdventure = () => {
   const updateAdventure = async () => {
     let photoUrls = [];
 
-    if (adventure.photos.length > 0) {
+    if (adventure.photos && adventure.photos.length > 0) {
       photoUrls = await uploadPhotosToCloudinary(adventure.photos);
     }
 
@@ -92,7 +93,7 @@ const EditAdventure = () => {
   if (!adventure) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className="edit-adventure-container">
       <h2>Edit Adventure</h2>
       <input
         type="text"
@@ -100,6 +101,7 @@ const EditAdventure = () => {
         placeholder="Title"
         value={adventure.title}
         onChange={handleInputChange}
+        className="edit-input"
       />
       <input
         type="text"
@@ -107,6 +109,7 @@ const EditAdventure = () => {
         placeholder="Description"
         value={adventure.description}
         onChange={handleInputChange}
+        className="edit-input"
       />
       <input
         type="number"
@@ -114,6 +117,7 @@ const EditAdventure = () => {
         placeholder="Price"
         value={adventure.price}
         onChange={handleInputChange}
+        className="edit-input"
       />
       <input
         type="number"
@@ -121,6 +125,7 @@ const EditAdventure = () => {
         placeholder="Duration (in days)"
         value={adventure.duration}
         onChange={handleInputChange}
+        className="edit-input"
       />
       <input
         type="text"
@@ -128,29 +133,36 @@ const EditAdventure = () => {
         placeholder="Activity Type"
         value={adventure.activityType}
         onChange={handleInputChange}
+        className="edit-input"
       />
 
       <select
         name="difficulty"
         value={adventure.difficulty}
         onChange={handleInputChange}
+        className="edit-select"
       >
         <option value="Easy">Easy</option>
         <option value="Moderate">Moderate</option>
         <option value="Challenging">Challenging</option>
       </select>
 
-      <input type="file" multiple onChange={handlePhotoUpload} />
+      <input
+        type="file"
+        multiple
+        onChange={handlePhotoUpload}
+        className="edit-file-input"
+      />
 
       {photoPreviews.length > 0 && (
         <div className="photo-previews">
           {photoPreviews.map((preview, index) => (
-            <img key={index} src={preview} alt={`Preview ${index + 1}`} style={{ width: '100px', height: 'auto', marginRight: '10px' }} />
+            <img key={index} src={preview} alt={`Preview ${index + 1}`} className="photo-preview" />
           ))}
         </div>
       )}
 
-      <button onClick={updateAdventure}>Update Adventure</button>
+      <button onClick={updateAdventure} className="update-button">Update Adventure</button>
     </div>
   );
 };

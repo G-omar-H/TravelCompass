@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/ProviderProfile.css';  // Import the CSS file
 
-const ProviderProfile= () => {
+const ProviderProfile = () => {
   const [providerData, setProviderData] = useState({ name: '', description: '', contactEmail: '', contactPhone: '' });
   const [logo, setLogo] = useState(null);
   const navigate = useNavigate();
@@ -15,8 +16,6 @@ const ProviderProfile= () => {
   const handleLogoUpload = (e) => {
     setLogo(e.target.files[0]);
   };
-
-  
 
   const uploadLogoToCloudinary = async (file) => {
     const formData = new FormData();
@@ -57,7 +56,7 @@ const ProviderProfile= () => {
     const providerDataWithLogo = { ...providerData, logo: logoUrl };
 
     try {
-      const provider =  await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerDataWithLogo, {
+      const provider = await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerDataWithLogo, {
         headers: {
           'Content-Type': 'application/json',
         }
@@ -70,30 +69,57 @@ const ProviderProfile= () => {
   };
 
   return (
-    <div>
+    <div className="provider-profile-container">
       <h1>Provider Profile</h1>
-      <form onSubmit={submitProviderData}>
-        <div>
+      <form onSubmit={submitProviderData} className="provider-form">
+        <div className="form-group">
           <label>Name:</label>
-          <input type="text" name="name" value={providerData.name} onChange={handleInputChange} />
+          <input 
+            type="text" 
+            name="name" 
+            value={providerData.name} 
+            onChange={handleInputChange} 
+            className="form-input"
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label>Description:</label>
-          <textarea name="description" value={providerData.description} onChange={handleInputChange}></textarea>
+          <textarea 
+            name="description" 
+            value={providerData.description} 
+            onChange={handleInputChange} 
+            className="form-textarea"
+          ></textarea>
         </div>
-        <div>
+        <div className="form-group">
           <label>Contact Email:</label>
-          <input type="email" name="contactEmail" value={providerData.contactEmail} onChange={handleInputChange} />
+          <input 
+            type="email" 
+            name="contactEmail" 
+            value={providerData.contactEmail} 
+            onChange={handleInputChange} 
+            className="form-input"
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label>Contact Phone:</label>
-          <input type="text" name="contactPhone" value={providerData.contactPhone} onChange={handleInputChange} />
+          <input 
+            type="text" 
+            name="contactPhone" 
+            value={providerData.contactPhone} 
+            onChange={handleInputChange} 
+            className="form-input"
+          />
         </div>
-        <div>
+        <div className="form-group">
           <label>Logo:</label>
-          <input type="file" onChange={handleLogoUpload} />
+          <input 
+            type="file" 
+            onChange={handleLogoUpload} 
+            className="file-input"
+          />
         </div>
-        <button type="submit">Save</button>
+        <button type="submit" className="submit-button">Save</button>
       </form>
     </div>
   );

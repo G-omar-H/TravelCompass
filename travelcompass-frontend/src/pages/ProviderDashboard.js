@@ -1,6 +1,8 @@
+// TRAVELCOMPASS-FRONTEND/src/pages/ProviderDashboard.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/ProviderDashboard.css';  // Import the CSS file
 
 const ProviderDashboard = () => {
   const { id } = useParams();
@@ -59,7 +61,6 @@ const ProviderDashboard = () => {
     const previews = files.map(file => URL.createObjectURL(file));
     setPhotoPreviews((prevPreviews) => [...prevPreviews, ...previews]);
   };
-  
 
   const uploadPhotosToCloudinary = async (files) => {
     const uploadedUrls = [];
@@ -133,89 +134,98 @@ const ProviderDashboard = () => {
   };
 
   return (
-    <div>
-      <h1>{provider.name}</h1>
-      <p>{provider.description}</p>
-      <img src={provider.logo} alt={provider.name} />
-      <p>Contact: {provider.contactEmail} | {provider.contactPhone}</p>
+    <div className="provider-dashboard-container">
+      <img src={provider.logo} alt={provider.name} className="provider-logo" />
+      <h1 className="provider-name">{provider.name}</h1>
+      <p className="provider-description">{provider.description}</p>
+      <p className="provider-contact">Contact: {provider.contactEmail} | {provider.contactPhone}</p>
       
       <h2>Adventures Offered</h2>
-      <ul>
+      <ul className="adventure-list">
         {adventures.map((adventure) => (
-          <li key={adventure._id}>
-            <Link to={`/adventures/edit/${adventure._id}`}>{adventure.title}</Link>
-            <button onClick={() => deleteAdventure(adventure._id)}>Delete</button>
+          <li key={adventure._id} className="adventure-item">
+            <Link to={`/adventures/edit/${adventure._id}`} className="adventure-link">{adventure.title}</Link>
+            <button onClick={() => deleteAdventure(adventure._id)} className="delete-button">Delete</button>
           </li>
         ))}
       </ul>
       
-      <button onClick={() => setIsModalOpen(true)}>Post New Adventure</button>
+      <button onClick={() => setIsModalOpen(true)} className="post-adventure-button">Post New Adventure</button>
 
       {isModalOpen && (
-        <div className="modal">
-          <h2>Post a New Adventure</h2>
-          <input
-            type="text"
-            name="title"
-            placeholder="Title"
-            value={newAdventure.title}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="description"
-            placeholder="Description"
-            value={newAdventure.description}
-            onChange={handleInputChange}
-          />
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            value={newAdventure.price}
-            onChange={handleInputChange}
-          />
-          <input
-            type="number"
-            name="duration"
-            placeholder="Duration (in days)"
-            value={newAdventure.duration}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="activityType"
-            placeholder="Activity Type"
-            value={newAdventure.activityType}
-            onChange={handleInputChange}
-          />
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Post a New Adventure</h2>
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              value={newAdventure.title}
+              onChange={handleInputChange}
+              className="modal-input"
+            />
+            <input
+              type="text"
+              name="description"
+              placeholder="Description"
+              value={newAdventure.description}
+              onChange={handleInputChange}
+              className="modal-input"
+            />
+            <input
+              type="number"
+              name="price"
+              placeholder="Price"
+              value={newAdventure.price}
+              onChange={handleInputChange}
+              className="modal-input"
+            />
+            <input
+              type="number"
+              name="duration"
+              placeholder="Duration (in days)"
+              value={newAdventure.duration}
+              onChange={handleInputChange}
+              className="modal-input"
+            />
+            <input
+              type="text"
+              name="activityType"
+              placeholder="Activity Type"
+              value={newAdventure.activityType}
+              onChange={handleInputChange}
+              className="modal-input"
+            />
 
-          <select
-            name="difficulty"
-            value={newAdventure.difficulty}
-            onChange={handleInputChange}
-          >
-            <option value="Easy">Easy</option>
-            <option value="Moderate">Moderate</option>
-            <option value="Challenging">Challenging</option>
-          </select>
+            <select
+              name="difficulty"
+              value={newAdventure.difficulty}
+              onChange={handleInputChange}
+              className="modal-select"
+            >
+              <option value="Easy">Easy</option>
+              <option value="Moderate">Moderate</option>
+              <option value="Challenging">Challenging</option>
+            </select>
 
-          <input
-            type="file"
-            multiple
-            onChange={handlePhotoUpload}
-          />
+            <input
+              type="file"
+              multiple
+              onChange={handlePhotoUpload}
+              className="modal-file-input"
+            />
 
-          {photoPreviews.length > 0 && (
-            <div className="photo-previews">
-              {photoPreviews.map((preview, index) => (
-                <img key={index} src={preview} alt={`Preview ${index + 1}`} style={{ width: '100px', height: 'auto', marginRight: '10px' }} />
-              ))}
-            </div>
-          )}
+            {photoPreviews.length > 0 && (
+              <div className="photo-previews">
+                {photoPreviews.map((preview, index) => (
+                  <img key={index} src={preview} alt={`Preview ${index + 1}`} className="photo-preview" />
+                ))}
+              </div>
+            )}
 
-          <button onClick={postProviderAdventure}>Submit</button>
-          <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+            <button onClick={postProviderAdventure} className="modal-submit-button">Submit</button>
+            <button onClick={() => setIsModalOpen(false)} className="modal-cancel-button">Cancel</button>
+          </div>
         </div>
       )}
     </div>

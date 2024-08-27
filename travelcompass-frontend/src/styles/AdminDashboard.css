@@ -1,0 +1,48 @@
+/* AdminDashboard.css */
+
+.admin-dashboard {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .admin-section {
+    margin-bottom: 20px;
+  }
+  
+  .admin-section h2 {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .admin-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .admin-item button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .admin-item button:hover {
+    background-color: darkred;
+  }
+  
+  .create-adventure-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .create-adventure-button:hover {
+    background-color: #45a049;
+  }
+  

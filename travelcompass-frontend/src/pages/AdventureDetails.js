@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PaymentForm from '../components/PaymentForm';
+import FavoriteButton from '../components/FavoriteButton';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
@@ -58,6 +59,7 @@ const AdventureDetails = () => {
   return (
     <div className="adventure-details">
       <h1>{adventure.title}</h1>
+      <FavoriteButton adventureId={adventure._id} />
       <div className="adventure-content">
         {adventure.photos && adventure.photos.length > 0 && (
           <div className="photo-gallery">
