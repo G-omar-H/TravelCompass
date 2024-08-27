@@ -1,4 +1,3 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/ProviderDashboard.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -14,11 +13,16 @@ const ProviderDashboard = () => {
     duration: '',
     difficulty: 'Easy',
     activityType: '',
-    photos: [],
+    photos: [], // Array to hold photo file objects
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [photoPreviews, setPhotoPreviews] = useState([]);
 
   useEffect(() => {
+
+    // Clean up preview URLs
+    photoPreviews.forEach(preview => URL.revokeObjectURL(preview));
+
     const fetchProviderDetails = async () => {
       try {
         const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/providers/${id}`);
@@ -44,10 +48,18 @@ const ProviderDashboard = () => {
   const handleInputChange = (e) => {
     setNewAdventure({ ...newAdventure, [e.target.name]: e.target.value });
   };
+
   const handlePhotoUpload = (e) => {
     const files = Array.from(e.target.files);
-    setNewAdventure({ ...newAdventure, photos: files });
+    setNewAdventure((prevAdventure) => ({
+      ...prevAdventure,
+      photos: [...prevAdventure.photos, ...files],
+    }));
+
+    const previews = files.map(file => URL.createObjectURL(file));
+    setPhotoPreviews((prevPreviews) => [...prevPreviews, ...previews]);
   };
+  
 
   const uploadPhotosToCloudinary = async (files) => {
     const uploadedUrls = [];
@@ -96,6 +108,16 @@ const ProviderDashboard = () => {
       });
       setAdventures([...adventures, data]);
       setIsModalOpen(false);
+      setNewAdventure({
+        title: '',
+        description: '',
+        price: '',
+        duration: '',
+        difficulty: 'Easy',
+        activityType: '',
+        photos: [],
+      });
+      setPhotoPreviews([]);
     } catch (error) {
       console.error('Error posting new adventure:', error);
     }
@@ -121,7 +143,7 @@ const ProviderDashboard = () => {
       <ul>
         {adventures.map((adventure) => (
           <li key={adventure._id}>
-            <Link to={`/adventures/${adventure._id}`}>{adventure.title}</Link>
+            <Link to={`/adventures/edit/${adventure._id}`}>{adventure.title}</Link>
             <button onClick={() => deleteAdventure(adventure._id)}>Delete</button>
           </li>
         ))}
@@ -183,6 +205,14 @@ const ProviderDashboard = () => {
             multiple
             onChange={handlePhotoUpload}
           />
+
+          {photoPreviews.length > 0 && (
+            <div className="photo-previews">
+              {photoPreviews.map((preview, index) => (
+                <img key={index} src={preview} alt={`Preview ${index + 1}`} style={{ width: '100px', height: 'auto', marginRight: '10px' }} />
+              ))}
+            </div>
+          )}
 
           <button onClick={postProviderAdventure}>Submit</button>
           <button onClick={() => setIsModalOpen(false)}>Cancel</button>

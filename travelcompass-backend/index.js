@@ -10,13 +10,28 @@ const paymentRoutes = require('./routes/paymentRoutes');
 const providerRoutes = require('./routes/providerRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const helmet = require('helmet');
 const { handleStripeWebhook } = require('./controllers/paymentController');
 
 
 dotenv.config();
 
+
 const app = express();
 app.use(cors());
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://js.stripe.com"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      connectSrc: ["'self'", "https://api.stripe.com", "https://m.stripe.com"],
+      imgSrc: ["'self'", "data:"],
+      frameSrc: ["'self'", "https://js.stripe.com"],
+    },
+  })
+);
 
 app.use('/api/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook);
 
@@ -29,6 +44,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/providers', providerRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/admin', adminRoutes);
+
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => {

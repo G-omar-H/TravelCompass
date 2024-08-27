@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProviderProfile from './pages/ProviderProfile';
 import ProviderDashboard from './pages/ProviderDashboard';
+import EditAdventure from './components/EditAdventure';
 import AdventureList from './pages/AdventureList';
 import AdventureDetails from './pages/AdventureDetails';
 import Navbar from './components/NavBar';
@@ -32,6 +33,7 @@ function App() {
           <Route path="/find-services" element={<AdventureList />} />
           <Route path="/become-provider" element={<ProviderProfile />} />
           <Route path="/provider-dashboard/:id" element={<ProviderDashboard />} />
+          <Route path="/adventures/edit/:id" element={<EditAdventure />} />
           <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
           <Route path="/adventures" element={<AdventureList />} />
           <Route path="/adventure/:id" element={<AdventureDetails />} />
