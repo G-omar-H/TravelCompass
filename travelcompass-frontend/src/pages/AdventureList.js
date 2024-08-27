@@ -1,4 +1,3 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/AdventureList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchFilter from '../components/SearchFilter';
@@ -29,7 +28,20 @@ const AdventureList = () => {
             <img src={adventure.photos[0]} alt={adventure.title} />
             <h2>{adventure.title}</h2>
             <p>{adventure.description.substring(0, 100)}...</p>
+            <p>Activity Type: {adventure.activityType}</p>
             <p>Price: ${adventure.price}</p>
+            <p>
+              Location: 
+              <a 
+                href={`https://www.google.com/maps/search/?api=1&query=${adventure.location?.coordinates.join(',')}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                View on Map
+              </a>
+            </p>
+            <p>Difficulty: {adventure.difficulty}</p>
+            <p>Available Slots: {adventure.availability?.reduce((total, slot) => total + slot.slotsAvailable, 0)}</p>
             <a href={`/adventure/${adventure._id}`}>View Details</a>
           </div>
         ))}
