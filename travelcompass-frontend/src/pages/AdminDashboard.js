@@ -1,14 +1,17 @@
+// TRAVELCOMPASS-FRONTEND/src/pages/AdminDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import AdminCreateAdventure from '../components/AdminCreateAdventure';
 
-// TRAVELCOMPASS-FRONTEND/src/pages/AdminDashboard.js
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [adventures, setAdventures] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [providers, setProviders] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -133,7 +136,7 @@ const AdminDashboard = () => {
         <ul>
           {bookings.map((booking) => (
             <li key={booking._id}>
-              {booking.user.name} - {booking.adventure.title}
+              {booking.user.name} - {booking.adventure.title} - {booking.date}
             </li>
           ))}
         </ul>
@@ -150,7 +153,12 @@ const AdminDashboard = () => {
         </ul>
       </section>
 
-      <Link to="/create-adventure">Create Adventure</Link>
+      <button onClick={() => setIsModalOpen(true)}>Create Adventure</button>
+      {isModalOpen && (
+        <AdminCreateAdventure
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </div>
   );
 };

@@ -37,6 +37,7 @@ const createBooking = async (req, res) => {
     await booking.save();
     if (!user.bookingHistory.includes(adventureId)) {
       user.bookingHistory.push(adventureId);
+      await user.save();
     }
 
     res.status(201).json(booking);

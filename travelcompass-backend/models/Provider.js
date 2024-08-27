@@ -27,6 +27,12 @@ const ProviderSchema = new mongoose.Schema({
       ref: 'Adventure'
     }]
   }],
+
+  bookingHistory: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Booking',
+  }],
+
   createdAt: {
     type: Date,
     default: Date.now,

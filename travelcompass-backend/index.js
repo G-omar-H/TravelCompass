@@ -1,4 +1,4 @@
-// ./index.js
+// TRAVELCOMPASS-BACKEND/index.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -20,18 +20,9 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://js.stripe.com"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      connectSrc: ["'self'", "https://api.stripe.com", "https://m.stripe.com"],
-      imgSrc: ["'self'", "data:"],
-      frameSrc: ["'self'", "https://js.stripe.com"],
-    },
-  })
-);
+app.use(helmet());
+
+
 
 app.use('/api/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook);
 

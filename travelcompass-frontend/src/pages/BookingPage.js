@@ -38,7 +38,7 @@ const BookingPage = () => {
       const paymentIntent = await axios.post(`${process.env.REACT_APP_API_URL}/bookings/payment-intent`, {
         bookingId: data._id,
       });
-  
+      alert('Client Secret:', paymentIntent.data.clientSecret);
       setClientSecret(paymentIntent.data.clientSecret);
     } catch (error) {
       console.error('Error creating booking:', error);
@@ -54,7 +54,7 @@ const BookingPage = () => {
 
       {clientSecret ? (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm />
+          <CheckoutForm clientSecret={clientSecret}/>
         </Elements>
       ) : (
         <button onClick={handleBooking}>Book Now</button>

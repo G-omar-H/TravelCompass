@@ -12,6 +12,7 @@ import ProviderDashboard from './pages/ProviderDashboard';
 import EditAdventure from './components/EditAdventure';
 import AdventureList from './pages/AdventureList';
 import AdventureDetails from './pages/AdventureDetails';
+import AdminDashboard from './pages/AdminDashboard';
 import Navbar from './components/NavBar';
 import { Navigate } from 'react-router-dom';
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
           <Route path="/adventures" element={<AdventureList />} />
           <Route path="/adventure/:id" element={<AdventureDetails />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Routes>
 
         <footer>

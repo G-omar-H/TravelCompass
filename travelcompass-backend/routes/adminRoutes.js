@@ -10,6 +10,7 @@ const {
   updateAdventure,
   deleteAdventure,
   getAllBookings,
+  deleteBooking,
   getAllProviders,
   deleteProvider,
   makeAdmin,
@@ -29,6 +30,7 @@ router.route('/adventures/:id')
 
 // Booking management routes
 router.route('/bookings').get(protect, admin, getAllBookings);
+router.route('/bookings/:id').delete(protect, admin, deleteBooking);
 
 // Provider management routes
 router.route('/providers').get(protect, admin, getAllProviders);

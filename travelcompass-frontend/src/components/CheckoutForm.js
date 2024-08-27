@@ -2,7 +2,7 @@
 import React from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -19,7 +19,7 @@ const CheckoutForm = () => {
           },
         },
       });
-    
+
       if (error) {
         throw new Error(error.message);
       } else {

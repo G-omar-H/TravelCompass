@@ -80,6 +80,10 @@ const deleteAdventure = async (req, res) => {
     provider.adventures = provider.adventures.filter((id) => id !== req.params.id);
     await provider.save();
 
+    const user = await User.findOne({ provider: provider._id });
+    user.savedAdventures = user.savedAdventures.filter((id) => id !== req.params.id);
+    await user.save();
+
     await Adventure.findByIdAndDelete(req.params.id);
 
     res.status(200).json({ message: 'Adventure deleted successfully' });
@@ -93,6 +97,31 @@ const getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({}).populate('user adventure provider');
     res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deleteBooking = async (req, res) => {
+  try {
+    await Booking.findById(req.params.id);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    };
+    const user = await User.findById(booking.user);
+    user.bookingHistory = user.bookingHistory.filter((id) => id !== req.params.id);
+    await user.save();
+
+    const provider = await Provider.findById(booking.provider);
+    provider.bookings = provider.bookings.filter((id) => id !== req.params.id);
+    await provider.save();
+
+    const adventure = await Adventure.findById(booking.adventure);
+    adventure.bookings = adventure.bookings.filter((id) => id !== req.params.id);
+    await adventure.save();
+    
+    await Booking.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Booking deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -153,6 +182,7 @@ module.exports = {
   updateAdventure,
   deleteAdventure,
   getAllBookings,
+  deleteBooking,
   getAllProviders,
   deleteProvider,
   makeAdmin,

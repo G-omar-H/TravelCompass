@@ -29,6 +29,7 @@ const PaymentForm = ({ adventureId, quantity, date}) => {
       });
   
       const clientSecret = data.clientSecret;
+      console.log('Client secret:', clientSecret);
   
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
