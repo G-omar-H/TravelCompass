@@ -28,9 +28,9 @@ const PaymentForm = ({ adventureId, quantity, date}) => {
 
       });
 
-      const { data: clientSecret } = await axios.post(`${process.env.REACT_APP_API_URL}/payments/create-payment-intent`, { bookingId: data._id });
+      const { data: paymentIntent } = await axios.post(`${process.env.REACT_APP_API_URL}/payments/create-payment-intent`, { bookingId: data._id });
 
-
+      const clientSecret = paymentIntent.clientSecret;
   
       console.log('Client secret:', clientSecret);
   

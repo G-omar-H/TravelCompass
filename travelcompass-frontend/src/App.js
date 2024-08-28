@@ -1,5 +1,5 @@
 // TRAVELCOMPASS-FRONTEND/src/App.js
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import {  AuthContext } from './contexts/AuthContext';
 import HomePage from './pages/HomePage';
@@ -23,6 +23,7 @@ const PrivateRoute = ({ element, ...rest }) => {
 };
 
 function App() {
+
   return (
     <Router>
       <div className="container">
