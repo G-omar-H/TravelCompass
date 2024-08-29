@@ -1,74 +1,114 @@
-/* SearchFilter.css */
-
-:root {
-  --primary-color: #f28a8a; /* Light Red */
-  --secondary-color: #4caf50; /* Green */
-  --background-color: #f7f7f7; /* Light Gray */
-  --text-color: #333333; /* Dark Gray */
-  --input-background: #ffffff; /* White */
-  --border-color: #e0e0e0; /* Light Border */
-}
-
-form {
+/* Search Filter Styles */
+.search-filter {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  background-color: var(--background-color);
+  flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: -130px;
+  margin-bottom: 33px;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"],
-input[type="number"],
-select {
-  flex: 1;
-  min-width: 150px;
+.search-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative; /* Added for dropdown positioning */
+   border: 1px solid #ddd; /* Add a subtle border to each field */
+  border-radius: 4px;
+}
+
+.search-icon {
+  margin-right: 10px;
+  color: #4CAF50; /* Green for consistency */
+  padding: 10px; /* Add padding around the icon */
+  background-color: #f0f0f0; /* Light gray background for icon */
+}
+
+.magnet {
+  background-color: transparent;
+  padding: 0px; /* Add padding around the icon */
+
+}
+
+.search-field input {
+  border: 1px solid #ddd;
   padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  background-color: var(--input-background);
-  color: var(--text-color);
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+  border-radius: 4px;
+  width: 100%;
+  border: none; /* Remove the input's border */
+  outline: none; /* Remove default focus outline */
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-select:focus {
-  border-color: var(--primary-color);
-  outline: none;
+search-field input:focus {
+  box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2); /* Subtle red glow on focus */
 }
 
-button {
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: white;
+.search-button {
+  background: linear-gradient(45deg, #E53935, #FF7043); /* Gradient background */
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
+  padding: 12px 25px; /* Slightly larger button */
+  border-radius: 25px; /* Rounded corners for a modern look */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  font-weight: bold; /* Add some weight to the text */
+  text-transform: uppercase; /* Optional: Make text uppercase for emphasis */
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Add a subtle transform transition */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
 }
 
-button:hover {
-  background-color: var(--secondary-color);
+.search-button:hover {
+  background: linear-gradient(45deg, #c62828, #d84315); /* Darker gradient on hover */
+  transform: scale(1.05); /* Subtle scale on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
 }
 
-.error-message {
-  color: red;
-  margin-top: 10px;
-  font-size: 0.9rem;
+.search-button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.4); /* Focus outline for accessibility */
+}
+
+.search-button-icon {
+  margin-right: 8px; /* Adjust spacing between icon and text */
+}
+
+/* Dropdown Menu Styles */
+.people-picker-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.people-picker-dropdown div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.people-picker-dropdown label {
+  font-weight: bold;
+  color: #333;
+}
+
+.people-picker-dropdown input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   text-align: center;
-}
-
-@media (max-width: 768px) {
-  form {
-    flex-direction: column;
-  }
-
-  button {
-    width: 100%;
-  }
 }

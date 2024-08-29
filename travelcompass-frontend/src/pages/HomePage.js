@@ -1,26 +1,24 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import AdventureList from './AdventureList';
-import {AuthContext} from "../contexts/AuthContext";
+import React from 'react';
+import SearchFilter from '../components/SearchFilter';
+import AdventureList from '../pages/AdventureList';
 import "../styles/HomePage.css";
 
 const HomePage = () => {
-  const { user } = useContext(AuthContext);
-    function getProviderLink() {
-      return user ? "/become-provider" : "/login";
-    }
-
-    return (
-    <div className="home-page">
-      <h1>Welcome to Travel Compass!</h1>
-      <p>Find your next adventure or offer your services to travelers.</p>
-      <div className="cta-buttons">
-        <Link to="/find-services" className="cta-button">Find Services</Link>
-        {(user && user.roles && user.roles.includes("provider")) ? (
-          <Link to={`/provider-dashboard/${user.provider}`} className="cta-button">Provider Dashboard</Link>
-        ) : (
-          <Link to={getProviderLink()} className="cta-button">Become a Provider</Link>
-        )}
+  
+  return (
+    <div className="home-page container">
+      {/* Hero Section */}
+      <div className="hero-section">
+        <div className="hero-text">
+          <h1>Embark on Your Next Adventure</h1>
+          <p>Discover unforgettable experiences around the globe.</p>
+        </div>
+        <div className="search-filter-container">
+        </div>
+      </div>
+      {/* Featured Adventures Section */}
+      <div className="featured-adventures">
+        <AdventureList />
       </div>
     </div>
   );

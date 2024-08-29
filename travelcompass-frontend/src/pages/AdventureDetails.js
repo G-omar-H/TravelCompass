@@ -1,4 +1,3 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/AdventureDetails.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import PaymentForm from '../components/PaymentForm';
@@ -42,6 +41,14 @@ const AdventureDetails = () => {
       console.error('Error fetching reviews:', error);
     }
   };
+  const calculateAverageRating = (reviews) => {
+    if (reviews.length === 0) return 0;
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating,  
+   0);
+    return (totalRating  
+   / reviews.length).toFixed(1); 
+  };
+
 
   useEffect(() => {
     fetchAdventureDetails();
@@ -58,9 +65,18 @@ const AdventureDetails = () => {
 
   return (
     <div className="adventure-details">
-      <h1>{adventure.title}</h1>
-      <FavoriteButton adventureId={adventure._id} />
-      <div className="adventure-content">
+      <header className="header">
+        <div className="header-content">
+          <h1>{adventure.title}</h1>
+          <div className="header-subinfo">
+            <span className="location">{adventure.location}</span> 
+            <span className="rating">{'★'.repeat(calculateAverageRating(reviews))} ({reviews.length} reviews)</span> 
+          </div>
+          <FavoriteButton adventureId={adventure._id} /> 
+        </div>
+      </header>
+
+      <section className="hero">
         {adventure.photos && adventure.photos.length > 0 && (
           <div className="photo-gallery">
             {adventure.photos.map((photo, index) => (
@@ -68,68 +84,118 @@ const AdventureDetails = () => {
             ))}
           </div>
         )}
-        <p>{adventure.description}</p>
-        <p>Price: ${adventure.price}</p>
-        <p>Itinerary: {adventure.itinerary}</p>
-        <p>Location: {adventure.location}</p>
-        <p>Difficulty: {adventure.difficulty}</p>
-        <p>Duration: {adventure.duration} days</p>
+      </section>
 
-        <label htmlFor="quantity">Quantity:</label>
-        <input
-          id="quantity"
-          type="number"
-          min="1"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-        />
+      <section className="overview">
+        <div className="overview-grid">
+          <div className="info">
+          <h2>About this Adventure</h2> {/* More descriptive header */}
+            <p>{adventure.description}</p>
+            <p><strong>Activity Type:</strong> {adventure.activityType}</p>
+            <p><strong>Difficulty:</strong> {adventure.difficulty}</p>
+            <p><strong>Duration:</strong> {adventure.duration} days</p>
+            <p><strong>Max Group Size:</strong> {adventure.maxGroupSize}</p> {/* Display max group size */}
 
-        <label htmlFor="bookingDate">Booking Date:</label>
-        <input
-          id="bookingDate"
-          type="date"
-          value={bookingDate}
-          onChange={(e) => setBookingDate(e.target.value)}
-        />
+            <h3>Itinerary</h3>
+            {/* Display the itinerary in a more visually appealing way */}
+            {adventure.itinerary && (
+              <ul className="itinerary">
+                {adventure.itinerary.map((day, index) => (
+                  <li key={index}>
+                    <h4>Day {day.day}</h4>
+                    <p>{day.description}</p>
+                    <ul className="activities">
+                      {day.activities.map((activity, idx) => (
+                        <li key={idx}>{activity}</li>
+                      ))}
+                    </ul>
+                    <p><strong>Meals:</strong> {day.meals.join(', ')}</p>
+                    <p><strong>Accommodation:</strong> {day.accommodation}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
 
-        <Elements stripe={stripePromise}>
-          <PaymentForm adventureId={id} quantity={quantity} date={bookingDate} />
-        </Elements>
+            {/* Display availability dates */}
+            <h3>Availability</h3>
+            {adventure.availability && (
+              <ul>
+                {adventure.availability.map((slot, index) => (
+                  <li key={index}>
+                    <strong>{new Date(slot.startDate).toLocaleDateString()} - {new Date(slot.endDate).toLocaleDateString()}</strong>
+                    : {slot.slotsAvailable} spots available
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
-        <div className="reviews">
-          <h2>Reviews</h2>
-          {reviews.map((review) => (
+          <div className="booking">
+          <h2>Book Your Adventure</h2>
+            <div className="booking-form">
+              <p><strong>Price:</strong> ${adventure.price} per person</p>
+              <label htmlFor="quantity">Quantity:</label>
+              <input
+                id="quantity"
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+
+              <label htmlFor="bookingDate">Booking Date:</label>
+              <input
+                id="bookingDate"
+                type="date"
+                value={bookingDate}
+                onChange={(e) => setBookingDate(e.target.value)}
+              />
+
+              <Elements stripe={stripePromise}>
+                <PaymentForm adventureId={id} quantity={quantity} date={bookingDate} />
+              </Elements>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="reviews">
+        <h2>Reviews</h2>
+        {reviews.length === 0 ? (
+          <p>No reviews yet. Be the first to leave a review!</p>
+        ) : (
+          reviews.map((review) => (
             <div className="review" key={review._id}>
               <strong>{review.user.name}</strong>
               <span>{'★'.repeat(review.rating)}</span>
               <p>{review.comment}</p>
             </div>
-          ))}
-        </div>
+          ))
+        )}
+      </section>
 
-        <div className="leave-review">
-          <h3>Leave a Review</h3>
-          <form onSubmit={submitReview}>
-            <div>
-              <label>Rating:</label>
-              <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
-                {[1, 2, 3, 4, 5].map((value) => (
-                  <option key={value} value={value}>
-                    {value} Star{value > 1 && 's'}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label>Comment:</label>
-              <textarea value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-            </div>
-            <button type="submit">Submit Review</button>
-          </form>
-        </div>
-      </div>
+      <section className="leave-review">
+        <h3>Leave a Review</h3>
+        <form onSubmit={submitReview}>
+          <div className="form-group">
+            <label>Rating:</label>
+            <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+              {[1, 2, 3, 4, 5].map((value) => (
+                <option key={value} value={value}>
+                  {value} Star{value > 1 && 's'}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Comment:</label>
+            <textarea value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+          </div>
+          <button type="submit">Submit Review</button>
+        </form>
+      </section>
     </div>
   );
-};
+  };
 
 export default AdventureDetails;

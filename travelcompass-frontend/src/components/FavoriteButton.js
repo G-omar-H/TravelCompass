@@ -1,4 +1,3 @@
-// TRAVELCOMPASS-FRONTEND/src/components/FavoriteButton.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,7 +5,7 @@ import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import '../styles/FavoriteButton.css'; // Import the CSS file for styling
 
-const FavoriteButton = ({ adventureId }) => {
+const FavoriteButton = ({ adventureId, className }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -42,13 +41,14 @@ const FavoriteButton = ({ adventureId }) => {
   return (
     <button
       onClick={handleToggleFavorite}
-      className="favorite-button"
+      className={`favorite-button ${className}`}
       aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
       disabled={loading}
     >
       <FontAwesomeIcon
         icon={isFavorite ? faHeartSolid : faHeartRegular}
-        className={isFavorite ? 'favorite-icon solid' : 'favorite-icon regular'}
+        className={`favorite-icon ${isFavorite ? 'solid' : 'regular'}`}
+        style={{ color: isFavorite ? 'red' : 'white' }}
       />
       {loading && <span className="loading-spinner"></span>}
     </button>

@@ -1,38 +1,76 @@
-/* index.css or App.css */
+/* General Styles */
+body {
+  background-color: #f4f4f4; /* Set your desired background color */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  width: 100%; /* Ensure full width */
+}
 
-/* Define global styles and variables */
-:root {
-    --primary-color: #f28a8a; /* Light Red */
-    --secondary-color: #4caf50; /* Green */
-    --background-color: #f7f7f7; /* Light Gray */
-    --text-color: #333333; /* Dark Gray */
-    --max-width: 1200px; /* Maximum width for content */
-    --padding: 20px; /* Padding for content */
-    --font-family: 'Arial', sans-serif; /* Default font */
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-family);
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-  }
-  
-  #root {
-    display: flex;
-    justify-content: center;
-    padding: var(--padding);
-  }
-  
+/* Root Element */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Global Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+
+p, a, span, li {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Link Styles */
+a {
+  color: #4CAF50; /* Example brand color for links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Button Styles */
+.cta-button {
+  background-color: #FF6347; /* Example brand color */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif; /* Ensure button text matches */
+}
+
+.cta-button:hover {
+  background-color: #FF4500;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
   .container {
-    width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 var(--padding);
-    background-color: #fff; /* White background for content */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    padding: 0 10px; /* Reduce padding on smaller screens */
   }
-  
+
+  .cta-button {
+    padding: 8px 16px; /* Adjust button padding for smaller screens */
+  }
+
+  h1 {
+    font-size: 2rem; /* Adjust heading size */
+  }
+
+  p, a, span, li {
+    font-size: 0.875rem; /* Adjust text size for better readability on small screens */
+  }
+}

@@ -1,44 +1,38 @@
 /* FavoriteButton.css */
-
 .favorite-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-  
-  .favorite-icon {
-    font-size: 24px;
-    transition: color 0.3s ease;
-  }
-  
-  .favorite-icon.solid {
-    color: red;
-  }
-  
-  .favorite-icon.regular {
-    color: gray;
-  }
-  
-  .loading-spinner {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    border: 2px solid #ccc;
-    border-top: 2px solid red;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+}
+
+.favorite-icon {
+  font-size: 1.5rem;
+  color: #FF6347; /* Light red for favorite icon */
+  transition: color 0.3s;
+}
+
+.favorite-icon.solid {
+  color: #FF6347; /* Light red for solid heart */
+}
+
+.favorite-icon.regular {
+  color: #ccc; /* Light gray for regular heart */
+}
+
+.loading-spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #FF6347; /* Light red spinner */
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
