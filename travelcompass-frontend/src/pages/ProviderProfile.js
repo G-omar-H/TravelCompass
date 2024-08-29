@@ -1,12 +1,20 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/ProviderProfile.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/ProviderProfile.css';  // Import the CSS file
 
 const ProviderProfile = () => {
-  const [providerData, setProviderData] = useState({ name: '', description: '', contactEmail: '', contactPhone: '' });
+  const [providerData, setProviderData] = useState({
+    name: '',
+    description: '',
+    contactEmail: '',
+    contactPhone: '',
+  });
   const [logo, setLogo] = useState(null);
+  const [logoUrl, setLogoUrl] = useState('');
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -20,21 +28,29 @@ const ProviderProfile = () => {
   const uploadLogoToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'Providers  Docs'); 
+    formData.append('upload_preset', 'Providers_Docs'); 
 
     try {
       const response = await fetch('https://api.cloudinary.com/v1_1/dus06vafo/image/upload', {
         method: 'POST',
         body: formData,
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.lengthComputable) {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(percentCompleted);
+          }
+        },
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const data = await response.json();
+      setUploadProgress(100);
       return data.secure_url;
     } catch (error) {
+      setError('Error uploading logo.');
       console.error('Error uploading logo:', error);
       return null;
     }
@@ -48,7 +64,6 @@ const ProviderProfile = () => {
     if (logo) {
       logoUrl = await uploadLogoToCloudinary(logo);
       if (!logoUrl) {
-        alert('Failed to upload logo.');
         return;
       }
     }
@@ -56,14 +71,15 @@ const ProviderProfile = () => {
     const providerDataWithLogo = { ...providerData, logo: logoUrl };
 
     try {
-      const provider = await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerDataWithLogo, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/providers`, providerDataWithLogo, {
         headers: {
           'Content-Type': 'application/json',
         }
       });
-      console.log("Provider data submitted successfully");
-      navigate(`/provider-dashboard/${provider.data._id}`);
+      setSuccess('Provider data submitted successfully!');
+      setTimeout(() => navigate(`/provider-dashboard/${response.data._id}`), 2000);
     } catch (error) {
+      setError('Error submitting provider data.');
       console.error('Error submitting provider data:', error);
     }
   };
@@ -71,6 +87,8 @@ const ProviderProfile = () => {
   return (
     <div className="provider-profile-container">
       <h1>Provider Profile</h1>
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">{success}</div>}
       <form onSubmit={submitProviderData} className="provider-form">
         <div className="form-group">
           <label>Name:</label>
@@ -80,6 +98,8 @@ const ProviderProfile = () => {
             value={providerData.name} 
             onChange={handleInputChange} 
             className="form-input"
+            placeholder="Enter provider name"
+            required
           />
         </div>
         <div className="form-group">
@@ -89,6 +109,8 @@ const ProviderProfile = () => {
             value={providerData.description} 
             onChange={handleInputChange} 
             className="form-textarea"
+            placeholder="Enter provider description"
+            required
           ></textarea>
         </div>
         <div className="form-group">
@@ -99,6 +121,8 @@ const ProviderProfile = () => {
             value={providerData.contactEmail} 
             onChange={handleInputChange} 
             className="form-input"
+            placeholder="Enter contact email"
+            required
           />
         </div>
         <div className="form-group">
@@ -109,6 +133,7 @@ const ProviderProfile = () => {
             value={providerData.contactPhone} 
             onChange={handleInputChange} 
             className="form-input"
+            placeholder="Enter contact phone number"
           />
         </div>
         <div className="form-group">
@@ -118,6 +143,7 @@ const ProviderProfile = () => {
             onChange={handleLogoUpload} 
             className="file-input"
           />
+          {uploadProgress > 0 && <div className="upload-progress">Upload Progress: {uploadProgress}%</div>}
         </div>
         <button type="submit" className="submit-button">Save</button>
       </form>

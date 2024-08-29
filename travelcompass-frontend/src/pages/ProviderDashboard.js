@@ -1,8 +1,7 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/ProviderDashboard.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/ProviderDashboard.css';  // Import the CSS file
+import '../styles/ProviderDashboard.css';
 
 const ProviderDashboard = () => {
   const { id } = useParams();
@@ -15,13 +14,12 @@ const ProviderDashboard = () => {
     duration: '',
     difficulty: 'Easy',
     activityType: '',
-    photos: [], // Array to hold photo file objects
+    photos: [],
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [photoPreviews, setPhotoPreviews] = useState([]);
 
   useEffect(() => {
-
     // Clean up preview URLs
     photoPreviews.forEach(preview => URL.revokeObjectURL(preview));
 
@@ -67,7 +65,7 @@ const ProviderDashboard = () => {
     const uploadPromises = files.map(async (file) => {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('upload_preset', 'AdventurePhotos'); // Make sure you have the correct preset
+      formData.append('upload_preset', 'AdventurePhotos'); // Ensure correct preset
 
       try {
         const response = await fetch('https://api.cloudinary.com/v1_1/dus06vafo/image/upload', {
@@ -129,7 +127,7 @@ const ProviderDashboard = () => {
       await axios.delete(`${process.env.REACT_APP_API_URL}/adventures/${adventureId}`);
       setAdventures(adventures.filter(adventure => adventure._id !== adventureId));
     } catch (error) {
-      console.error('Error deleting adventure: ', error);
+      console.error('Error deleting adventure:', error);
     }
   };
 
@@ -164,13 +162,12 @@ const ProviderDashboard = () => {
               onChange={handleInputChange}
               className="modal-input"
             />
-            <input
-              type="text"
+            <textarea
               name="description"
               placeholder="Description"
               value={newAdventure.description}
               onChange={handleInputChange}
-              className="modal-input"
+              className="modal-textarea"
             />
             <input
               type="number"
@@ -223,8 +220,10 @@ const ProviderDashboard = () => {
               </div>
             )}
 
-            <button onClick={postProviderAdventure} className="modal-submit-button">Submit</button>
-            <button onClick={() => setIsModalOpen(false)} className="modal-cancel-button">Cancel</button>
+            <div className="modal-actions">
+              <button onClick={postProviderAdventure} className="modal-submit-button">Submit</button>
+              <button onClick={() => setIsModalOpen(false)} className="modal-cancel-button">Cancel</button>
+            </div>
           </div>
         </div>
       )}

@@ -10,8 +10,8 @@ const HomePage = () => {
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-text">
-          <h1>Embark on Your Next Adventure</h1>
-          <p>Discover unforgettable experiences around the globe.</p>
+          <h1>Find Your Next Adventure</h1>
+          <p>Where Will Your Compass Lead You?</p>
         </div>
         <div className="search-filter-container">
         </div>

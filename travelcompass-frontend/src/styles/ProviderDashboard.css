@@ -1,152 +1,144 @@
-/* ProviderDashboard.css */
-
 /* Container styling */
 .provider-dashboard-container {
-    padding: 20px;
-    background-color: var(--background-color);
-  }
-  
-  /* Provider profile styling */
-  .provider-name {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-  
-  .provider-description {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-  
-  .provider-logo {
-    width: 150px;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .provider-contact {
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-  
-  /* Adventure list styling */
-  .adventure-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .adventure-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .adventure-link {
-    text-decoration: none;
-    color: var(--primary-color);
-    font-weight: bold;
-  }
-  
-  .delete-button {
-    background-color: #ff4d4d;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-  
-  .delete-button:hover {
-    background-color: #ff1a1a;
-  }
-  
-  /* Post adventure button styling */
-  .post-adventure-button {
-    background-color: var(--secondary-color);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-top: 20px;
-  }
-  
-  .post-adventure-button:hover {
-    background-color: #45a049; /* Slightly darker green for hover */
-  }
-  
-  /* Modal styling */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .modal {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
-  }
-  
-  .modal-input, .modal-select, .modal-file-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .photo-previews {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .photo-preview {
-    width: 100px;
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  /* Modal buttons styling */
-  .modal-submit-button, .modal-cancel-button {
-    background-color: var(--secondary-color);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-right: 10px;
-  }
-  
-  .modal-submit-button:hover {
-    background-color: #45a049; /* Slightly darker green for hover */
-  }
-  
-  .modal-cancel-button {
-    background-color: #ff4d4d;
-  }
-  
-  .modal-cancel-button:hover {
-    background-color: #ff1a1a;
-  }
-  
+  padding: 20px;
+  background-color: var(--background-color);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Provider profile styling */
+.provider-name {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.provider-description {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.provider-logo {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.provider-contact {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+/* Adventure list styling */
+.adventure-list {
+  list-style: none;
+  padding: 0;
+}
+
+.adventure-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.adventure-link {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-adventure-button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-top: 20px;
+}
+
+/* Modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-input, .modal-textarea, .modal-select, .modal-file-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.modal-textarea {
+  height: 100px;
+}
+
+.photo-previews {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.photo-preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-submit-button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-cancel-button {
+  background-color: #ccc;
+  color: #000;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}

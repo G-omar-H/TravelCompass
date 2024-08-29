@@ -1,0 +1,51 @@
+/* AuthModal.css */
+
+.auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .auth-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+  }
+  
+  .auth-modal-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tab {
+    cursor: pointer;
+    padding: 10px 0;
+    width: 50%;
+    text-align: center;
+    font-weight: bold;
+    color: #777;
+    transition: color 0.3s ease;
+  }
+  
+  .tab.active {
+    color: #E53935;
+    border-bottom: 2px solid #E53935;
+  }
+  
+  .auth-modal-body {
+    padding-top: 20px;
+  }
+  

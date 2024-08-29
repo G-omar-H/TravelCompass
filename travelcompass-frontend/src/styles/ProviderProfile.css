@@ -1,71 +1,93 @@
-/* ProviderProfile.css */
-
 /* Container styling */
 .provider-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: var(--background-color);
-  }
-  
-  /* Form styling */
-  .provider-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  /* Form group styling */
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  /* Label styling */
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  /* Input field styling */
-  .form-input, .form-textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .form-textarea {
-    resize: vertical;
-    height: 100px;
-  }
-  
-  /* File input styling */
-  .file-input {
-    display: block;
-    margin-top: 5px;
-  }
-  
-  /* Submit button styling */
-  .submit-button {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: var(--secondary-color);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049; /* Slightly darker green for hover */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f4f4f9; /* Light background for better contrast */
+}
+
+/* Form styling */
+.provider-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Label styling */
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333; /* Darker text for better readability */
+}
+
+/* Input field styling */
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-textarea {
+  resize: vertical;
+  height: 120px;
+}
+
+/* File input styling */
+.file-input {
+  display: block;
+  margin-top: 10px;
+}
+
+/* Upload progress styling */
+.upload-progress {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: #007bff; /* Blue color for progress indicator */
+}
+
+/* Submit button styling */
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #28a745; /* Green color for the button */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #218838; /* Darker green for hover effect */
+}
+
+/* Error and success messages styling */
+.error-message, .success-message {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.error-message {
+  color: #dc3545; /* Red for error messages */
+  background-color: #f8d7da; /* Light red background */
+}
+
+.success-message {
+  color: #28a745; /* Green for success messages */
+  background-color: #d4edda; /* Light green background */
+}

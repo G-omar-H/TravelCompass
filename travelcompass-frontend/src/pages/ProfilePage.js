@@ -1,8 +1,7 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/ProfilePage.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/ProfilePage.css';  // Import the CSS file
+import '../styles/ProfilePage.css';
 
 const ProfilePage = () => {
   const [user, setUser] = useState({});
@@ -11,41 +10,31 @@ const ProfilePage = () => {
   const [password, setPassword] = useState('');
   const [bookings, setBookings] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`);
-        setUser(data);
-        setName(data.name);
-        setEmail(data.email);
+        const userData = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`);
+        setUser(userData.data);
+        setName(userData.data.name);
+        setEmail(userData.data.email);
+
+        const bookingsData = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/bookings`);
+        setBookings(bookingsData.data);
+
+        const favoritesData = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/favorites`);
+        setFavorites(favoritesData.data);
       } catch (error) {
-        console.error('Error fetching user profile:', error);
+        setError('Error fetching profile data');
+      } finally {
+        setLoading(false);
       }
     };
 
-    const fetchUserBookings = async () => {
-      try {
-        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/bookings`);
-        setBookings(data);
-      } catch (error) {
-        console.error('Error fetching user bookings:', error);
-      }
-    };
-
-    const fetchFavorites = async () => {
-      try {
-        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile/favorites`);
-        setFavorites(data);
-      } catch (error) {
-        console.error('Error fetching favorites:', error);
-      }
-    };
-
-    fetchUserProfile();
-    fetchUserBookings();
-    fetchFavorites();
+    fetchData();
   }, []);
 
   const handleUpdateProfile = async (e) => {
@@ -54,13 +43,16 @@ const ProfilePage = () => {
       await axios.put(`${process.env.REACT_APP_API_URL}/users/profile`, { name, email, password });
       navigate('/profile');
     } catch (error) {
-      console.error('Error updating profile:', error);
+      setError('Error updating profile');
     }
   };
 
+  if (loading) return <div className="loading">Loading...</div>;
+
   return (
     <div className="profile-page">
-      <h1 className="profile-heading">User Profile</h1>
+      <h1 className="profile-heading">Profile</h1>
+      {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleUpdateProfile} className="profile-form">
         <div className="form-group">
           <label>Name:</label>
@@ -71,27 +63,31 @@ const ProfilePage = () => {
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="form-group">
-          <label>Password (leave blank to keep unchanged):</label>
+          <label>Password (optional):</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <button type="submit" className="update-button">Update Profile</button>
+        <button type="submit" className="update-button">Update</button>
       </form>
 
-      <h2>Your Bookings</h2>
-      <ul className="bookings-list">
-        {bookings.map((booking) => (
-          <li key={booking._id} className="booking-item">
-            {booking.adventure} on {booking.date}
-          </li>
-        ))}
-      </ul>
+      <section className="profile-info">
+        <h2>Bookings</h2>
+        <ul className="list">
+          {bookings.map((booking) => (
+            <li key={booking._id} className="list-item">
+              {booking.adventure} on {booking.date}
+            </li>
+          ))}
+        </ul>
 
-      <h2>Your Favorite Adventures</h2>
-      <ul className="favorites-list">
-        {favorites.map((favorite) => (
-          <li key={favorite._id} className="favorite-item">{favorite.title}</li>
-        ))}
-      </ul>
+        <h2>Favorites</h2>
+        <ul className="list">
+          {favorites.map((favorite) => (
+            <li key={favorite._id} className="list-item">
+              {favorite.title}
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 };
