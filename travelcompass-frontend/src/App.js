@@ -17,8 +17,9 @@ import Navbar from './components/NavBar';
 import { Navigate } from 'react-router-dom';
 import "./styles/index.css";
 
-const PrivateRoute = ({ element, ...rest }) => {
+const PrivateRoute = ({ element }) => {
   const { user } = useContext(AuthContext);
+  console.log('PrivateRoute user:', user); // Debug log
   return user ? element : <Navigate to="/login" />;
 };
 

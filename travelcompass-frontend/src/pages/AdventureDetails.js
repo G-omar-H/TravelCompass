@@ -91,6 +91,8 @@ const AdventureDetails = () => {
           <div className="info">
           <h2>About this Adventure</h2> {/* More descriptive header */}
             <p>{adventure.description}</p>
+            <p><strong>By {adventure.provider.name}</strong></p> <img src={adventure.provider.logo} alt={adventure.provider.name} className="provider-logo" />
+            <p><strong>Location:</strong> {adventure.location}</p>
             <p><strong>Activity Type:</strong> {adventure.activityType}</p>
             <p><strong>Difficulty:</strong> {adventure.difficulty}</p>
             <p><strong>Duration:</strong> {adventure.duration} days</p>

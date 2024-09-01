@@ -19,8 +19,11 @@ const Login = ({ onClose }) => {
       onClose();
       navigate('/');
     } catch (err) {
-      setError('Invalid credentials. Please try again.');
-    }
+      if (err.response && err.response.status === 401) {
+        setError('Invalid email or password');
+      } else {
+        setError(err.message);
+    }};
   };
 
   return (

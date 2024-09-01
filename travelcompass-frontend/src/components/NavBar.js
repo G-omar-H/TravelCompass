@@ -54,7 +54,16 @@ const Navbar = () => {
           </div>
 
           <div className="navbar-item">
-            <button className="cta-button" onClick={() => navigate('/become-provider')}>List Your Adventure</button>
+            {!user ? (
+              <Link to="/become-provider" className="nav-link">List Your Adventure</Link>
+            ) : user?.roles?.includes('provider') ? (
+
+              <Link to={`/provider-dashboard/${user.provider}`} className="nav-link">Provider Dashboard</Link>
+            ) : user?.roles?.includes('admin') ? (
+              <Link to="/admin-dashboard" className="nav-link">Admin Dashboard</Link>
+            )
+            : <Link to="/become-provider" className="nav-link">List Your Adventure</Link>
+            }
           </div>
 
           <div className="navbar-item user-icon" onClick={toggleMenu}>
@@ -68,10 +77,13 @@ const Navbar = () => {
               ) : (
                 <>
                   <Link to="/profile" className="nav-link">Profile</Link>
-                  {user.isProvider && (
-                    <Link to="/provider-dashboard" className="nav-link">Provider Dashboard</Link>
-                  )}
-                  <Link to="/become-provider" className="nav-link">List Your Adventure</Link>
+                  {user?.roles?.includes('provider') ? (
+                    <Link to={`/provider-dashboard/${user.provider}`} className="nav-link">Provider Dashboard</Link>
+                  ) : user?.roles?.includes('admin') ? (
+                    <Link to="/admin-dashboard" className="nav-link">Admin Dashboard</Link>
+                  ) :  <Link to="/become-provider" className="nav-link">List Your Adventure</Link>
+                  }
+                  <Link to="/support" className="nav-link">Get Help</Link>
                   <span className="nav-link" onClick={handleLogout}>Logout</span>
                 </>
               )}
