@@ -28,7 +28,7 @@ const ProviderProfile = () => {
   const uploadLogoToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'Providers_Docs'); 
+    formData.append('upload_preset', 'Providers  Docs'); 
 
     try {
       const response = await fetch('https://api.cloudinary.com/v1_1/dus06vafo/image/upload', {

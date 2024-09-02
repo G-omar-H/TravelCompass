@@ -16,7 +16,7 @@ const getAllAdventures = async (req, res) => {
     if (maxDuration) query.duration.$lte = Number(maxDuration);
     if (difficulty) query.difficulty = difficulty;
     
-    const adventures = await Adventure.find(query).populate('provider');
+    const adventures = await Adventure.find(query).populate('provider').populate('reviews').populate('bookingHistory');
     res.json(adventures);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -25,7 +25,7 @@ const getAllAdventures = async (req, res) => {
 
 const getAdventureById = async (req, res) => {
   try {
-    const adventure = await Adventure.findById(req.params.id).populate('provider');
+    const adventure = await Adventure.findById(req.params.id).populate('provider').populate('reviews').populate('bookingHistory');
     if (!adventure) return res.status(404).json({ error: 'Adventure not found' });
     res.json(adventure);
   } catch (err) {
@@ -50,7 +50,6 @@ const createAdventure = async (req, res) => {
     if (!provider) {
       return res.status(404).json({ error: 'Provider not found' });
     }
-    console.log(user.provider);
     const newAdventure = await Adventure.create({ ...req.body, provider: user.provider });
     const savedAdventure = await newAdventure.save();
 

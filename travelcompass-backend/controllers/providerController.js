@@ -44,7 +44,7 @@ const createProvider = async (req, res) => {
 
 const getProvider = async (req, res) => {
   try {
-    const provider = await Provider.findById(req.params.id).populate('adventures');
+    const provider = await Provider.findById(req.params.id).populate('adventures').populate('user');
 
     if (!provider) {
       return res.status(404).json({ message: 'Provider not found' });
@@ -101,7 +101,7 @@ const deleteProvider = async (req, res) => {
 
 const getProviderAdventures = async (req, res) => {
   try {
-    const adventures = await Adventure.find({ provider: req.params.id });
+    const adventures = await Adventure.find({ provider: req.params.id }).populate('provider');
 
     if (!adventures) {
       return res.status(404).json({ message: 'No adventures found for this provider' });

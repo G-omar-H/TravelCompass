@@ -65,7 +65,7 @@ const ProviderDashboard = () => {
     const uploadPromises = files.map(async (file) => {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('upload_preset', 'AdventurePhotos'); // Ensure correct preset
+      formData.append('upload_preset', 'AdventurePhotos');
 
       try {
         const response = await fetch('https://api.cloudinary.com/v1_1/dus06vafo/image/upload', {

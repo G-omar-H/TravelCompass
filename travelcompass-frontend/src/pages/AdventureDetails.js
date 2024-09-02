@@ -23,13 +23,17 @@ const AdventureDetails = () => {
   const [comment, setComment] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [bookingDate, setBookingDate] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchAdventureDetails = async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
-      setAdventure(data);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/adventures/${id}`);
+      setAdventure(response.data);
+      setLoading(false);
     } catch (error) {
-      console.error('Error fetching adventure details:', error);
+      setError('Error fetching adventure');
+      setLoading(false);
     }
   };
 
@@ -37,8 +41,11 @@ const AdventureDetails = () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/reviews/${id}`);
       setReviews(data);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching reviews:', error);
+      setError('Error fetching reviews');
+      setLoading(false);
     }
   };
   const calculateAverageRating = (reviews) => {
@@ -62,6 +69,18 @@ const AdventureDetails = () => {
     setComment('');
     fetchReviews();
   };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!adventure) {
+    return <div>No adventure found</div>;
+  }
+
 
   return (
     <div className="adventure-details">
@@ -91,12 +110,12 @@ const AdventureDetails = () => {
           <div className="info">
           <h2>About this Adventure</h2> {/* More descriptive header */}
             <p>{adventure.description}</p>
-            <p><strong>By {adventure.provider.name}</strong></p> <img src={adventure.provider.logo} alt={adventure.provider.name} className="provider-logo" />
             <p><strong>Location:</strong> {adventure.location}</p>
             <p><strong>Activity Type:</strong> {adventure.activityType}</p>
             <p><strong>Difficulty:</strong> {adventure.difficulty}</p>
             <p><strong>Duration:</strong> {adventure.duration} days</p>
-            <p><strong>Max Group Size:</strong> {adventure.maxGroupSize}</p> {/* Display max group size */}
+            <p><strong>Max Group Size:</strong> {adventure.maxGroupSize}</p>
+            <p>Provider: {adventure.provider ? adventure.provider.name : 'Unknown'}</p>
 
             <h3>Itinerary</h3>
             {/* Display the itinerary in a more visually appealing way */}

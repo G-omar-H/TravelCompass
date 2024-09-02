@@ -19,7 +19,6 @@ import "./styles/index.css";
 
 const PrivateRoute = ({ element }) => {
   const { user } = useContext(AuthContext);
-  console.log('PrivateRoute user:', user); // Debug log
   return user ? element : <Navigate to="/login" />;
 };
 
