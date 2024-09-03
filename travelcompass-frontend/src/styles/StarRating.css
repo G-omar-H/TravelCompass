@@ -1,0 +1,13 @@
+/* components/StarRating.css */
+.star-rating {
+    display: flex;
+  }
+  
+  .star {
+    color: #ccc;
+    font-size: 1rem;
+  }
+  
+  .star.filled {
+    color: #f5c518;
+  }

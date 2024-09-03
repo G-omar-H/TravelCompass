@@ -1,105 +1,105 @@
 /* AdventureList.css */
-
-/* Full-width background container */
 .adventure-list-background {
-  width: 100vw; /* Full viewport width */
-  margin-left: calc(50% - 50vw); /* Center the container */
-  background-color: #fff; /* Light background for contrast */
+  width: 100%;
+  background-color: #ffffff; /* Ensure full-width background color */
+  padding: 20px 0; /* Ensure padding on top and bottom */
 }
 
-/* Container for the adventure list */
-.adventure-list-container {
-  padding: 20px;
-  background-color: #fff; /* Light background for contrast */
-  max-width: 1200px; /* Set a max-width for the content */
-  margin-left: 333px;
-  margin-top: -50px; 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px; /* Add horizontal padding */
+  box-sizing: border-box;
 }
 
-/* Adventure list title */
 .adventure-list-title {
-  font-size: 1.5rem;
-  color: #333; /* Dark gray for section headers */
+  font-size: 24px;
   margin-bottom: 20px;
-  margin-left: 3px;
-  text-align: left;
 }
 
-/* Grid layout for the adventures */
 .adventure-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  margin-top: 20px;
 }
 
-/* Adventure card styling */
+.adventure-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.adventure-card-link:hover .adventure-card {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
 .adventure-card {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  transition: all 0.3s ease;
 }
 
-.adventure-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-.adventure-card img {
+.adventure-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
 
-.adventure-card h2 {
-  font-size: 1.25rem;
-  margin: 15px;
-  color: #333;
-  font-family: 'Montserrat', sans-serif;
+.adventure-info {
+  padding: 15px;
 }
 
-.adventure-card p {
-  font-size: 1rem;
-  margin: 0 15px 10px;
-  color: #666;
-  line-height: 1.5;
-}
-
-.adventure-card a {
-  display: block;
-  margin: 15px;
-  color: #FF6347;
+.adventure-info h2 {
+  margin: 10px 0;
+  font-size: 20px;
   font-weight: bold;
-  text-decoration: none;
-  text-align: right;
 }
 
-.adventure-card a:hover {
-  text-decoration: underline;
+.adventure-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
 }
 
-/* Favorite button positioning */
-.adventure-card .favorite-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.adventure-rating {
+  display: flex;
+  align-items: center;
 }
 
-/* Loading Skeleton Styles */
+.adventure-rating span {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+.adventure-location {
+  font-size: 14px;
+  color: #555;
+}
+
+.adventure-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
+}
+
 .loading-skeleton {
   background-color: #e0e0e0;
   border-radius: 8px;
-  padding: 10px;
+  padding: 15px;
 }
 
 .skeleton-img {
   width: 100%;
   height: 200px;
-  background-color: #d0d0d0;
-  margin-bottom: 10px;
+  background-color: #ccc;
+  border-radius: 8px;
 }
 
 .skeleton-text {
