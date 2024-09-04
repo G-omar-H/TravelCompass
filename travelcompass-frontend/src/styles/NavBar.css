@@ -4,8 +4,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #f4f4f4;
-  box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-color); /* Use global background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Apply a subtle shadow */
 }
 
 .navbar-logo {
@@ -15,15 +15,23 @@
 
 .logo-image {
   height: 50px;
-  margin-left: 0px;
 }
 
 .logo-text {
   font-size: 1.5rem;
-  font-family: 'Helvetica', sans-serif; 
-  color: #4CAF50; /* Green for brand consistency */
+  font-family: var(--font-family-heading); /* Use the heading font from global styles */
+  color: var(--brand-color); /* Use the brand color defined globally */
   font-weight: bold;
-  margin-right: 0px;
+  margin-left: -5px; /* Space between logo image and text */
+}
+
+/* Center logo-text vertically with logo-image */
+.navbar-logo {
+  margin: 0;
+}
+
+.logo-image, .logo-text {
+  vertical-align: middle;
 }
 
 .navbar-items {
@@ -35,52 +43,73 @@
   margin-left: 20px;
 }
 
+.navbar-item .nav-link {
+  color: var(--brand-color); /* Ensure links use brand color */
+  text-decoration: none;
+  font-family: var(--font-family-base); /* Use the base font for consistency */
+}
+
+.navbar-item .nav-link:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
 .globe-icon {
   position: relative;
-}.dropdown-content {
-  display: none; /* Hidden by default */
-  position: absolute; /* Position it relative to the parent */
-  background-color: #fff; /* White background */
-  min-width: 200px; /* Minimum width */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Box shadow for a floating effect */
-  padding: 12px 16px; /* Padding inside the dropdown */
-  z-index: 1; /* Ensure it is above other elements */
-  border-radius: 8px; /* Rounded corners */
-  max-height: 300px; /* Maximum height */
-  overflow-y: auto; /* Scrollable content */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--background-color); /* Use global background color */
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Use global box-shadow or customize */
+  padding: 12px 16px;
+  z-index: 1;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .dropdown-content.show {
-  display: block; /* Show the dropdown */
+  display: block;
 }
 
 .dropdown-content a {
-  display: block; /* Make each link a block element */
-  padding: 8px 0; /* Padding for each link */
-  color: #333; /* Text color */
-  text-decoration: none; /* Remove underline */
-  border-bottom: 1px solid #ddd; /* Separator between items */
-}
-
-.dropdown-content a:last-child {
-  border-bottom: none; /* Remove border from the last item */
+  display: block;
+  padding: 8px 0;
+  color: var(--brand-color); /* Use global brand color for dropdown items */
+  text-decoration: none;
 }
 
 .dropdown-content a:hover {
-  background-color: #f1f1f1; /* Highlight on hover */
+  background-color: var(--cta-button-background); /* Highlight dropdown item on hover */
+  color: #fff; /* Ensure text is readable on hover background */
 }
 
-.help-icon,
-.cta-button {
-  cursor: pointer;
+.user-icon {
+  position: relative;
 }
 
-.nav-link {
-  color: #333;
-  text-decoration: none;
-  margin: 0 10px;
+.help-icon {
+  cursor: pointer; /* Pointer cursor for help icon */
 }
 
-.nav-link:hover {
-  text-decoration: underline;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-items {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-item {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
 }

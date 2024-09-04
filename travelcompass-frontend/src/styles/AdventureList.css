@@ -1,8 +1,11 @@
 /* AdventureList.css */
 .adventure-list-background {
-  width: 100%;
-  background-color: #ffffff; /* Ensure full-width background color */
+  width: 100vw; /* Ensure full-width background color */
+  background-color: #fff;
   padding: 20px 0; /* Ensure padding on top and bottom */
+  margin-left: calc(50% - 50vw); /* Center the background color */
+  position: relative; /* Ensure it stays within the flow of the document */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .container {
@@ -13,7 +16,9 @@
 }
 
 .adventure-list-title {
-  font-size: 24px;
+  font-size: 2rem; /* Adjusted to match global styles */
+  font-family: var(--font-family-heading); /* Use heading font from global styles */
+  color: var(--text-color); /* Ensure text color is consistent */
   margin-bottom: 20px;
 }
 
@@ -55,8 +60,9 @@
 
 .adventure-info h2 {
   margin: 10px 0;
-  font-size: 20px;
+  font-size: 1.25rem; /* Adjusted to match global font size */
   font-weight: bold;
+  color: var(--text-color); /* Ensure text color is consistent */
 }
 
 .adventure-meta {
@@ -73,19 +79,19 @@
 
 .adventure-rating span {
   margin-left: 5px;
-  font-size: 14px;
+  font-size: 0.875rem; /* Adjusted to match global font size */
   color: #555;
 }
 
 .adventure-location {
-  font-size: 14px;
+  font-size: 0.875rem; /* Adjusted to match global font size */
   color: #555;
 }
 
 .adventure-price {
-  font-size: 16px;
+  font-size: 1rem; /* Adjusted to match global font size */
   font-weight: bold;
-  color: #333;
+  color: var(--text-color); /* Ensure text color is consistent */
   margin-top: 10px;
 }
 
@@ -123,5 +129,22 @@
 @media (max-width: 768px) {
   .adventure-card img {
     height: 150px;
+  }
+  
+  .adventure-list-title {
+    font-size: 1.5rem; /* Adjusted for smaller screens */
+  }
+  
+  .adventure-info h2 {
+    font-size: 1rem; /* Adjusted for smaller screens */
+  }
+  
+  .adventure-rating span,
+  .adventure-location {
+    font-size: 0.75rem; /* Adjusted for smaller screens */
+  }
+  
+  .adventure-price {
+    font-size: 0.875rem; /* Adjusted for smaller screens */
   }
 }

@@ -1,13 +1,11 @@
-// TRAVELCOMPASS/pages/HomePage.js
 import React from 'react';
 import SearchFilter from '../components/SearchFilter';
 import AdventureList from '../pages/AdventureList';
 import "../styles/HomePage.css";
 
 const HomePage = () => {
-  
   return (
-    <div className="home-page container">
+    <div className="home-page">
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-text">

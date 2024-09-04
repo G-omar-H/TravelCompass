@@ -1,18 +1,14 @@
-/* Home Page Styles */
+/* HomePage.css */
+
+/* Home Page Layout */
 .home-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f4f4f4; /* Calming light gray background */
-
+  background-color: var(--background-color); /* Use the global background color */
 }
 
-.hero-section-container {
-  width: 100vw; /* Full viewport width */
-  margin-left: calc(50% - 50vw); /* Center the container */
-  background-color: #f4f4f4; /* Background color for the hero section */
-}
-
+/* Hero Section */
 .hero-section {
   padding: 60px 20px 150px;
   text-align: center;
@@ -21,25 +17,41 @@
 .hero-text h1 {
   font-size: 3rem;
   text-align: left;
-  color: #333333; /* Dark gray text for prominence */
-  margin-left: 157px;
+  color: var(--brand-color); /* Use the brand color defined globally */
+  margin-left: 157px; /* Adjust margin for layout */
 }
 
 .hero-text p {
   font-size: 1.5rem;
   text-align: left;
-  margin-left: 157px;
-  color: #666666; /* Lighter gray for secondary text */
+  margin-left: 157px; /* Adjust margin for layout */
+  color: var(--text-color); /* Use the global text color */
 }
 
 .search-filter-container {
   margin-top: 20px;
 }
 
+/* Featured Adventures Section */
 .featured-adventures {
-  padding: 20px;
+  width: 100%; /* Ensure full-width background color */
+  padding: 0; /* Remove padding to avoid shifting */
 }
 
+/* Call to Action Section */
 .cta-section {
-  background-color: #fff;
+  background-color: #fff; /* Use a different background color if needed */
+}
+
+/* Responsive adjustments for Home Page */
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: 2rem; /* Adjust font size for smaller screens */
+    margin-left: 20px; /* Adjust margin for smaller screens */
+  }
+
+  .hero-text p {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+    margin-left: 20px; /* Adjust margin for smaller screens */
+  }
 }
