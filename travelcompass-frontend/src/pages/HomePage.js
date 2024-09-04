@@ -1,3 +1,4 @@
+// TRAVELCOMPASS/pages/HomePage.js
 import React from 'react';
 import SearchFilter from '../components/SearchFilter';
 import AdventureList from '../pages/AdventureList';
