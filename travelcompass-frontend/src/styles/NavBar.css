@@ -4,8 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: var(--background-color); /* Use global background color */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Apply a subtle shadow */
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); /* Apply a subtle shadow */
 }
 
 .navbar-logo {
@@ -45,6 +44,7 @@
 
 .navbar-item .nav-link {
   color: var(--brand-color); /* Ensure links use brand color */
+  font-weight: bold;
   text-decoration: none;
   font-family: var(--font-family-base); /* Use the base font for consistency */
 }

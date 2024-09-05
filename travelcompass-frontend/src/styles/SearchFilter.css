@@ -4,81 +4,77 @@
   flex-direction: column;
   max-width: 800px;
   margin: 0 auto;
-  margin-top: -130px;
+  margin-top: -150px;
   margin-bottom: 33px;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-family-base); /* Use global base font */
+  color: var(--text-color); /* Use global text color */
 }
 
 .search-field {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  position: relative; /* Added for dropdown positioning */
-   border: 1px solid #ddd; /* Add a subtle border to each field */
+  position: relative;
+  border: 1px solid #ddd;
   border-radius: 4px;
 }
 
 .search-icon {
   margin-right: 10px;
-  color: #4CAF50; /* Green for consistency */
-  padding: 10px; /* Add padding around the icon */
-  background-color: #f0f0f0; /* Light gray background for icon */
+  color: #000000; /* Use global brand color */
+  padding: 10px;
+  background-color:  #FAFAD2;
 }
 
 .magnet {
   background-color: transparent;
-  padding: 0px; /* Add padding around the icon */
-
+  padding: 0px;
 }
 
 .search-field input {
-  border: 1px solid #ddd;
   padding: 10px;
   border-radius: 4px;
   width: 100%;
-  border: none; /* Remove the input's border */
-  outline: none; /* Remove default focus outline */
+  border: none;
+  outline: none;
+  font-family: var(--font-family-base); /* Use global base font */
 }
 
-search-field input:focus {
+.search-field input:focus {
   box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2); /* Subtle red glow on focus */
 }
 
 .search-button {
-  background: linear-gradient(45deg, #E53935, #FF7043); /* Gradient background */
+  background: var(--cta-button-background); /* Use global CTA button color */
   color: #fff;
   border: none;
-  padding: 12px 25px; /* Slightly larger button */
-  border-radius: 25px; /* Rounded corners for a modern look */
+  padding: 12px 25px;
+  border-radius: 25px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  font-weight: bold; /* Add some weight to the text */
-  text-transform: uppercase; /* Optional: Make text uppercase for emphasis */
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Add a subtle transform transition */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .search-button:hover {
-  background: linear-gradient(45deg, #c62828, #d84315); /* Darker gradient on hover */
-  transform: scale(1.05); /* Subtle scale on hover */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+  background: var(--cta-button-background-hover); /* Use global CTA button hover color */
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .search-button:focus {
-  outline: none; /* Remove default focus outline */
-  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.4); /* Focus outline for accessibility */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.4);
 }
 
-.search-button-icon {
-  margin-right: 8px; /* Adjust spacing between icon and text */
-}
-
-/* Dropdown Menu Styles */
 .people-picker-dropdown {
   position: absolute;
   top: 100%;
@@ -91,6 +87,7 @@ search-field input:focus {
   z-index: 10;
   padding: 10px;
   margin-top: 5px;
+  font-family: var(--font-family-base); /* Use global base font */
 }
 
 .people-picker-dropdown div {
@@ -102,7 +99,7 @@ search-field input:focus {
 
 .people-picker-dropdown label {
   font-weight: bold;
-  color: #333;
+  color: var(--text-color); /* Use global text color */
 }
 
 .people-picker-dropdown input {

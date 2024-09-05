@@ -1,16 +1,15 @@
-/* AdventureDetails.css */
-
+/* Consistent with index.css */
 .adventure-details {
-  font-family: 'Helvetica Neue', Arial, sans-serif; /* Clean sans-serif font */
-  color: #333;
+  color: var(--text-color);
   padding: 20px;
-  background-color: #f5f5f5; /* Light gray background */
+    background-color: var(--background-color);
+  font-family: var(--font-family-base);
 }
 
 .header {
-  background-color: #fff; /* White background for header */
+  background-color: #fff;
   padding: 20px;
-  border-bottom: 1px solid #eee; /* Subtle divider */
+  border-bottom: 1px solid #eee;
   margin-bottom: 20px;
 }
 
@@ -21,15 +20,16 @@
 }
 
 .header h1 {
+  font-family: var(--font-family-heading);
   font-size: 2.5rem;
   margin: 0;
-  color: #082567; /* Deep sapphire blue for title */
+  color: var(--brand-color); /* Consistent with the brand color */
 }
 
 .header-subinfo {
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between location and rating */
+  gap: 10px;
 }
 
 .location, .rating {
@@ -53,16 +53,16 @@
 
 .gallery-image {
   width: 100%;
-  height: 300px; /* Increased height for more visual impact */
+  height: 300px;
   object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .gallery-image:hover {
-  transform: scale(1.03); /* Slightly larger scale on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transform: scale(1.03);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Overview section */
@@ -72,174 +72,133 @@
 
 .overview-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* More space for info, less for booking */
-  gap: 30px;
-}
-
-.info {
-  /* Add some padding or margin for better visual separation */
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
 }
 
 .info h2 {
-  color: #082567; /* Deep sapphire blue for section header */
-  font-size: 1.8rem;
-  margin-bottom: 15px;
+  font-family: var(--font-family-heading);
+  font-size: 2rem;
+  color: var(--brand-color);
 }
 
 .info p {
-  margin: 8px 0;
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-.info strong {
-  font-weight: bold;
-}
-
-.itinerary {
-  list-style: none;
-  padding: 0;
-}
-
-.itinerary li {
-  margin-bottom: 20px;
+  font-family: var(--font-family-base);
+  color: var(--text-color);
 }
 
 .itinerary h4 {
-  color: #333;
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-}
-
-.activities {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.activities li {
+  font-family: var(--font-family-heading);
+  color: var(--brand-color);
   margin-bottom: 5px;
 }
 
+.itinerary p, .itinerary li {
+  font-family: var(--font-family-base);
+  color: var(--text-color);
+}
+
 .booking {
-  background-color: #fff; /* White background for booking section */
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .booking h2 {
-  margin-bottom: 15px;
-  color: #E53935; /* Light red for booking header */
+  font-family: var(--font-family-heading);
+  font-size: 1.8rem;
+  color: var(--brand-color);
 }
 
 .booking-form {
-  display: flex;
-  flex-direction: column;
+  margin-top: 15px;
+}
+
+.booking-form p {
+  font-size: 1.1rem;
 }
 
 .booking-form label {
-  margin-bottom: 5px;
-  font-weight: bold;
+  font-family: var(--font-family-base);
+  font-size: 1rem;
+  color: var(--text-color);
 }
 
 .booking-form input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
-.booking-form button {
-  background-color: #E53935;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.booking-form button:hover {
-  background-color: #c62828;
-}
-
-/* Reviews section */
 .reviews {
-  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.reviews h2 {
+  font-family: var(--font-family-heading);
+  font-size: 2rem;
+  color: var(--brand-color);
 }
 
 .review {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
-}
-
-.review strong {
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.review span {
-  color: #FFD700; /* Golden yellow for stars */
-}
-
-/* Leave a review section */
-.leave-review {
-  margin-top: 30px;
-}
-
-.leave-review h3 {
-  margin-bottom: 10px;
-  color: #E53935;
-}
-
-.leave-review form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
 }
 
-.form-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
+.review strong {
+  font-family: var(--font-family-heading);
+  color: var(--brand-color);
 }
 
-.form-group textarea,
-.form-group select,
-.form-group input {
+.review p {
+  font-family: var(--font-family-base);
+  color: var(--text-color);
+}
+
+.leave-review h3 {
+  font-family: var(--font-family-heading);
+  font-size: 1.8rem;
+  color: var(--brand-color);
+}
+
+.leave-review .form-group {
+  margin-bottom: 15px;
+}
+
+.leave-review label {
+  font-family: var(--font-family-base);
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.leave-review select, 
+.leave-review textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .leave-review button {
-  background-color: #E53935;
+  background-color: var(--cta-button-background);
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  font-family: var(--font-family-base);
 }
 
 .leave-review button:hover {
-  background-color: #c62828;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .overview-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .photo-gallery {
-    grid-template-columns: 1fr;
-  }
+  background-color: var(--cta-button-background-hover);
 }

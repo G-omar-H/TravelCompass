@@ -5,26 +5,26 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--background-color); /* Use the global background color */
 }
 
 /* Hero Section */
 .hero-section {
-  padding: 60px 20px 150px;
+  padding: 60px 20px 130px;
   text-align: center;
 }
 
 .hero-text h1 {
   font-size: 3rem;
   text-align: left;
-  color: var(--brand-color); /* Use the brand color defined globally */
-  margin-left: 157px; /* Adjust margin for layout */
+  margin-left: 140px; /* Adjust margin for layout */
+  margin-bottom: 10px;
 }
 
 .hero-text p {
   font-size: 1.5rem;
   text-align: left;
-  margin-left: 157px; /* Adjust margin for layout */
+  margin-top: 0;
+  margin-left: 140px; /* Adjust margin for layout */
   color: var(--text-color); /* Use the global text color */
 }
 

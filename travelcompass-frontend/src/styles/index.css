@@ -2,13 +2,13 @@
 
 /* Define CSS Variables */
 :root {
-  --background-color: #f4f4f4;
-  --font-family-base: 'Roboto', sans-serif;
-  --font-family-heading: 'Helvetica', sans-serif;
-  --brand-color: #4CAF50;
+  --background-color:  #FAFAD2;
+  --font-family-base: 'Montserrat', sans-serif;
+  --font-family-heading: 'Raleway', sans-serif;
+  --brand-color: rgb(76, 175, 80);
   --cta-button-background: #E53935;
   --cta-button-background-hover: #FF4500;
-  --text-color: #333;
+  --text-color: rgb(11, 11, 11);
 }
 
 /* General Styles */

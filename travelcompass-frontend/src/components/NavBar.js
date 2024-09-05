@@ -72,8 +72,9 @@ const Navbar = () => {
             <div className={`dropdown-content ${isMenuOpen ? 'show' : ''}`}>
               {!user ? (
                 <>
-                  <span className="nav-link" onClick={() => openModal('login')}>Login</span>
-                  <span className="nav-link" onClick={() => openModal('register')}>Sign Up</span>
+                  <Link to="/login" className="nav-link">Login</Link>
+                  <Link to="/register" className="nav-link">Register</Link>
+
                 </>
               ) : (
                 <>
