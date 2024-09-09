@@ -129,9 +129,9 @@ const EditAdventure = () => {
       />
       <input
         type="text"
-        name="activityType"
+        name="activityTypes"
         placeholder="Activity Type"
-        value={adventure.activityType}
+        value={adventure.activityTypes}
         onChange={handleInputChange}
         className="edit-input"
       />

@@ -1,4 +1,3 @@
-// TRAVELCOMPASS-FRONTEND/src/pages/AdminDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminCreateAdventure from '../components/AdminCreateAdventure';
@@ -10,6 +9,7 @@ const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [providers, setProviders] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAdventure, setSelectedAdventure] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,63 +48,68 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleEdit = (adventure) => {
+    setSelectedAdventure(adventure);
+    setIsModalOpen(true);
+  };
+
   return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+      <div className="admin-dashboard">
+        <h1>Admin Dashboard</h1>
 
-      <section className="admin-section">
-        <h2>Users</h2>
-        <ul>
-          {users.map(user => (
-            <li key={user._id} className="admin-item">
-              {user.name} - {user.email}
-              <button onClick={() => handleDelete('users', user._id, setUsers, users)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="admin-section">
+          <h2>Users</h2>
+          <ul>
+            {users.map(user => (
+                <li key={user._id} className="admin-item">
+                  {user.name} - {user.email}
+                  <button onClick={() => handleDelete('users', user._id, setUsers, users)}>Delete</button>
+                </li>
+            ))}
+          </ul>
+        </section>
 
-      <section className="admin-section">
-        <h2>Adventures</h2>
-        <ul>
-          {adventures.map(adventure => (
-            <li key={adventure._id} className="admin-item">
-              {adventure.title}
-              <button onClick={() => handleDelete('adventures', adventure._id, setAdventures, adventures)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="admin-section">
+          <h2>Adventures</h2>
+          <ul>
+            {adventures.map(adventure => (
+                <li key={adventure._id} className="admin-item" onClick={() => handleEdit(adventure)}>
+                  {adventure.title}
+                  <button onClick={() => handleDelete('adventures', adventure._id, setAdventures, adventures)}>Delete</button>
+                </li>
+            ))}
+          </ul>
+        </section>
 
-      <section className="admin-section">
-        <h2>Bookings</h2>
-        <ul>
-          {bookings.map(booking => (
-            <li key={booking._id} className="admin-item">
-              {booking.user.name} - {booking.adventure.title} - {new Date(booking.date).toLocaleDateString()}
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="admin-section">
+          <h2>Bookings</h2>
+          <ul>
+            {bookings.map(booking => (
+                <li key={booking._id} className="admin-item">
+                  {booking.user.name} - {booking.adventure.title} - {new Date(booking.date).toLocaleDateString()}
+                </li>
+            ))}
+          </ul>
+        </section>
 
-      <section className="admin-section">
-        <h2>Providers</h2>
-        <ul>
-          {providers.map(provider => (
-            <li key={provider._id} className="admin-item">
-              {provider.name}
-              <button onClick={() => handleDelete('providers', provider._id, setProviders, providers)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="admin-section">
+          <h2>Providers</h2>
+          <ul>
+            {providers.map(provider => (
+                <li key={provider._id} className="admin-item">
+                  {provider.name}
+                  <button onClick={() => handleDelete('providers', provider._id, setProviders, providers)}>Delete</button>
+                </li>
+            ))}
+          </ul>
+        </section>
 
-      <button onClick={() => setIsModalOpen(true)}>Create New Adventure</button>
+        <button onClick={() => { setSelectedAdventure(null); setIsModalOpen(true); }}>Create New Adventure</button>
 
-      {isModalOpen && (
-        <AdminCreateAdventure setIsModalOpen={setIsModalOpen} />
-      )}
-    </div>
+        {isModalOpen && (
+            <AdminCreateAdventure setIsModalOpen={setIsModalOpen} selectedAdventure={selectedAdventure} />
+        )}
+      </div>
   );
 };
 
