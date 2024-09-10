@@ -109,7 +109,7 @@ const AdventureDetails = () => {
               <h2>About this Adventure</h2>
               <p>{adventure.description}</p>
               <p><strong>Location:</strong> {adventure.location}</p>
-              <p><strong>Activity Type:</strong> {adventure.activityTypes.join(', ')}</p>
+              <p><strong>Activity Type:</strong> {adventure.activityTypes ? adventure.activityTypes.join(', ') : 'N/A'}</p>
               <p><strong>Difficulty:</strong> {adventure.difficulty}</p>
               <p><strong>Duration:</strong> {adventure.duration} days</p>
               <p><strong>Max Group Size:</strong> {adventure.maxGroupSize}</p>
