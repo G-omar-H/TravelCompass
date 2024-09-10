@@ -28,13 +28,13 @@ const AdventureList = () => {
   }, []);
 
   const handleFilter = (activityType) => {
-    if (activityType) {
+    if (activityType === 'All') {
+      setFilteredAdventures(adventures);
+    } else {
       const filtered = adventures.filter(adventure =>
           adventure.activityTypes && adventure.activityTypes.includes(activityType)
       );
       setFilteredAdventures(filtered);
-    } else {
-      setFilteredAdventures(adventures);
     }
   };
 
