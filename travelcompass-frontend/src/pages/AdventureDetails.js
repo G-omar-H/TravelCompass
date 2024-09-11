@@ -81,138 +81,141 @@ const AdventureDetails = () => {
   }
 
   return (
-      <div className="adventure-details">
-        <header className="header">
-          <div className="header-content">
-            <h1>{adventure.title}</h1>
-            <div className="header-subinfo">
-              <span className="location">{adventure.location}</span>
-              <span className="rating">{'★'.repeat(calculateAverageRating(reviews))} ({reviews.length} reviews)</span>
-            </div>
-            <FavoriteButton adventureId={adventure._id} />
-          </div>
-        </header>
-
-        <section className="hero">
-          {adventure.photos && adventure.photos.length > 0 && (
-              <div className="photo-gallery">
-                {adventure.photos.map((photo, index) => (
-                    <img key={index} src={photo} alt={`Adventure photo ${index + 1}`} className="gallery-image" />
-                ))}
+      <div className="container">
+        <div className="adventure-details">
+          <header className="header">
+            <div className="header-content">
+              <h1>{adventure.title}</h1>
+              <div className="header-subinfo">
+                <span className="location">{adventure.location}</span>
+                <span className="rating">{'★'.repeat(calculateAverageRating(reviews))} ({reviews.length} reviews)</span>
               </div>
-          )}
-        </section>
-
-        <section className="overview">
-          <div className="overview-grid">
-            <div className="info">
-              <h2>About this Adventure</h2>
-              <p>{adventure.description}</p>
-              <p><strong>Location:</strong> {adventure.location}</p>
-              <p><strong>Activity Type:</strong> {adventure.activityTypes ? adventure.activityTypes.join(', ') : 'N/A'}</p>
-              <p><strong>Difficulty:</strong> {adventure.difficulty}</p>
-              <p><strong>Duration:</strong> {adventure.duration} days</p>
-              <p><strong>Max Group Size:</strong> {adventure.maxGroupSize}</p>
-              <p>Provider: {adventure.provider ? adventure.provider.name : 'Unknown'}</p>
-
-              <h3>Itinerary</h3>
-              {adventure.itinerary && (
-                  <ul className="itinerary">
-                    {adventure.itinerary.map((day, index) => (
-                        <li key={index}>
-                          <h4>Day {day.day}</h4>
-                          <p>{day.description}</p>
-                          <ul className="activities">
-                            {day.activities.map((activity, idx) => (
-                                <li key={idx}>{activity}</li>
-                            ))}
-                          </ul>
-                          <p><strong>Meals:</strong> {day.meals.join(', ')}</p>
-                          <p><strong>Accommodation:</strong> {day.accommodation}</p>
-                        </li>
-                    ))}
-                  </ul>
-              )}
-
-              <h3>Availability</h3>
-              {adventure.availability && (
-                  <ul>
-                    {adventure.availability.map((slot, index) => (
-                        <li key={index}>
-                          <strong>{new Date(slot.startDate).toLocaleDateString()} - {new Date(slot.endDate).toLocaleDateString()}</strong>
-                          : {slot.slotsAvailable} spots available
-                        </li>
-                    ))}
-                  </ul>
-              )}
+              <FavoriteButton adventureId={adventure._id}/>
             </div>
+          </header>
 
-            <div className="booking">
-              <h2>Book Your Adventure</h2>
-              <div className="booking-form">
-                <p><strong>Price:</strong> ${adventure.price} per person</p>
-                <label htmlFor="quantity">Quantity:</label>
-                <input
-                    id="quantity"
-                    type="number"
-                    min="1"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                />
+          <section className="hero">
+            {adventure.photos && adventure.photos.length > 0 && (
+                <div className="photo-gallery">
+                  {adventure.photos.map((photo, index) => (
+                      <img key={index} src={photo} alt={`Adventure photo ${index + 1}`} className="gallery-image"/>
+                  ))}
+                </div>
+            )}
+          </section>
 
-                <label htmlFor="bookingDate">Booking Date:</label>
-                <input
-                    id="bookingDate"
-                    type="date"
-                    value={bookingDate}
-                    onChange={(e) => setBookingDate(e.target.value)}
-                />
+          <section className="overview">
+            <div className="overview-grid">
+              <div className="info">
+                <h2>About this Adventure</h2>
+                <p>{adventure.description}</p>
+                <p><strong>Location:</strong> {adventure.location}</p>
+                <p><strong>Activity
+                  Type:</strong> {adventure.activityTypes ? adventure.activityTypes.join(', ') : 'N/A'}</p>
+                <p><strong>Difficulty:</strong> {adventure.difficulty}</p>
+                <p><strong>Duration:</strong> {adventure.duration} days</p>
+                <p><strong>Max Group Size:</strong> {adventure.maxGroupSize}</p>
+                <p>Provider: {adventure.provider ? adventure.provider.name : 'Unknown'}</p>
 
-                <Elements stripe={stripePromise}>
-                  <PaymentForm adventureId={id} quantity={quantity} date={bookingDate} />
-                </Elements>
+                <h3>Itinerary</h3>
+                {adventure.itinerary && (
+                    <ul className="itinerary">
+                      {adventure.itinerary.map((day, index) => (
+                          <li key={index}>
+                            <h4>Day {day.day}</h4>
+                            <p>{day.description}</p>
+                            <ul className="activities">
+                              {day.activities.map((activity, idx) => (
+                                  <li key={idx}>{activity}</li>
+                              ))}
+                            </ul>
+                            <p><strong>Meals:</strong> {day.meals.join(', ')}</p>
+                            <p><strong>Accommodation:</strong> {day.accommodation}</p>
+                          </li>
+                      ))}
+                    </ul>
+                )}
+
+                <h3>Availability</h3>
+                {adventure.availability && (
+                    <ul>
+                      {adventure.availability.map((slot, index) => (
+                          <li key={index}>
+                            <strong>{new Date(slot.startDate).toLocaleDateString()} - {new Date(slot.endDate).toLocaleDateString()}</strong>
+                            : {slot.slotsAvailable} spots available
+                          </li>
+                      ))}
+                    </ul>
+                )}
+              </div>
+
+              <div className="booking">
+                <h2>Book Your Adventure</h2>
+                <div className="booking-form">
+                  <p><strong>Price:</strong> ${adventure.price} per person</p>
+                  <label htmlFor="quantity">Quantity:</label>
+                  <input
+                      id="quantity"
+                      type="number"
+                      min="1"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                  />
+
+                  <label htmlFor="bookingDate">Booking Date:</label>
+                  <input
+                      id="bookingDate"
+                      type="date"
+                      value={bookingDate}
+                      onChange={(e) => setBookingDate(e.target.value)}
+                  />
+
+                  <Elements stripe={stripePromise}>
+                    <PaymentForm adventureId={id} quantity={quantity} date={bookingDate}/>
+                  </Elements>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="reviews">
-          <h2>Reviews</h2>
-          {reviews.length === 0 ? (
-              <p>No reviews yet. Be the first to leave a review!</p>
-          ) : (
-              reviews.map((review) => (
-                  <div className="review" key={review._id}>
-                    <strong>{review.user.name}</strong>
-                    <span>{'★'.repeat(review.rating)}</span>
-                    <p>{review.comment}</p>
-                  </div>
-              ))
-          )}
-        </section>
+          <section className="reviews">
+            <h2>Reviews</h2>
+            {reviews.length === 0 ? (
+                <p>No reviews yet. Be the first to leave a review!</p>
+            ) : (
+                reviews.map((review) => (
+                    <div className="review" key={review._id}>
+                      <strong>{review.user.name}</strong>
+                      <span>{'★'.repeat(review.rating)}</span>
+                      <p>{review.comment}</p>
+                    </div>
+                ))
+            )}
+          </section>
 
-        <section className="leave-review">
-          <h3>Leave a Review</h3>
-          <form onSubmit={submitReview}>
-            <div className="form-group">
-              <label>Rating:</label>
-              <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
-                {[1, 2, 3, 4, 5].map((value) => (
-                    <option key={value} value={value}>
-                      {value} Star{value > 1 && 's'}
-                    </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Comment:</label>
-              <textarea value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-            </div>
-            <button type="submit">Submit Review</button>
-          </form>
-        </section>
+          <section className="leave-review">
+            <h3>Leave a Review</h3>
+            <form onSubmit={submitReview}>
+              <div className="form-group">
+                <label>Rating:</label>
+                <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+                  {[1, 2, 3, 4, 5].map((value) => (
+                      <option key={value} value={value}>
+                        {value} Star{value > 1 && 's'}
+                      </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Comment:</label>
+                <textarea value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+              </div>
+              <button type="submit">Submit Review</button>
+            </form>
+          </section>
+        </div>
       </div>
-  );
-};
+        );
+        };
 
-export default AdventureDetails;
+        export default AdventureDetails;

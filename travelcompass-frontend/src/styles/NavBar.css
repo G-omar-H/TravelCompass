@@ -1,11 +1,24 @@
 /* Navbar Styles */
 .navbar {
+  width: 100%; /* Full width of the viewport */
+  background-color: var(--hero-background-color);
+  z-index: 1000;
+  position: relative;
+
+}
+
+/* Container for navbar content, centered and limited to max-width */
+.navbar-container {
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1); /* Apply a subtle shadow */
+  max-width: 1200px; /* Align content inside */
+  margin: 0 auto;
+  box-sizing: border-box;
 }
+
 
 .navbar-logo {
   display: flex;
@@ -43,10 +56,9 @@
 }
 
 .navbar-item .nav-link {
-  color: var(--brand-color); /* Ensure links use brand color */
-  font-weight: bold;
+  color: var(--text-color); /* Use global text color */
   text-decoration: none;
-  font-family: var(--font-family-base); /* Use the base font for consistency */
+  font-family: var(--font-family-base); /* Use global base font */
 }
 
 .navbar-item .nav-link:hover {
@@ -96,7 +108,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .navbar {
+  .navbar-container {
     flex-direction: column;
     align-items: flex-start;
   }

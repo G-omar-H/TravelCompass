@@ -2,7 +2,7 @@
 .adventure-details {
   color: var(--text-color);
   padding: 20px;
-    background-color: var(--background-color);
+    background-color: #ffffff;
   font-family: var(--font-family-base);
 }
 

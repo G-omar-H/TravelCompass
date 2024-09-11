@@ -26,7 +26,7 @@
 
 .search-icon {
   margin-right: 10px;
-  color: #000000; /* Use global brand color */
+  color: var(--brand-color); /* Use global brand color */
   padding: 10px;
   background-color:  #FAFAD2;
 }

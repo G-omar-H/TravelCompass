@@ -1,31 +1,47 @@
 /* HomePage.css */
 
-/* Home Page Layout */
 .home-page {
+  width: 100%; /* Full width background */
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
 }
 
 /* Hero Section */
 .hero-section {
-  padding: 60px 20px 130px;
+  width: 100vw;
+  padding: 60px 0; /* Adjust padding */
   text-align: center;
+  background-color: var(--hero-background-color);
 }
 
-.hero-text h1 {
-  font-size: 3rem;
+/* Center the text within a container */
+.hero-text {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   text-align: left;
-  margin-left: 140px; /* Adjust margin for layout */
-  margin-bottom: 10px;
+  padding: 0  159px 77px; /* Prevent content from touching the screen edges */
+  box-sizing: border-box;
 }
 
-.hero-text p {
-  font-size: 1.5rem;
+.hero-text h1, .hero-text p {
   text-align: left;
-  margin-top: 0;
-  margin-left: 140px; /* Adjust margin for layout */
-  color: var(--text-color); /* Use the global text color */
+  margin-left: 0; /* Adjust for responsive layout */
+}
+
+.featured-adventures {
+  width: 100vw;
+  padding: 40px 0;
+  background-color: var(--background-color); /* Different background if needed */
+}
+
+.featured-adventures .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px; /* Add padding to keep content framed */
+  box-sizing: border-box;
 }
 
 .search-filter-container {

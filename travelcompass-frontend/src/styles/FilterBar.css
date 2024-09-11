@@ -38,8 +38,7 @@
 }
 
 .filter-button.active {
-    color: #000000;
-    font-weight: bold;
+    color: var(--brand-color);
 }
 
 .filter-button span {

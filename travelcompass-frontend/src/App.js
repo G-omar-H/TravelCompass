@@ -26,7 +26,6 @@ function App() {
 
   return (
     <Router>
-      <div className="container">
         <Navbar />
 
         <Routes>
@@ -44,13 +43,11 @@ function App() {
         </Routes>
 
         <footer>
-          <hr />
-          <p>&copy; 2024 Travel Compass</p>
+
         </footer> 
 
 
         
-      </div>
     </Router>
   );
 }

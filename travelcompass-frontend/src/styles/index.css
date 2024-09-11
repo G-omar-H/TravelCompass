@@ -2,7 +2,8 @@
 
 /* Define CSS Variables */
 :root {
-  --background-color:  #FAFAD2;
+  --background-color:  #FFFFFF;
+  --hero-background-color:  #FAFAD2;
   --font-family-base: 'Montserrat', sans-serif;
   --font-family-heading: 'Raleway', sans-serif;
   --brand-color: rgb(76, 175, 80);
@@ -13,18 +14,18 @@
 
 /* General Styles */
 html, body {
-  height: 100%;
   width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
+
+
+
 body {
   background-color: var(--background-color);
   font-family: var(--font-family-base);
-  margin: 0;
-  padding: 0;
-  width: 100%;
 }
 
 /* Root Element */
@@ -37,12 +38,12 @@ body {
 
 /* Global Container */
 .container {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: border-box;
 }
+
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
