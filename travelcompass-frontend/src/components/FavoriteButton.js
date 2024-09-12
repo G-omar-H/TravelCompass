@@ -26,7 +26,8 @@ const FavoriteButton = ({ adventureId, className }) => {
     checkIfFavorite();
   }, [adventureId]);
 
-  const handleToggleFavorite = async () => {
+  const handleToggleFavorite = async (event) => {
+    event.stopPropagation();
     if (!user) {
       // Store the adventure ID and redirect to login
       localStorage.setItem('pendingFavorite', adventureId);
