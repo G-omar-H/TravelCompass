@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import usePostLoginAction from '../hooks/usePostLoginAction';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
 
@@ -9,6 +10,7 @@ const Login = ({ onClose }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  usePostLoginAction();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +29,8 @@ const Login = ({ onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="login-form">
+      <div className="container">
+    <form onSubmit={handleSubmit} className="login-form ">
       <h2>Login</h2>
       {error && <p className="error-message">{error}</p>}
       <input 
@@ -49,6 +52,7 @@ const Login = ({ onClose }) => {
       <button type="submit" className="login-button">Login</button>
       <p className="forgot-password-link">Forgot your password?</p>
     </form>
+    </div>
   );
 };
 

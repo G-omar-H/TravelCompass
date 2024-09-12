@@ -1,10 +1,4 @@
-/* Container styling */
-.provider-dashboard-container {
-  padding: 20px;
-  background-color: var(--background-color);
-  max-width: 1200px;
-  margin: 0 auto;
-}
+
 
 /* Provider profile styling */
 .provider-name {

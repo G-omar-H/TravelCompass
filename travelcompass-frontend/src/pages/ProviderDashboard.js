@@ -132,7 +132,7 @@ const ProviderDashboard = () => {
   };
 
   return (
-      <div className="provider-dashboard-container">
+      <div className="container">
         <img src={provider.logo} alt={provider.name} className="provider-logo" />
         <h1 className="provider-name">{provider.name}</h1>
         <p className="provider-description">{provider.description}</p>

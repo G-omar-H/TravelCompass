@@ -81,8 +81,7 @@ const AdventureDetails = () => {
   }
 
   return (
-      <div className="container">
-        <div className="adventure-details">
+        <div className="adventure-details container">
           <header className="header">
             <div className="header-content">
               <h1>{adventure.title}</h1>
@@ -214,7 +213,6 @@ const AdventureDetails = () => {
             </form>
           </section>
         </div>
-      </div>
         );
         };
 

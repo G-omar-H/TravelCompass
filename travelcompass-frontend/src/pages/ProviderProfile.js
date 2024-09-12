@@ -85,7 +85,7 @@ const ProviderProfile = () => {
   };
 
   return (
-    <div className="provider-profile-container">
+    <div className="container">
       <h1>Provider Profile</h1>
       {error && <div className="error-message">{error}</div>}
       {success && <div className="success-message">{success}</div>}

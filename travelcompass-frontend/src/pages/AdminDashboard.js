@@ -54,7 +54,7 @@ const AdminDashboard = () => {
   };
 
   return (
-      <div className="admin-dashboard">
+      <div className="admin-dashboard container">
         <h1>Admin Dashboard</h1>
 
         <section className="admin-section">

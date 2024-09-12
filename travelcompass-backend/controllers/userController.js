@@ -63,13 +63,22 @@ const unsaveAdventure = async (req, res) => {
     const user = await User.findById(req.user.id);
     const adventure = await Adventure.findById(req.params.id);
 
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
     if (!adventure) {
       return res.status(404).json({ message: 'Adventure not found' });
     }
 
-    if (user.savedAdventures.includes(adventure.id)) {
-      user.savedAdventures = user.savedAdventures.filter((id) => id !== adventure.id);
+    // Check if the adventure is in the user's savedAdventures
+    const adventureIndex = user.savedAdventures.findIndex(id => id.equals(adventure._id));
+
+    if (adventureIndex !== -1) {
+      // Remove the adventure from the savedAdventures array
+      user.savedAdventures.splice(adventureIndex, 1);
       await user.save();
+
     }
 
     res.status(200).json(user.savedAdventures);
@@ -77,6 +86,7 @@ const unsaveAdventure = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 const favoriteAdventures = async (req, res) => {
   try {

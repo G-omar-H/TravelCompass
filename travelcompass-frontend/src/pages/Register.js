@@ -18,7 +18,7 @@ const Register = ({ onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="register-form">
+    <form onSubmit={handleSubmit} className="register-form container">
       <h2>Register</h2>
       <input 
         type="text" 

@@ -44,7 +44,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>User Profile</h1>
       {error && <p>{error}</p>}
       {user && (
