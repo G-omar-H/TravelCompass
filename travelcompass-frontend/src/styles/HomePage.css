@@ -28,8 +28,12 @@
 
 .hero-text h1, .hero-text p {
   text-align: left;
+  color: var(--brand-color  ); /* Adjust text color */
   margin-left: 0; /* Adjust for responsive layout */
 }
+
+
+
 
 .featured-adventures {
   width: 100vw;

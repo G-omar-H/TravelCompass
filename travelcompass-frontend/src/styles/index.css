@@ -3,10 +3,10 @@
 /* Define CSS Variables */
 :root {
   --background-color:  #FFFFFF;
-  --hero-background-color:  #FAFAD2;
+  --hero-background-color: rgb(76, 175, 80);
   --font-family-base: 'Montserrat', sans-serif;
   --font-family-heading: 'Raleway', sans-serif;
-  --brand-color: rgb(76, 175, 80);
+  --brand-color:  #FAFAD2;
   --cta-button-background: #E53935;
   --cta-button-background-hover: #FF4500;
   --text-color: rgb(11, 11, 11);
