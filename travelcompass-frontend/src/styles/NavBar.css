@@ -56,7 +56,7 @@
 }
 
 .navbar-item .nav-link {
-  color: var(--text-color); /* Use global text color */
+  color: var(--brand-color); /* Use global text color */
   text-decoration: none;
   font-family: var(--font-family-base); /* Use global base font */
 }
