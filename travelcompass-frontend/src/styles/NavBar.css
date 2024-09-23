@@ -56,7 +56,7 @@
 }
 
 .navbar-item .nav-link {
-  color: var(--brand-color); /* Use global text color */
+  color: var(--text-color); /* Use global text color */
   text-decoration: none;
   font-family: var(--font-family-base); /* Use global base font */
 }
@@ -72,7 +72,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: var(--background-color); /* Use global background color */
+  background-color: var(--brand-color); /* Use global background color */
   min-width: 200px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Use global box-shadow or customize */
   padding: 12px 16px;
@@ -83,7 +83,7 @@
 }
 
 .dropdown-content.show {
-  display: block;
+  display: grid;
 }
 
 .dropdown-content a {
