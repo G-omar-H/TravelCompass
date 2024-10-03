@@ -23,3 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+.idea
+
+__pycache__
+
+.gitignore
+
