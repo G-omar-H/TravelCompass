@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Search, Calendar, Users, MapPin } from 'react-feather';
 import DatePicker from 'react-datepicker';
@@ -35,8 +35,22 @@ const SearchFilter = ({ setAdventures }) => {
     const [people, setPeople] = useState({ adults: 1, children: 0, infants: 0 });
     const [error, setError] = useState('');
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+    const dropdownRef = useRef(null);
 
     const toggleDropdown = () => setIsDropdownVisible(!isDropdownVisible);
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -82,8 +96,7 @@ const SearchFilter = ({ setAdventures }) => {
                 />
             </div>
 
-
-            <div className="search-field">
+            <div className="search-field" ref={dropdownRef}>
                 <Users className="search-icon"/>
                 <input
                     type="text"
