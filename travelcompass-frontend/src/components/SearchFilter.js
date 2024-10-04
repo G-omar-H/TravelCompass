@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Search, Calendar, Users, MapPin } from 'react-feather';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import PlacesAutocomplete from 'react-places-autocomplete';
-import '../styles/SearchFilter.css';
+import '../styles/SearchFilter.css'; // Removed PlacesAutocomplete import
 
 const loadGoogleMapsAPI = (callback) => {
     const existingScript = document.getElementById('googleMaps');
@@ -36,23 +35,9 @@ const SearchFilter = ({ setAdventures }) => {
     const [people, setPeople] = useState({ adults: 1, children: 0, infants: 0 });
     const [error, setError] = useState('');
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-    const [isGoogleMapsLoaded, setIsGoogleMapsLoaded] = useState(false);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        loadGoogleMapsAPI(() => {
-            setIsGoogleMapsLoaded(true);
-            setLoading(false);
-            console.log('Google Maps API loaded successfully');
-        });
-    }, []);
 
     const toggleDropdown = () => {
         setIsDropdownVisible(!isDropdownVisible);
-    };
-
-    const handleSelectLocation = (address) => {
-        setLocation(address);
     };
 
     const handleSearch = async (e) => {
@@ -72,26 +57,11 @@ const SearchFilter = ({ setAdventures }) => {
         <form onSubmit={handleSearch} className="search-filter">
             <div className="search-field">
                 <MapPin className="search-icon" />
-                {isGoogleMapsLoaded ? (
-                    <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelectLocation}>
-                        {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-                            <div>
-                                <input {...getInputProps({ placeholder: 'Where are you going?' })} />
-                                <div className="autocomplete-dropdown">
-                                    {suggestions.map((suggestion) => (
-                                        <div key={suggestion.placeId} {...getSuggestionItemProps(suggestion)}>
-                                            {suggestion.description}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </PlacesAutocomplete>
-                ) : loading ? (
-                    <input placeholder="Loading location..." disabled />
-                ) : (
-                    <input placeholder="Google Maps API not loaded." disabled />
-                )}
+                <input
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder="Where are you going?"
+                />
             </div>
 
             <div className="search-field">
