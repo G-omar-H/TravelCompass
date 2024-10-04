@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Search, Calendar, Users, MapPin } from 'react-feather';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import '../styles/SearchFilter.css'; // Removed PlacesAutocomplete import
+import '../styles/SearchFilter.css';
 
 const loadGoogleMapsAPI = (callback) => {
     const existingScript = document.getElementById('googleMaps');
@@ -36,9 +36,7 @@ const SearchFilter = ({ setAdventures }) => {
     const [error, setError] = useState('');
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-    const toggleDropdown = () => {
-        setIsDropdownVisible(!isDropdownVisible);
-    };
+    const toggleDropdown = () => setIsDropdownVisible(!isDropdownVisible);
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -56,7 +54,7 @@ const SearchFilter = ({ setAdventures }) => {
     return (
         <form onSubmit={handleSearch} className="search-filter">
             <div className="search-field">
-                <MapPin className="search-icon" />
+                <MapPin className="search-icon"/>
                 <input
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
@@ -64,8 +62,8 @@ const SearchFilter = ({ setAdventures }) => {
                 />
             </div>
 
-            <div className="search-field">
-                <Calendar className="search-icon" />
+            <div className="search-field date-range">
+                <Calendar className="search-icon"/>
                 <DatePicker
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
@@ -84,8 +82,9 @@ const SearchFilter = ({ setAdventures }) => {
                 />
             </div>
 
+
             <div className="search-field">
-                <Users className="search-icon" />
+                <Users className="search-icon"/>
                 <input
                     type="text"
                     placeholder="Guests"
@@ -95,33 +94,28 @@ const SearchFilter = ({ setAdventures }) => {
                 />
                 {isDropdownVisible && (
                     <div className="people-picker-dropdown">
-                        <div>
-                            <label>Adults</label>
-                            <button onClick={() => setPeople({ ...people, adults: Math.max(1, people.adults - 1) })}>-</button>
-                            <span>{people.adults}</span>
-                            <button onClick={() => setPeople({ ...people, adults: people.adults + 1 })}>+</button>
-                        </div>
-                        <div>
-                            <label>Children</label>
-                            <button onClick={() => setPeople({ ...people, children: Math.max(0, people.children - 1) })}>-</button>
-                            <span>{people.children}</span>
-                            <button onClick={() => setPeople({ ...people, children: people.children + 1 })}>+</button>
-                        </div>
-                        <div>
-                            <label>Infants</label>
-                            <button onClick={() => setPeople({ ...people, infants: Math.max(0, people.infants - 1) })}>-</button>
-                            <span>{people.infants}</span>
-                            <button onClick={() => setPeople({ ...people, infants: people.infants + 1 })}>+</button>
-                        </div>
+                        {['adults', 'children', 'infants'].map((personType) => (
+                            <div key={personType}>
+                                <label>{personType.charAt(0).toUpperCase() + personType.slice(1)}</label>
+                                <button onClick={() => setPeople({...people, [personType]: people[personType] - 1})}>
+                                    -
+                                </button>
+                                <span>{people[personType]}</span>
+                                <button onClick={() => setPeople({...people, [personType]: people[personType] + 1})}>
+                                    +
+                                </button>
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>
 
-            <button type="submit" className="search-button">
-                <Search className="search-icon magnet" />
+            <button className="search-button">
+                <Search className="magnet"/>
                 Search
             </button>
-            {error && <p className="error-message">{error}</p>}
+
+            {error && <div className="error-message">{error}</div>}
         </form>
     );
 };

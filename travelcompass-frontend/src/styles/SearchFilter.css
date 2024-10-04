@@ -1,212 +1,226 @@
 /* Search Filter Container */
 .search-filter {
-  background-color: #ffffff; /* Clean white background */
-  padding: 15px 20px; /* Balanced padding */
-  border-radius: 8px; /* Slightly smaller radius for a modern look */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #fff; /* Clean white background */
+  padding: 20px 25px; /* Increased padding for comfort */
+  border-radius: 10px; /* Sharper rounded corners */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Softer, deeper shadow */
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Reduced gap for a tighter layout */
+  gap: 15px; /* More spacious gap between elements */
   justify-content: space-between;
-  max-width: 900px;
-  margin: 20px  auto; /* Center the filter container */
-  margin-top: -70px;
+  max-width: 1000px;
+  margin: 40px auto; /* Center the filter container */
 }
 
-/* Search Field Base Styles */
+/* Search Field */
 .search-field {
-  flex: 1 1 220px; /* Responsive width */
+  flex: 1 1 240px; /* Responsive width with more flexibility */
   display: flex;
   align-items: center;
-  padding: 10px; /* Adjusted padding */
-  border-radius: 8px; /* Modern rounded corners */
-  background-color: #f9f9f9; /* Light gray for minimalism */
-  border: 1px solid #e0e0e0; /* Subtle border */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Added transitions */
+  padding: 12px 15px; /* Adjusted padding for balance */
+  border-radius: 10px; /* Consistent rounded corners */
+  background-color: #f7f7f7; /* Light gray background for minimalism */
+  border: 1px solid #ddd; /* Subtle border */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 .search-field:hover,
 .search-field:focus-within {
-  border-color: #E53935; /* Border color on hover/focus */
-  box-shadow: 0 0 8px rgba(0, 122, 103, 0.5); /* Subtle shadow */
+  border-color: #ff5722; /* Brand accent color on focus/hover */
+  box-shadow: 0 0 10px rgba(255, 87, 34, 0.3); /* Subtle accent shadow */
 }
 
 .search-field input {
   width: 100%;
-  padding: 8px; /* Consistent padding */
-  border: none; /* No border to blend with background */
-  background: transparent; /* Transparent background */
-  outline: none; /* Remove default outline */
-  font-size: 16px; /* Consistent font size */
-  color: #333; /* Dark text for readability */
+  padding: 10px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  color: #333;
 }
 
 /* Search Icon */
 .search-icon {
-  margin-right: 8px; /* Reduced margin for a cleaner look */
-  color: #E53935; /* Consistent color with the theme */
+  margin-right: 10px; /* Balanced spacing */
+  color: #ff5722;
 }
 
 /* Autocomplete Suggestions */
 .autocomplete-dropdown {
   position: absolute;
-  top: calc(100% + 5px); /* Slightly separated from the input */
+  top: calc(100% + 8px); /* Separated from input */
   left: 0;
   width: 100%;
-  background-color: #ffffff; /* White background for dropdown */
-  border: 1px solid #e0e0e0; /* Gray border */
-  border-radius: 8px; /* Rounded corners */
-  max-height: 200px; /* Height for more suggestions */
-  overflow-y: auto; /* Scrollable dropdown */
-  z-index: 10; /* Ensure it appears above other content */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  animation: fadeIn 0.3s ease; /* Fade-in animation */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Soft shadow */
+  animation: fadeIn 0.3s ease;
 }
 
 .autocomplete-dropdown div {
-  padding: 10px; /* Comfortable padding for items */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease; /* Smooth background transition */
+  padding: 12px; /* Comfortable padding */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .autocomplete-dropdown div:hover {
-  background-color: #f0f0f0; /* Light gray background on hover */
+  background-color: #f7f7f7;
 }
 
 /* Date Range Picker */
-.react-datepicker-wrapper,
-.react-datepicker__input-container {
+/* Date Range Picker Styles */
+.react-datepicker-wrapper {
+  width: 48%; /* Give both date pickers a consistent width */
   display: inline-block;
-  width: 100%; /* Full width for input */
 }
 
 .react-datepicker__input-container input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
-  border: 1px solid #e0e0e0; /* Subtle border for consistency */
-  border-radius: 8px; /* Rounded corners */
-  outline: none; /* Remove default outline */
-  background-color: #ffffff; /* White background */
-  transition: border-color 0.3s ease; /* Smooth border transition */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
 }
 
 .react-datepicker__input-container input:focus {
-  border-color: #E53935; /* Change border color on focus */
+  border-color: #ff5722;
+}
+
+/* Adjust the parent container of the DatePicker for better alignment */
+.search-field.date-range {
+  display: flex;
+  gap: 10px; /* Space between the two date inputs */
+  width: 100%;
 }
 
 /* Selected Day Styles */
 .react-datepicker__day--selected,
 .react-datepicker__day--in-selecting-range {
-  background-color: #E53935; /* Selected day color */
-  color: #ffffff; /* White text for contrast */
+  background-color: #ff5722;
+  color: #fff;
+}
+
+/* Align the calendar icons with date inputs */
+.search-field.date-range .search-icon {
+  margin-right: 8px;
+  color: #ff5722;
 }
 
 /* Guests Dropdown */
 .people-picker-dropdown {
   position: absolute;
-  top: calc(100% + 5px); /* Slightly separated from the input */
+  top: calc(100% + 8px);
   left: 0;
   width: 100%;
-  background-color: #ffffff; /* White background */
-  border-radius: 8px; /* Rounded corners */
-  border: 1px solid #e0e0e0; /* Gray border */
-  z-index: 10; /* Above other content */
-  padding: 15px; /* Padding for dropdown */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
-  animation: fadeIn 0.3s ease; /* Fade-in animation */
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  z-index: 10;
+  padding: 20px; /* Spacious dropdown padding */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Deep shadow */
+  animation: fadeIn 0.3s ease;
 }
 
 .people-picker-dropdown div {
   display: flex;
-  justify-content: space-between; /* Space between elements */
-  align-items: center; /* Center elements vertically */
-  padding: 8px 0; /* Vertical padding */
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
 }
 
 .people-picker-dropdown label {
-  font-size: 16px; /* Consistent font size */
-  font-weight: normal; /* Normal weight for a minimalistic approach */
-  color: #333; /* Dark text for readability */
+  font-size: 16px;
+  font-weight: normal;
+  color: #333;
 }
 
 .people-picker-dropdown button {
-  background-color: #f9f9f9; /* Light gray background */
-  border: none; /* No border for buttons */
-  padding: 6px; /* Comfortable padding */
-  border-radius: 50%; /* Circular buttons */
-  cursor: pointer; /* Pointer cursor on hover */
-  font-size: 16px; /* Consistent font size */
-  transition: background-color 0.2s ease; /* Smooth background color transition */
+  background-color: #f7f7f7;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
 }
 
 .people-picker-dropdown button:hover {
-  background-color: #e0e0e0; /* Darker gray on hover */
+  background-color: #ddd;
 }
 
 .people-picker-dropdown span {
-  font-size: 16px; /* Consistent font size */
+  font-size: 16px;
 }
 
 /* Search Button */
 .search-button {
-  background-color: #E53935; /* Teal background */
-  color: #ffffff; /* White text */
-  border: none; /* No border for button */
-  padding: 10px 20px; /* Increased padding */
-  border-radius: 8px; /* Rounded corners */
-  font-size: 16px; /* Consistent font size */
-  cursor: pointer; /* Pointer cursor on hover */
-  display: flex; /* Flexbox for alignment */
-  align-items: center; /* Center icon and text vertically */
-  gap: 8px; /* Space between icon and text */
-  transition: background-color 0.3s ease; /* Smooth background color transition */
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .search-button:hover {
-  background-color: #006e5c; /* Darker teal on hover */
+  background-color: #e64a19;
 }
 
 .magnet {
-  transition: transform 0.2s ease-in-out; /* Smooth scaling transition */
+  transition: transform 0.2s ease-in-out;
 }
 
 .search-button:hover .magnet {
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  transform: scale(1.05);
 }
 
 /* Error Message */
 .error-message {
-  color: red; /* Red text for errors */
-  font-size: 14px; /* Consistent font size */
-  margin-top: 5px; /* Space above error message */
-  text-align: center; /* Center text for visibility */
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 /* Animations */
 @keyframes fadeIn {
   from {
-    opacity: 0; /* Start fully transparent */
-    transform: translateY(-10px); /* Start slightly above */
+    opacity: 0;
+    transform: translateY(-10px);
   }
   to {
-    opacity: 1; /* End fully opaque */
-    transform: translateY(0); /* End at original position */
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Media Queries for Responsiveness */
+/* Media Queries */
 @media (max-width: 768px) {
   .search-filter {
-    flex-direction: column; /* Stack elements vertically on small screens */
+    flex-direction: column;
   }
 
   .search-field,
   .search-button {
-    width: 100%; /* Full width for smaller screens */
+    width: 100%;
   }
 
   .people-picker-dropdown {
-    width: 100%; /* Full width for dropdown */
+    width: 100%;
   }
 }
