@@ -24,15 +24,25 @@
   text-align: left;
   padding: 0  159px 77px; /* Prevent content from touching the screen edges */
   box-sizing: border-box;
+  margin-left: -150px;
 }
 
-.hero-text h1, .hero-text p {
+.hero-text h1 {
   text-align: left;
-  color: var(--background-color ); /* Adjust text color */
+  color:  #E53935;
+  font-size: 57px;
   margin-left: 0; /* Adjust for responsive layout */
+  margin-bottom: 10px;
 }
 
-
+.hero-text p {
+  text-align: left;
+  color:  #666666;
+  font-size: 45px;
+  margin-left: 0; /* Adjust for responsive layout */
+  margin-top: 10px;
+  margin-bottom: -50px;
+}
 
 
 .featured-adventures {

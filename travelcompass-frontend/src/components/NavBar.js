@@ -38,21 +38,7 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <div className="navbar-items">
-              <div className="navbar-item globe-icon" onClick={toggleLangMenu}>
-                <Globe />
-                <div className={`dropdown-content ${isLangOpen ? 'show' : ''}`}>
-                  {['en', 'ar', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'hi', 'ur', 'tr', 'az', 'uk', 'pl'].map((lang, index) => (
-                      <Link key={index} to={`/change-language/${lang}`} className="dropdown-item">
-                        <span role="img" aria-label={lang}>{getFlagEmoji(lang)}</span> {lang.toUpperCase()}
-                      </Link>
-                  ))}
-                </div>
-              </div>
 
-              <div className="navbar-item help-icon" title="Need Help?">
-                <HelpCircle />
-              </div>
 
               <div className="navbar-item">
                 {!user ? (
@@ -64,6 +50,18 @@ const Navbar = () => {
                 ) : (
                     <Link to="/become-provider" className="nav-link">List Your Adventure</Link>
                 )}
+              </div>
+
+            <div className="navbar-items">
+              <div className="navbar-item globe-icon" onClick={toggleLangMenu}>
+                <Globe />
+                <div className={`dropdown-content ${isLangOpen ? 'show' : ''}`}>
+                  {['en', 'ar', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'hi', 'ur', 'tr', 'az', 'uk', 'pl'].map((lang, index) => (
+                      <Link key={index} to={`/change-language/${lang}`} className="dropdown-item">
+                        <span role="img" aria-label={lang}>{getFlagEmoji(lang)}</span> {lang.toUpperCase()}
+                      </Link>
+                  ))}
+                </div>
               </div>
 
               <div className="navbar-item user-icon" onClick={toggleMenu}>

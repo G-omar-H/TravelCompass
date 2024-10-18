@@ -10,7 +10,7 @@ const HomePage = () => {
               <div className="container">
                   <div className="hero-text">
                       <h1>Find Your Next Adventure</h1>
-                      <p>Where Will Your Compass Lead You?</p>
+                      <p>Where Will Your<br/>Compass Lead You?</p>
                   </div>
               </div>
           </div>

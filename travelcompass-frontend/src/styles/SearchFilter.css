@@ -1,91 +1,90 @@
 /* Search Filter Container */
 .search-filter {
   background-color: #fff; /* Clean white background */
-  padding: 20px 25px; /* Increased padding for comfort */
-  border-radius: 10px; /* Sharper rounded corners */
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Softer, deeper shadow */
+  padding: 10px 15px; /* Reduced padding for a lighter feel */
+  border-radius: 25px; /* Softer rounded corners */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Lighter shadow */
   display: flex;
   flex-wrap: wrap;
-  gap: 15px; /* More spacious gap between elements */
+  gap: 10px; /* Reduced gap between elements */
   justify-content: space-between;
-  max-width: 1000px;
-  margin: 40px auto; /* Center the filter container */
+  margin: 20px auto; /* Center the filter container */
+  margin-top: -35px;
 }
 
 /* Search Field */
 .search-field {
-  flex: 1 1 240px; /* Responsive width with more flexibility */
+  flex: 1 1 200px; /* Smaller responsive width */
   display: flex;
   align-items: center;
-  padding: 12px 15px; /* Adjusted padding for balance */
-  border-radius: 10px; /* Consistent rounded corners */
-  background-color: #f7f7f7; /* Light gray background for minimalism */
-  border: 1px solid #ddd; /* Subtle border */
+  padding: 8px 10px; /* Reduced padding */
+  border-radius: 8px; /* Consistent rounded corners */
+  background-color: #f9f9f9; /* Lighter gray background */
+  border: 1px solid #ccc; /* Subtle border */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
 }
 
 .search-field:hover,
 .search-field:focus-within {
-  border-color: #ff5722; /* Brand accent color on focus/hover */
-  box-shadow: 0 0 10px rgba(255, 87, 34, 0.3); /* Subtle accent shadow */
+  border-color: #E53935; /* Brand accent color on focus/hover */
+  box-shadow: 0 0 5px rgba(255, 87, 34, 0.2); /* Subtle accent shadow */
 }
 
 .search-field input {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   border: none;
   background: transparent;
   outline: none;
-  font-size: 16px;
+  font-size: 14px; /* Smaller font size */
   color: #333;
 }
 
 /* Search Icon */
 .search-icon {
-  margin-right: 10px; /* Balanced spacing */
-  color: #ff5722;
+  margin-right: 8px; /* Balanced spacing */
+  color: #E53935;
 }
 
 /* Autocomplete Suggestions */
 .autocomplete-dropdown {
   position: absolute;
-  top: calc(100% + 8px); /* Separated from input */
+  top: calc(100% + 5px); /* Separated from input */
   left: 0;
   width: 100%;
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  max-height: 220px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-height: 200px;
   overflow-y: auto;
   z-index: 10;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Soft shadow */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Soft shadow */
   animation: fadeIn 0.3s ease;
 }
 
 .autocomplete-dropdown div {
-  padding: 12px; /* Comfortable padding */
+  padding: 10px; /* Comfortable padding */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .autocomplete-dropdown div:hover {
-  background-color: #f7f7f7;
+  background-color: #f9f9f9;
 }
 
 /* Date Range Picker */
-/* Date Range Picker Styles */
 .react-datepicker-wrapper {
-  width: 48%; /* Give both date pickers a consistent width */
+  width: 45%; /* Give both date pickers a consistent width */
   display: inline-block;
 }
 
 .react-datepicker__input-container input {
   width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  padding: 8px;
+  font-size: 14px; /* Smaller font size */
+  border: 1px solid #ccc;
+  border-radius: 8px;
   outline: none;
   background-color: #fff;
   transition: border-color 0.3s ease;
@@ -93,41 +92,41 @@
 }
 
 .react-datepicker__input-container input:focus {
-  border-color: #ff5722;
+  border-color: #E53935;
 }
 
 /* Adjust the parent container of the DatePicker for better alignment */
 .search-field.date-range {
   display: flex;
-  gap: 10px; /* Space between the two date inputs */
+  gap: 8px; /* Space between the two date inputs */
   width: 100%;
 }
 
 /* Selected Day Styles */
 .react-datepicker__day--selected,
 .react-datepicker__day--in-selecting-range {
-  background-color: #ff5722;
+  background-color: #E53935;
   color: #fff;
 }
 
 /* Align the calendar icons with date inputs */
 .search-field.date-range .search-icon {
-  margin-right: 8px;
-  color: #ff5722;
+  margin-right: 6px;
+  color: #E53935;
 }
 
 /* Guests Dropdown */
 .people-picker-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 5px);
   left: 0;
   width: 100%;
   background-color: #fff;
-  border-radius: 10px;
-  border: 1px solid #ddd;
+  border-radius: 8px;
+  border: 1px solid #ccc;
   z-index: 10;
-  padding: 20px; /* Spacious dropdown padding */
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); /* Deep shadow */
+  padding: 15px; /* Spacious dropdown padding */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Deep shadow */
   animation: fadeIn 0.3s ease;
 }
 
@@ -135,22 +134,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding: 8px 0;
 }
 
 .people-picker-dropdown label {
-  font-size: 16px;
+  font-size: 14px; /* Smaller font size */
   font-weight: normal;
   color: #333;
 }
 
 .people-picker-dropdown button {
-  background-color: #f7f7f7;
+  background-color: #f9f9f9;
   border: none;
-  padding: 8px;
+  padding: 6px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px; /* Smaller font size */
   transition: background-color 0.2s ease;
 }
 
@@ -159,22 +158,24 @@
 }
 
 .people-picker-dropdown span {
-  font-size: 16px;
+  font-size: 14px; /* Smaller font size */
 }
 
 /* Search Button */
 .search-button {
-  background-color: #ff5722;
+  background-color: #E53935;
   color: #fff;
   border: none;
-  padding: 12px 30px;
-  border-radius: 10px;
-  font-size: 16px;
+  width: 40px; /* Set equal width and height */
+  height: 40px; /* Set equal width and height */
+  border-radius: 50%; /* Make it a perfect circle */
+  font-size: 14px; /* Smaller font size */
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center; /* Center the content */
   transition: background-color 0.3s ease;
+  margin-top: 5px;
 }
 
 .search-button:hover {
@@ -192,7 +193,7 @@
 /* Error Message */
 .error-message {
   color: red;
-  font-size: 14px;
+  font-size: 12px; /* Smaller font size */
   margin-top: 5px;
   text-align: center;
 }

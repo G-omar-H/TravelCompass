@@ -38,7 +38,7 @@
 }
 
 .filter-button.active {
-    color: var(--hero-background-color);
+    color: #4AA201;
 }
 
 .filter-button span {

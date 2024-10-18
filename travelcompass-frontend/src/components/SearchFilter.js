@@ -125,7 +125,6 @@ const SearchFilter = ({ setAdventures }) => {
 
             <button className="search-button">
                 <Search className="magnet"/>
-                Search
             </button>
 
             {error && <div className="error-message">{error}</div>}
